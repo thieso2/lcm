@@ -1,0 +1,33 @@
+<div  class="col-sm-5">
+  <h3>Course Information</h3>
+  
+  <%= simple_form_for @course, html: { class: 'readonly form-horizontal' } do |f| %>
+    <%= f.association :course_type %>
+    <%= f.input :location %>
+    <%= f.input :startdate %>
+    <%= f.input :enddate %>
+    <%= f.input :course_state %> 
+  <% end %>
+
+  <% if false %>
+  
+  <table class="table">
+    <tr>
+      <td><strong>Course Type:</strong></td>
+      <td><%= @course.course_type.description %></td>
+    </tr>
+    <tr>
+      
+    </tr>
+  <p><strong>Location:</strong>   <%= @course.location %></p>
+  <p><strong>Startdate:</strong>  <%= @course.startdate %></p>
+  <p><strong>Enddate:</strong>    <%= @course.enddate %></p>
+  <p><strong>State:</strong>      <%= @course.group_state %></p>
+  </table>
+<% end %>
+
+  <%= link_to 'Edit', edit_course_path(@course) %>
+  <%= link_to 'Back', courses_path %>
+</div>
+
+<%= render "assignments" %>

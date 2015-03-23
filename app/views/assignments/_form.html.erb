@@ -1,0 +1,58 @@
+<%= form_for(@assignment, html: {class: "form-horizontal"}) do |f| %>
+  <% if @assignment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@assignment.errors.count, "error") %> prohibited this assignment from being saved:</h2>
+
+      <ul>
+      <% @assignment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field form-group">
+    <%= f.label :person, class: "col-sm-2 control-label" %>
+    <div class="col-sm-5">
+    <% if @assignment.person_id.nil? %>
+      <%= f.select :person_id,
+                  Person.all.collect {|p| [p.fullname, p.id]},
+                  {prompt: 'Select Person', required: true} %>
+    <% else %>
+      <%= f.hidden_field :person_id, :value => @assignment.person_id %>
+      <%= @assignment.person.fullname %>
+    <% end %>      
+    </div>
+  </div>
+  
+  <div class="field form-group">
+    <%= f.label :course, class: "col-sm-2 control-label" %>
+    <div class="col-sm-5">
+    <% if @assignment.group_id.nil? %>
+      <%= f.select :course_id,
+                  Course.all.collect {|c| [c, c.id]},
+                  {prompt: 'Select Course', required: true} %>
+    <% else %>
+      <%= @assignment.group %>
+    <% end %>      
+    </div>
+  </div>
+
+    <div class="field form-group">
+    <%= f.label :role, class: "col-sm-2 control-label" %>
+    <div class="col-sm-5">
+    <% if @assignment.role_type_id.nil? %>
+      <%= f.select :role_type_id,
+                  RoleType.all.collect {|r| [r, r.id]},
+                  {prompt: 'Select Role', required: true} %>
+    <% else %>
+      <%= @assignment.role_type %>
+    <% end %>      
+    </div>
+  </div>
+
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

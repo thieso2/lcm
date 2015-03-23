@@ -1,0 +1,8 @@
+<div>
+Person: <%= @assignment.person_id %> <%= link_to @assignment.person, @assignment.person %><br>
+was assigned to Course/Group: <%= @assignment.group_id %> <%= link_to @assignment.group, @assignment.group %><br>
+in RoleType: <%= @assignment.role_type_id %> <%= @assignment.role_type %> 
+</div>
+
+<%= link_to 'Edit', edit_assignment_path(@assignment) %> |
+<%= link_to 'Back', assignments_path %>

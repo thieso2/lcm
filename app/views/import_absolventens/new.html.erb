@@ -1,0 +1,10 @@
+<div class="container">
+  <h1>Import Absolventen Excel File</h1>
+  
+  <%= horizontal_form :import_absolventen, url: import_absolventen_path do |f| %>
+    <%= f.label :file, "Bitte wählen Sie die Absolventen Datei aus:" %>
+    <%= f.input :file, as: :file, label: "Excel File:" %>
+    <%= f.submit "Import File" %>    
+  <% end %>
+  
+</div>

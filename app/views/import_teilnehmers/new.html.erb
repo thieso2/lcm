@@ -1,0 +1,12 @@
+<div class="container">
+  <h1>Import Excel File</h1>
+  
+  <%= horizontal_form :import_teilnehmer, url: import_teilnehmer_path do |f| %>
+    <%= f.input :course_id, collection: Course.all.collect {|c| [c, c.id]},
+                  label: 'Select Course', required: true %>
+
+    <%= f.input :file, as: :file, label: "Excel File:" %>
+    <%= f.submit "Import File" %>    
+  <% end %>
+  
+</div>
