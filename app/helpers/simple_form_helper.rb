@@ -13,7 +13,12 @@ module SimpleFormHelper
   end
 
   def horizontal_form(resource, options = {}, &block)
-    options[:html] = { class: 'form-horizontal'}
+    if options.delete(:readonly)
+      options[:html] = { class: 'form-horizontal readonly'}
+    else
+      options[:html] = { class: 'form-horizontal'}
+    end
+    
     options[:wrapper] = :horizontal_form
     options[:wrapper_mappings] = {
       check_boxes: :horizontal_radio_and_checkboxes,
