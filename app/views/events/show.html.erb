@@ -1,14 +1,14 @@
 <div  class="col-sm-5">
   <h3>Course Information</h3>
   
-  <%= simple_form_for @event, html: { class: 'readonly form-horizontal' } do |f| %>
+  <%= horizontal_form @event, readonly: true do |f| %>
     <%# f.association :course_type %>
     <%= f.input :eid %>
     <%= f.input :shortname %>
     <%= f.input :location %>
     <%= f.input :startdate %>
     <%= f.input :enddate %>
-    <%= f.input :event_state %> 
+    <%= f.input :state %> 
   <% end %>
 
   <% if false %>

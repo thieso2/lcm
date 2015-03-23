@@ -6,6 +6,7 @@ class Event < Group
   alias_attribute :event_type_id, :group_type_id
   alias_attribute :event_type,    :group_type
   alias_attribute :event_state,   :group_state
+  alias_attribute :state,         :group_state
   
   validates :location, presence: true
   
