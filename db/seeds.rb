@@ -29,33 +29,39 @@ rl_admin = RoleType.create! description: "Administrator"
 
 admins = Team.create!(group_type: gt_admins, title: "Germany", startdate: "2015-01-01")
 
-puts "Created Course: #{admins}"
+puts "Created Team: #{admins}"
 
 Assignment.create!(person: klaus, group: admins, role_type: rl_admin)
+
+if true
+  
+
 
 # -----------------------------------------------------------------
 # Create Landmark Forum Frankfurt 2015/05
 
-forum = Course.create!(course_type: gt_lmf, location: "Germany, Frankfurt",
-                      startdate: "2015-05-01", course_state: "open")
-puts "Created Course: #{forum}"
+forum = Event.create!(event_type: gt_lmf, location: "Germany, Frankfurt",
+                      startdate: "2015-05-01", event_state: "open")
+puts "Created Event: #{forum}"
 
 Assignment.create!(person: klaus, group: forum, role_type: rl_att)
 
 # -----------------------------------------------------------------
 # Create Seminar Excellence Munich 2015/02-03
 
-excellence = Course.create!(course_type: gt_se, location: "Germany, Munich",
-                           startdate: "2015-02-01", course_state: "open")
-puts "Created Course: #{excellence}"
+excellence = Event.create!(event_type: gt_se, location: "Germany, Munich",
+                           startdate: "2015-02-01", event_state: "open")
+puts "Created Event: #{excellence}"
 
 Assignment.create!(person: klaus, group: excellence, role_type: rl_att)
 
 # -----------------------------------------------------------------
 # Create Assistance Programm Germany
 
-assistance = Course.create!(course_type: gt_assist, location: "Germany",
-                           startdate: "2010-01-01", course_state: "open")
-puts "Created Course: #{assistance}"
+assistance = Event.create!(event_type: gt_assist, location: "Germany",
+                           startdate: "2010-01-01", event_state: "open")
+puts "Created Event: #{assistance}"
 
 Assignment.create!(person: klaus, group: assistance, role_type: rl_ass, startdate: "2015-02-01", enddate: "2015-03-31")
+
+end
