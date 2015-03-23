@@ -1,0 +1,6 @@
+<%= inline_form :search, url: events_path, method: :get  do |f| %>
+  <%= f.input :shortname, placeholder: "Short Name"  %>
+  <%= f.input :description, placeholder: "Description", inline_label: "Description"  %>
+  <%= f.input :location, placeholder: "Location", label: "Location" %> 
+  <%= f.button :submit, "Search" %>         
+<% end %>

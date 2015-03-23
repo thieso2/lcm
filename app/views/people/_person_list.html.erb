@@ -1,0 +1,28 @@
+<div class="row">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th>ZIP</th>
+        <th>City</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @persons.each do |person| %>
+        <tr>
+          <td><%= person.id %></td>
+          <td><%= person.fullname %></td>
+          <td><%= person.country %></td>
+          <td><%= person.zip %></td>
+          <td><%= person.city %></td>
+          <td><%= link_to 'Show', person %></td>
+          <td><%= link_to 'Edit', edit_person_path(person) %></td>
+          <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+</div>

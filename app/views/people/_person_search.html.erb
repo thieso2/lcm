@@ -1,0 +1,11 @@
+<div class="row">
+  <%= inline_form :search, url: people_path, method: :get  do |f| %>
+    <%= f.input :lastname, placeholder: "Lastname"  %>        
+    <%= f.input :country, placeholder: "Country", inline_label: "Country", input_html: { width: "100px" }  %>
+    <%= f.input :zip, placeholder: "ZIP" %> 
+    <%= f.input :city, placeholder: "City" %> 
+    <%= f.button :submit, "Search" %>         
+
+  <% end %>
+  
+</div>
