@@ -1,18 +1,4 @@
-# == Schema Information
-#
-# Table name: groups
-#
-#  id            :integer          not null, primary key
-#  group_type_id :integer
-#  title         :string
-#  location      :string
-#  startdate     :date
-#  enddate       :date
-#  baseprice     :decimal(8, 2)
-#  group_state   :integer          default("0"), not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#
+
 
 class Event < Group
   
@@ -30,6 +16,19 @@ class Event < Group
 
   scope :open,     -> { where(event_state: Group.group_states[:open]).order(:startdate)}
   
+  def self.search(search)
+    if search
+      events = where(nil)
+      events = events.where("shortname like ?", "%#{search[:shortname]}%" )   if search[:shortname].present?
+      events = events.where("description like ?", "%#{search[:country]}%")    if search[:description].present?
+      # events = events.where("zip like ?", "#{search[:zip]}%" ) if search[:zip].present?
+      events = events.where("location like ?", "#{search[:location]}%" )      if search[:location].present?
+      events
+    else
+      where(nil)
+    end
+    
+  end  
   
   def to_s
     "#{event_type.description} in #{location} starting at #{startdate}"

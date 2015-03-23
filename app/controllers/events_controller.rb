@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   respond_to :html
 
   def index    
-    @events = Event.all
+    @events = Event.search(params[:search]).order(startdate: :desc).take(20)
     respond_with(@events)
   end
 

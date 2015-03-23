@@ -1,6 +1,11 @@
 
 <h1>Listing Courses</h1>
-  <%= render 'event_list' %>
+
+  <div class="row"><%= render 'event_search' %></div>
+  <div class="row"><%= render 'event_list' %>  </div>
+
 <br>
 
-<%= link_to 'New Course', new_event_path %>
+<div class="row">
+  <%= link_to 'New Course', new_event_path %>
+</div>

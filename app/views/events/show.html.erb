@@ -1,12 +1,14 @@
 <div  class="col-sm-5">
   <h3>Course Information</h3>
   
-  <%= simple_form_for @course, html: { class: 'readonly form-horizontal' } do |f| %>
-    <%= f.association :course_type %>
+  <%= simple_form_for @event, html: { class: 'readonly form-horizontal' } do |f| %>
+    <%# f.association :course_type %>
+    <%= f.input :eid %>
+    <%= f.input :shortname %>
     <%= f.input :location %>
     <%= f.input :startdate %>
     <%= f.input :enddate %>
-    <%= f.input :course_state %> 
+    <%= f.input :event_state %> 
   <% end %>
 
   <% if false %>
@@ -26,8 +28,8 @@
   </table>
 <% end %>
 
-  <%= link_to 'Edit', edit_course_path(@course) %>
-  <%= link_to 'Back', courses_path %>
+  <%= link_to 'Edit', edit_event_path(@event) %>
+  <%= link_to 'Back', events_path %>
 </div>
 
 <%= render "assignments" %>
