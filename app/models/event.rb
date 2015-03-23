@@ -30,15 +30,9 @@ class Event < Group
 
   # scope :open,     -> { where(coursestate: Course.coursestates[:open]).order(:startdate)}
   
-  #def course_type
-  #  self.group_type
-  #end
-  #def course_type=(value)
-  #  self.group_type=value
-  #end
   
   def to_s
-    "#{course_type.description} in #{location} starting at #{startdate}"
+    "#{event_type.description} in #{location} starting at #{startdate}"
   end
     
 end

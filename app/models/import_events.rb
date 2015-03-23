@@ -1,6 +1,6 @@
 # Imports COURSES(Events) From Excel Table AbsolventenKomplett.xls
-class ImportCourses
-    SHEET_COURSES = 3
+class ImportEvents
+    SHEET_EVENTS = 3
 
     MAPPING = {
       "eName" => "shortname",
@@ -14,15 +14,15 @@ class ImportCourses
     
     def initialize(file)
       @file = file
-      read_courses
+      read_events
     end
     
     private
-    def read_courses
+    def read_events
       rows = XlsxImport.read @file.path, SHEET_COURSES
       rows.each do |row|
         next if row["eID"].blank?
-        c = Course.new
+        c = Event.new
         MAPPING.each {|col,field|
           c[field.to_sym] = row[col]
         }
@@ -33,7 +33,7 @@ class ImportCourses
         else
           c.startdate = "20000101"
         end
-        c.course_state = :closed
+        c.event_state = :closed
         
         c.save!
         puts c
