@@ -9,7 +9,7 @@ class ImportAbsolventensController < ApplicationController
     file = secure_params[:file]
     if file
       # @info = ImportAbsolventen.read(file)
-      ImportCourses.read(file)
+      ImportEvents.read(file)
     else
       flash[:error] =  "Bitte eine Datei auswählen"
     end

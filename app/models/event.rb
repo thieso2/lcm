@@ -28,7 +28,7 @@ class Event < Group
   
   default_scope { joins(:group_type).merge(GroupType.course) }
 
-  # scope :open,     -> { where(coursestate: Course.coursestates[:open]).order(:startdate)}
+  scope :open,     -> { where(event_state: Group.group_states[:open]).order(:startdate)}
   
   
   def to_s

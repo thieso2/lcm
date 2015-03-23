@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150202203813) do
 
   create_table "groups", force: :cascade do |t|
     t.integer  "group_type_id"
+    t.integer  "eid"
     t.string   "shortname"
     t.string   "title"
     t.string   "location"

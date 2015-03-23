@@ -3,6 +3,7 @@ class ImportEvents
     SHEET_EVENTS = 3
 
     MAPPING = {
+      "eID" => "eid",
       "eName" => "shortname",
       "eBeschreibung" => "title",
       "eOrt" => "location"
@@ -19,7 +20,7 @@ class ImportEvents
     
     private
     def read_events
-      rows = XlsxImport.read @file.path, SHEET_COURSES
+      rows = XlsxImport.read @file.path, SHEET_EVENTS
       rows.each do |row|
         next if row["eID"].blank?
         c = Event.new

@@ -11,22 +11,23 @@
   </thead>
 
   <tbody>
-    <% @courses.each do |course| %>
+    <% @events.each do |event| %>
       <tr>
-        <td><%# course.course_type.try(:description) %>
-            <%= course.title %></td>
-        <td><%= course.location %></td>
-        <td><%= course.startdate %></td>
-        <td><%= course.enddate %></td>
-        <td><%= course.course_state %></td>
+        <td><%= event.shortname %></td>
+        <td><%# event.event_type.try(:description) %>
+            <%= event.title %></td>
+        <td><%= event.location %></td>
+        <td><%= event.startdate %></td>
+        <td><%= event.enddate %></td>
+        <td><%= event.event_state %></td>
         
         <% if user_signed_in? %>
           <% if current_user.admin? %>
-            <td><%= link_to 'Show', course %></td>
-            <td><%= link_to 'Edit', edit_course_path(course) %></td>
-            <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'Show', event %></td>
+            <td><%= link_to 'Edit', edit_event_path(event) %></td>
+            <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <% else %>
-            <td><%= link_to 'Subscribe to course', new_assignment_path(person: current_user, course: course), {class: "btn btn-default"} %></td>
+            <td><%= link_to 'Subscribe to event', new_assignment_path(person: current_user, event: event), {class: "btn btn-default"} %></td>
           <% end %>
         <% end %>
       </tr>

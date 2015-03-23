@@ -1,2 +1,2 @@
-class TeamsController < CoursesController
+class TeamsController < EventsController
 end

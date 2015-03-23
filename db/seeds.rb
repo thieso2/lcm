@@ -33,9 +33,7 @@ puts "Created Team: #{admins}"
 
 Assignment.create!(person: klaus, group: admins, role_type: rl_admin)
 
-if true
-  
-
+if false
 
 # -----------------------------------------------------------------
 # Create Landmark Forum Frankfurt 2015/05
