@@ -35,13 +35,13 @@ class Person < ActiveRecord::Base
   extend Enumerize
   
   enum access: [:person, :assistant, :admin]
-  enumerize :sex, in: [:female, :male, :other]  
+  enumerize :sex, in: [:other, :female, :male]
 
   after_initialize :set_default_access, :if => :new_record?
 
   has_many :assignments
   
-  validates :sex,      presence: true
+  # validates :sex,      presence: true
   validates :lastname, presence: true
   validates :country,  presence: true
 

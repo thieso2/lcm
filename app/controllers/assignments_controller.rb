@@ -2,13 +2,13 @@ class AssignmentsController < ApplicationController
   before_action :set_assignment, only: [:show, :edit, :update, :destroy]
 
   # GET /assignment
-  # GET /assignment.json
   def index
-    @assignments = Assignment.all
+    # Don't allow to show all assignments
+    # @assignments = Assignment.all
+    redirect_to events_path
   end
 
   # GET /assignment/1
-  # GET /assignment/1.json
   def show
   end
 
@@ -30,7 +30,6 @@ class AssignmentsController < ApplicationController
   end
 
   # POST /assignment
-  # POST /assignment.json
   def create
     @assignment = Assignment.new(role_params)
 
@@ -46,7 +45,6 @@ class AssignmentsController < ApplicationController
   end
 
   # PATCH/PUT /assignment/1
-  # PATCH/PUT /assignment/1.json
   def update
     respond_to do |format|
       if assignment.update(assignment_params)
@@ -60,7 +58,6 @@ class AssignmentsController < ApplicationController
   end
 
   # DELETE /assignment/1
-  # DELETE /assignment/1.json
   def destroy
     @assignment.destroy
     respond_to do |format|

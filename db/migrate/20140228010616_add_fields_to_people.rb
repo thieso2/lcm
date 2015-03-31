@@ -3,7 +3,7 @@ class AddFieldsToPeople < ActiveRecord::Migration
     change_table(:people) do |t|
       t.string  :firstname
       t.string  :lastname
-      t.integer :sex
+      t.string  :sex
       t.integer :salutation
       t.string  :country
       t.string  :region

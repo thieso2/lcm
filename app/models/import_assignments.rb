@@ -17,8 +17,7 @@ class ImportAssignments
       infos = []
       rows = XlsxImport.read @file.path, SHEET_ASSIGNMENTS
       rows.each do |row|
-        next if row["zID"].blank?
-        debugger
+        next if row["zID"].blank?        
         p = Person.where(:pid => row["pID"]).first
         unless p
           infos << "Can not find Person with id: #{row["pID"]}"

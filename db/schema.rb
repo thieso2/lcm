@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 20150202203813) do
     t.datetime "updated_at"
     t.string   "firstname"
     t.string   "lastname"
-    t.integer  "sex"
+    t.string   "sex"
     t.integer  "salutation"
     t.string   "country"
     t.string   "region"

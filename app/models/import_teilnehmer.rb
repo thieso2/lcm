@@ -23,7 +23,7 @@ class ImportTeilnehmer
       MAPPING.each {|col,field|
         p.write_attribute(field.to_sym, row[col])
       }
-      
+      debugger
       case row["Anrede"]
         when "Herr" 
           p.sex = :male
