@@ -33,8 +33,10 @@ class ImportAttendees
     def read_attendees
       rows = XlsxImport.read @file.path, SHEET_ATTENDEES
       ActiveRecord::Base.transaction do
-        rows.each do |row|
-          import_row row
+        ActiveRecord::Base.logger.silence do
+          rows.each do |row|
+            import_row row
+          end
         end
       end
       return rows.count

@@ -22,10 +22,12 @@ class ImportEvents
     def read_events
       rows = XlsxImport.read @file.path, SHEET_EVENTS
       ActiveRecord::Base.transaction do        
+        ActiveRecord::Base.logger.silence do
         rows.each do |row|
           next if row["eID"].blank?
           import_row row
         end
+      end
       end
     end
     

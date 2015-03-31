@@ -17,28 +17,26 @@ class ImportAssignments
       infos = []
       rows = XlsxImport.read @file.path, SHEET_ASSIGNMENTS
       ActiveRecord::Base.transaction do
+        ActiveRecord::Base.logger.silence do
         rows.each do |row|
           next if row["zID"].blank?
-          import_row infos,row
+          infos << import_row(row)
         end
+      end
       end
       return infos
     end
     
-    def import_row(infos, row)
+    def import_row(row)
         p = Person.where(:pid => row["pID"]).first
-        unless p
-          infos << "Can not find Person with id: #{row["pID"]}"
-          next
-        end
-        e = Event.where(:eid => row["eID"]).first
-        unless e
-          infos << "Can not find Event with id: #{row["eID"]} " 
-          next
-        end
+        return "Can not find Person with id: #{row["pID"]}"  unless p          
+        
+        e = Event.where(:eid => row["eID"]).first        
+        return "Can not find Event with id: #{row["eID"]} " unless e
+                
         p.assign_to(e, role_attendee)
         p.save!
-        infos << "Person #{p} assigned to #{e}"
+        return "Person #{p} assigned to #{e}"
     end
     
     def role_attendee
