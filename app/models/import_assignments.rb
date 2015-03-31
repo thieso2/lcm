@@ -16,8 +16,16 @@ class ImportAssignments
     def read_assignments
       infos = []
       rows = XlsxImport.read @file.path, SHEET_ASSIGNMENTS
-      rows.each do |row|
-        next if row["zID"].blank?        
+      ActiveRecord::Base.transaction do
+        rows.each do |row|
+          next if row["zID"].blank?
+          import_row infos,row
+        end
+      end
+      return infos
+    end
+    
+    def import_row(infos, row)
         p = Person.where(:pid => row["pID"]).first
         unless p
           infos << "Can not find Person with id: #{row["pID"]}"
@@ -30,9 +38,7 @@ class ImportAssignments
         end
         p.assign_to(e, role_attendee)
         p.save!
-        infos << "Person #{p} assigned to #{e}"        
-      end
-      return infos
+        infos << "Person #{p} assigned to #{e}"
     end
     
     def role_attendee
