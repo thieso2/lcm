@@ -3,7 +3,7 @@
    
   <%= horizontal_form @event do |f| %>
     <%= f.association :event_type %>
-    <%= f.input :eid %>
+    <%= f.input :eid, readonly: true %>
     <%= f.input :shortname %>
     <%= f.input :location %>
     <%= f.input :startdate, :include_blank => true %>
@@ -12,51 +12,3 @@
     <%= f.button :submit %>
   <% end %>
 </div>
-  
-  <% if false %>
-<%= form_for(@event) do |f| %>
-  <% if @event.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this course from being saved:</h2>
-
-      <ul>
-      <% @event.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  
-  <div class="field">
-    <%= f.label :course_type %><br>
-    <%= console %>
-    <% if @event.course_type.nil? %>
-      <%= f.select :course_type_id,
-                  CourseType.all.collect {|ct| [ct, ct.id]},
-                  {prompt: 'Select Course Type', required: true} %>
-    <% else %>
-      <%= @event.course_type.description %>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :location %><br>
-    <%= f.text_field :location %>
-  </div>
-  <div class="field">
-    <%= f.label :startdate %><br>
-    <%= f.date_select :startdate %>
-  </div>
-  <div class="field">
-    <%= f.label :enddate %><br>
-    <%= f.date_select :enddate %>
-  </div>
-  <div class="field">
-    <%= f.label :coursestate %><br>
-    <%= f.select :coursestate, Course.coursestates.keys %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
-<% end %>

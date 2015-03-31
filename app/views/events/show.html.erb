@@ -2,31 +2,14 @@
   <h3>Course Information</h3>
   
   <%= horizontal_form @event, readonly: true do |f| %>
-    <%# f.association :course_type %>
+    <%= f.association :event_type %>
     <%= f.input :eid %>
     <%= f.input :shortname %>
     <%= f.input :location %>
     <%= f.input :startdate %>
     <%= f.input :enddate %>
-    <%= f.input :state %> 
+    <%= f.input :state %>
   <% end %>
-
-  <% if false %>
-  
-  <table class="table">
-    <tr>
-      <td><strong>Course Type:</strong></td>
-      <td><%= @course.course_type.description %></td>
-    </tr>
-    <tr>
-      
-    </tr>
-  <p><strong>Location:</strong>   <%= @course.location %></p>
-  <p><strong>Startdate:</strong>  <%= @course.startdate %></p>
-  <p><strong>Enddate:</strong>    <%= @course.enddate %></p>
-  <p><strong>State:</strong>      <%= @course.group_state %></p>
-  </table>
-<% end %>
 
   <%= link_to 'Edit', edit_event_path(@event) %>
   <%= link_to 'Back', events_path %>
