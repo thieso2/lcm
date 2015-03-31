@@ -1,10 +1,10 @@
 # Imports ATTENDEES From Excel Table AbsolventenKomplett.xls
-class ImportAbsolventen
+class ImportAttendees
   
   SHEET_ATTENDEES = 1
     
   MAPPING = {
-      "PID" => "pid",
+      "pID" => "pid",
       "Kommentar / wichtige Info" => "notes",
       "Nachname" => "lastname",
       "Vorname" => "firstname",

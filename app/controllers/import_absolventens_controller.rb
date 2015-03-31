@@ -8,8 +8,9 @@ class ImportAbsolventensController < ApplicationController
   def create
     file = secure_params[:file]
     if file
-      # @info = ImportAbsolventen.read(file)
-      ImportEvents.read(file)
+      #ImportAttendees.read(file)
+      #ImportEvents.read(file)
+      @info = ImportAssignments.read(file)
     else
       flash[:error] =  "Bitte eine Datei auswählen"
     end
