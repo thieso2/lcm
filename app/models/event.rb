@@ -20,10 +20,11 @@ class Event < Group
   def self.search(search)
     if search
       events = where(nil)
-      events = events.where("shortname like ?", "%#{search[:shortname]}%" )   if search[:shortname].present?
-      events = events.where("description like ?", "%#{search[:country]}%")    if search[:description].present?
-      # events = events.where("zip like ?", "#{search[:zip]}%" ) if search[:zip].present?
-      events = events.where("location like ?", "#{search[:location]}%" )      if search[:location].present?
+      events = events.where("shortname like ?",   "%#{search[:shortname]}%" )   if search[:shortname].present?
+      events = events.where("title like ?",       "%#{search[:title]}%")        if search[:title].present?
+      events = events.where("description like ?", "%#{search[:description]}%")  if search[:description].present?
+      events = events.where("location like ?",    "#{search[:location]}%" )     if search[:location].present?
+      events = events.where("group_state = ?",     search[:state].to_i )        if search[:state].present?
       events
     else
       where(nil)
