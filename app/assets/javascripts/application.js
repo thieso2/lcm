@@ -14,4 +14,7 @@
 //= require jquery_ujs
 //# require turbolinks
 //= require bootstrap-sprockets
+//= require jquery.bettertabs
 //= require_tree .
+
+jQuery('.bettertabs').bettertabs();

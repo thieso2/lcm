@@ -1,37 +1,31 @@
 <div class="row">
-<div class="col-sm-5">
-  <%= show_object @person, only: controller.class::VISIBLE_ATTRIBUTES %>
-  
   <div class="col-sm-5">
-    <%= link_to 'Edit', edit_person_path(@person), {class: "btn btn-default"} %>
+    <%= bettertabs_bootstrap :person do |tab| %>
+      <%= tab.ajax :person do  %> 
+        <%= show_object @person, only: controller.class::VISIBLE_ATTRIBUTES %>
+      
+        <div class="col-sm-5">
+          <%= link_to 'Edit', edit_person_path(@person), {class: "btn btn-default"} %>
+        </div>
+      <% end %>
+    <% end %>  
   </div>
 
-</div>
 
-
-<div class="col-sm-5">
-  <h3>Assignments</h3>
-  
-  <table class="table">
-    <% @person.assignments.each do |assignment| %>
-      <tr>
-        <td><%= assignment.group %></td>
-        <td><%= assignment.role_type %></td>
-        <td><%= link_to 'Show', assignment %></td>
-        <td><%= link_to 'Edit', edit_assignment_path(assignment) %></td>
-        <td><%= link_to 'Remove', assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-      
-    <% end %>
-  </table>
-  
-  <%= link_to 'Assign to course', new_assignment_path(person: @person), {class: "btn btn-default"} %>
-  <%= link_to 'Assign to team', new_assignment_path(person: @person), {class: "btn btn-default"} %>
-</div>  
+  <div class="col-sm-5">
+    <div class="tabbable">
+      <%= bettertabs_bootstrap :person_tabs do |tab|
+        tab.ajax :courses,  locals: { person: @person }
+        tab.ajax :teams,    locals: { person: @person }
+        tab.ajax :history
+      end
+      %>
+    </div>
+  </div>  
 </div>
 
 
 
 <div class="col-sm-1">
-  <%= link_to 'Back', people_path, {class: "btn btn-default"} %>
+  <%# link_to 'Back', people_path, {class: "btn btn-default"} %>
 </div>
