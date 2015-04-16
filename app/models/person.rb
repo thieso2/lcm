@@ -48,10 +48,10 @@ class Person < ActiveRecord::Base
   def self.search(search)
     if search
       people = where(nil)
-      people = people.where("lastname like ?", "#{search[:lastname]}%" ) if search[:lastname].present?
-      people = people.where(country: search[:country]) if search[:country].present?
-      people = people.where("zip like ?", "#{search[:zip]}%" ) if search[:zip].present?
-      people = people.where("city like ?", "#{search[:city]}%" ) if search[:city].present?
+      people = people.where("lastname like ?",  "#{search[:lastname]}%" ) if search[:lastname].present?
+      people = people.where("country = ?",      "#{search[:country]}" )   if search[:country].present?
+      people = people.where("zip like ?",       "#{search[:zip]}%" )      if search[:zip].present?
+      people = people.where("city like ?",      "#{search[:city]}%" )     if search[:city].present?
       people
     else
       where(nil)
@@ -70,6 +70,14 @@ class Person < ActiveRecord::Base
     assignments.create!(group: group, role_type: role)
   end
 
+  def courses
+    Assignment.where(Person_id: id).joins(group: :group_type).merge(GroupType.course)
+  end
+
+  def teams
+    Assignment.where(Person_id: id).joins(group: :group_type).merge(GroupType.team)
+  end
+    
   private  
   def set_default_access
     self.access ||= :person
