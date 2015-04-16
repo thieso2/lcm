@@ -35,5 +35,13 @@ class Event < Group
   def to_s
     "#{event_type.description} in #{location} starting at #{startdate}"
   end
+  
+  def attendees
+    self.assignments.joins(:role_type).joins(:person).includes(:person).order("people.lastname")
+  end
+
+  def assistants
+    self.assignments.joins(:role_type).joins(:person).includes(:role_type).includes(:person).order("people.lastname")
+  end
     
 end

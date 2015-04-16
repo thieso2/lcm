@@ -1,0 +1,16 @@
+<div>
+  
+  <table class="table">
+    <% object.each do |assitant| %>
+      <tr>
+        <td><%= assitant.person %></td>
+        <td><%= assitant.role_type %></td>
+        <td><%= link_to 'Show', assignment_path %></td>
+        <td><%= link_to 'Edit', edit_assignment_path(assitant) %></td>
+        <td><%= link_to 'Remove', assitant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>      
+    <% end %>
+  </table>
+  
+  <%# link_to 'Assign to course', new_role_path(person: @person), {class: "btn btn-default"} %>
+</div>  

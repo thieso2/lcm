@@ -3,13 +3,16 @@ class EventsController < ApplicationController
 
   respond_to :html
 
+  VISIBLE_ATTRIBUTES =
+  %w( event_type eid shortname location startdate enddate baseprice group_state )
+
   def index    
     @events = Event.search(params[:search]).order(startdate: :desc).take(20)
     respond_with(@events)
   end
 
   def show
-    @assignments = @event.assignments.includes(:role_type).includes(:person)
+    # @assignments = @event.assignments.includes(:role_type).includes(:person)
     respond_with(@event)
   end
 
