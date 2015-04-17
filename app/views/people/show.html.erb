@@ -15,7 +15,7 @@
   <div class="col-sm-5">
     <div class="tabbable">
       <%= bettertabs_bootstrap :person_tabs do |tab|
-        tab.ajax :courses,  locals: { person: @person }
+        tab.ajax :events,   locals: { person: @person }
         tab.ajax :teams,    locals: { person: @person }
         tab.ajax :history
       end

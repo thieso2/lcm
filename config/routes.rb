@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   
   resources :group_types
   resources :groups
+  resources :course_types
   resources :events
   resources :teams
   

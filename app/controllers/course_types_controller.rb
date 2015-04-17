@@ -1,10 +1,10 @@
 class CourseTypesController < ApplicationController
-  before_action :set_course_type, only: [:show, :edit, :update, :destroy]
+  before_action :find_course_type, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
   def index
-    @course_types = CourseType.all
+    @course_types = GroupType.course.all
     respond_with(@course_types)
   end
 
@@ -42,8 +42,8 @@ class CourseTypesController < ApplicationController
   end
 
   private
-    def set_course_type
-      @course_type = CourseType.find(params[:id])
+    def find_course_type
+      @course_type = GroupType.course.find(params[:id])
     end
 
     def course_type_params

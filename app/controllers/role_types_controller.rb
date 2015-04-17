@@ -29,7 +29,8 @@ class RoleTypesController < ApplicationController
 
   def update
     flash[:notice] = 'RoleType was successfully updated.' if @role_type.update(role_type_params)
-    respond_with(@role_type)
+    #respond_with(@role_type)
+    redirect_to role_types_path
   end
 
   def destroy
