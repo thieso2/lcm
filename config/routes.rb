@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   
   resources :role_types
   resources :assignments
+  resources :calls
   
   resource :import_teilnehmer,   only: [:new, :create]
   resource :import_absolventen,  only: [:new, :create]

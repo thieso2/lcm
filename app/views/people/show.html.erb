@@ -17,7 +17,8 @@
       <%= bettertabs_bootstrap :person_tabs do |tab|
         tab.ajax :events,   locals: { person: @person }
         tab.ajax :teams,    locals: { person: @person }
-        tab.ajax :history
+        tab.ajax :calls,    locals: { person: @person }
+        tab.ajax :history,  locals: { person: @person }
       end
       %>
     </div>

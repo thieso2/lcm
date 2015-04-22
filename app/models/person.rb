@@ -33,6 +33,8 @@
 
 class Person < ActiveRecord::Base
   extend Enumerize
+  # versioned
+  has_paper_trail
   
   enum access: [:person, :assistant, :admin]
   enumerize :sex, in: [:other, :female, :male]
@@ -40,6 +42,7 @@ class Person < ActiveRecord::Base
   after_initialize :set_default_access, :if => :new_record?
 
   has_many :assignments
+  has_many :calls
   
   # validates :sex,      presence: true
   validates :lastname, presence: true
@@ -70,8 +73,8 @@ class Person < ActiveRecord::Base
     assignments.create!(group: group, role_type: role)
   end
 
-  def courses
-    Assignment.where(Person_id: id).joins(group: :group_type).merge(GroupType.course)
+  def events
+    Assignment.where(Person_id: id).joins(group: :group_type).merge(GroupType.event)
   end
 
   def teams

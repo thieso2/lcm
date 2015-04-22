@@ -1,0 +1,15 @@
+<%= horizontal_form @call do |f| %>
+
+  <%= f.error_notification %>
+  
+  <%= f.input :person_id, readonly: true %>
+  <%= f.input :person, readonly: true %>
+  <%= f.input :date %>
+  <%= f.input :caller_id, readonly: true %>
+  <%= f.input :caller, readonly: true %>
+  <%= f.input :info %>
+  
+  <%= f.button :submit %>
+  <%= link_to :cancel, :back, {:class=>"btn btn-default"} %>
+  
+<% end %>
