@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_locale
   
   helper :show_object
   
@@ -24,6 +25,11 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) {|u|
       u.permit(:firstname, :lastname, :email, :password, :password_confirmation, :current_password)
     }
+  end
+  
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
+    puts "locale: #{I18n.locale}"
   end
   
 end
