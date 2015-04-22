@@ -33,7 +33,9 @@
 
 class User < ActiveRecord::Base  # ?< Person
   extend Enumerize
-
+  # versioned
+  has_paper_trail
+  
   self.table_name = "people"
   
   enum access: [:person, :assistant, :admin]
