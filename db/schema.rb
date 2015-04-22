@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150202203813) do
+ActiveRecord::Schema.define(version: 20150421202956) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "person_id"
@@ -26,6 +26,18 @@ ActiveRecord::Schema.define(version: 20150202203813) do
   add_index "assignments", ["group_id"], name: "index_assignments_on_group_id"
   add_index "assignments", ["person_id"], name: "index_assignments_on_person_id"
   add_index "assignments", ["role_type_id"], name: "index_assignments_on_role_type_id"
+
+  create_table "calls", force: :cascade do |t|
+    t.integer  "person_id"
+    t.datetime "date"
+    t.integer  "caller_id"
+    t.text     "info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "calls", ["caller_id"], name: "index_calls_on_caller_id"
+  add_index "calls", ["person_id"], name: "index_calls_on_person_id"
 
   create_table "group_types", force: :cascade do |t|
     t.string   "description",             null: false
@@ -89,5 +101,17 @@ ActiveRecord::Schema.define(version: 20150202203813) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",      null: false
+    t.integer  "item_id",        null: false
+    t.string   "event",          null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+    t.text     "object_changes"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
 
 end
