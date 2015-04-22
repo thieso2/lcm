@@ -22,11 +22,12 @@ class Group < ActiveRecord::Base
   
   validates :group_type_id, presence: true
   
-  scope :course, -> { joins(:course_type).merge(CourseType.course) }
-  scope :team,   -> { joins(:course_type).merge(CourseType.team) }
+  scope :course, -> { joins(:group_type).merge(GroupType.course) }
+  scope :team,   -> { joins(:group_type).merge(GroupType.team) }
   
   def to_s
-    "#{group_type} #{title} #{location}"
+    # "#{group_type} #{title} #{location}"
+    "#{title} #{location}"
   end
   
 end

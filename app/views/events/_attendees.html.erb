@@ -6,8 +6,8 @@
       <tr>
         <td><%= attendee.person %></td>
         <td><%# attendee.role_type %></td>
-        <td><%= link_to 'Show', assignment_path %></td>
-        <td><%= link_to 'Edit', edit_assignment_path(attendee) %></td>
+        <td><%= link_to 'Show', person_path(attendee.person) %></td>
+        <td><%# link_to 'Edit', edit_assignment_path(attendee) %></td>
         <td><%= link_to 'Remove', attendee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>      
     <% end %>

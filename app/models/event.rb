@@ -13,7 +13,7 @@ class Event < Group
   validates_presence_of  :startdate #, :enddate
   # validates :enddate, date: { :after_or_equal_to => :startdate }
   
-  default_scope { joins(:group_type).merge(GroupType.course) }
+  default_scope { joins(:group_type).merge(GroupType.event) }
 
   scope :open,     -> { where(event_state: Group.group_states[:open]).order(:startdate)}
   

@@ -1,0 +1,15 @@
+  
+  <table class="table">
+    <% person.teams.each do |assignment| %>
+      <tr>
+        <td><%= assignment.group %></td>
+        <td><%= assignment.role_type %></td>
+        <td><%= link_to 'Show', assignment %></td>
+        <td><%= link_to 'Edit', edit_assignment_path(assignment) %></td>
+        <td><%= link_to 'Remove', assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      
+    <% end %>
+  </table>
+  
+  <%= link_to 'Assign to team', new_assignment_path(person: person), {class: "btn btn-default"} %>

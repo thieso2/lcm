@@ -59,9 +59,9 @@ class AssignmentsController < ApplicationController
 
   # DELETE /assignment/1
   def destroy
-    @assignment.destroy
+    @assignment.destroy    
     respond_to do |format|
-      format.html { redirect_to assignment_url, notice: 'Assignment was successfully destroyed.' }
+      format.html { redirect_to event_path(@assignment.group_id), notice: "Assignment for '#{@assignment.person}' was successfully destroyed." }
       format.json { head :no_content }
     end
   end

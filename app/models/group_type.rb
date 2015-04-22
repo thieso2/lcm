@@ -10,7 +10,7 @@
 #
 
 class GroupType < ActiveRecord::Base
-  enum category: [:course, :team]
+  enum category: [:event, :team]
   
   has_many :groups  
   

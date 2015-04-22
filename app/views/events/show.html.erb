@@ -4,6 +4,7 @@
         <%= show_object @event, only: controller.class::VISIBLE_ATTRIBUTES %>
         <div class="col-sm-5">
           <%= link_to 'Edit', edit_event_path(@event), {class: "btn btn-default"} %>
+          <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' } %>
         </div>
       <% end %>
     <% end %>    

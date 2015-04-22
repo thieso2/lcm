@@ -26,11 +26,11 @@
   </div>
   
   <div class="field form-group">
-    <%= f.label :course, class: "col-sm-2 control-label" %>
+    <%= f.label :event, class: "col-sm-2 control-label" %>
     <div class="col-sm-5">
     <% if @assignment.group_id.nil? %>
-      <%= f.select :course_id,
-                  Course.all.collect {|c| [c, c.id]},
+      <%= f.select :group_id,
+                  Event.all.collect {|c| [c, c.id]},
                   {prompt: 'Select Course', required: true} %>
     <% else %>
       <%= @assignment.group %>

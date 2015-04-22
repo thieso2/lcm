@@ -4,6 +4,7 @@
   <%= horizontal_form @event do |f| %>
     <%= f.association :event_type %>
     <%= f.input :eid, readonly: true %>
+    <%= f.input :title %>
     <%= f.input :shortname %>
     <%= f.input :location %>
     <%= f.input :startdate, :include_blank => true %>
