@@ -1,8 +1,16 @@
+#
+# Imports Teilnehmer from Excel Table LMFRK...Teilnehmerliste
+# Author: K.D. Gundermann
+# Date  : 14.04.2015
+#
+
 class ImportTeilnehmer
-  #  Imports from Excel Table LMFRK...
+  
+  SHEET_TEILNEHMER = 1
   
   MAPPING = {
     "PID" => "pid",
+    "Anrede" => "salutation",
     "Nachname" => "lastname",
     "Vorname" => "firstname",
     "Straße" => "street",
@@ -15,32 +23,52 @@ class ImportTeilnehmer
     "EMail" => "email"
   }
   
+  def self.read(file, event)
+    self.new file, event
+  end
   
-  def self.import(rows, course)    
-    role = RoleType.find_by(description: "Attendee")
-    rows.each do |row|
+  def initialize(file, event)
+    @file = file
+    @event = event
+    @role = RoleType.find_by(description: "Attendee")
+    read_teilnehmer     
+  end
+
+  private  
+  def read_teilnehmer
+    rows = XlsxImport.read @file.path, SHEET_TEILNEHMER
+    #ActiveRecord::Base.transaction do
+    #  ActiveRecord::Base.logger.silence do
+        rows.each do |row|
+          import_row row
+        end
+    #  end
+    #end
+  end
+  
+  def import_row(row)
+    debugger
+    unless p = find_person(row)
       p = Person.new
-      MAPPING.each {|col,field|
-        p.write_attribute(field.to_sym, row[col])
-      }
-      debugger
-      case row["Anrede"]
-        when "Herr" 
-          p.sex = :male
-        when "Frau"
-          p.sex = :female
-        else
-          p.sex = :other
-      end
-      case row["Land"]
-        when "D"        
-          p.country = "DE"
-      end
-      p.access = :person
-      
-      p.save!
-      
-      p.assign_to course, role
+    end
+    MAPPING.each {|col,field|
+      # p.write_attribute(field.to_sym, row[col])
+      p.send(field.to_sym, row[col])
+    }    
+    p.access = :person
+    
+    p.save!
+    
+    p.assign_to @event, @role
+  end
+  
+  def find_person(row)
+    if pid=row[:PID] &&  p = Person.where(pid: pid).first
+      return p
+    end
+    if p = Person.where(country: row[:Land]).where(lastname: row[:Nachname]).where(firstname: row[:Vorname]).first
+      return p
     end
   end
+
 end

@@ -2,7 +2,7 @@
   <h1>Import Excel File</h1>
   
   <%= horizontal_form :import_teilnehmer, url: import_teilnehmer_path do |f| %>
-    <%= f.input :course_id, collection: Event.all.collect {|c| [c, c.id]},
+    <%= f.input :event_id, collection: Event.all.order(startdate: :desc).collect {|c| [c.to_s, c.id]},
                   label: 'Select Course', required: true %>
 
     <%= f.input :file, as: :file, label: "Excel File:" %>

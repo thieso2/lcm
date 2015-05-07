@@ -6,16 +6,20 @@ class ImportTeilnehmersController < ApplicationController
   end
   
   def create
-    @rows = []
-    course = Course.find_by(id: params[:import_teilnehmer][:course_id].to_i)
-    if course    
-      file = params[:import_teilnehmer][:file]
-      
-      @rows = XlsxImport.read file.path, 1
-      ImportTeilnehmerData.import @rows, course
-
+    event = Event.find_by(id: secure_params[:event_id].to_i)
+    file = secure_params[:file]
+    if event && file
+      @info = ImportTeilnehmer.read(file, event)
     else
+      @info = []
       flash[:error] =  "Grrrr"
     end
   end
+
+  private
+  def secure_params()
+    params
+    . require(:import_teilnehmer)
+  end
+  
 end
