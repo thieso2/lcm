@@ -1,0 +1,28 @@
+
+<h1>Course Types</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Description</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @event_types.each do |event_type| %>
+      <tr>
+        <td><%= event_type.code %></td>
+        <td><%= event_type.description %></td>
+        <td><%# link_to 'Show', event_type %></td>
+        <td><%= link_to 'Edit', edit_event_type_path(event_type) %></td>
+        <td><%= link_to 'Destroy', event_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Course type', new_event_type_path %>
