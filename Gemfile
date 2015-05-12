@@ -26,6 +26,10 @@ group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
 #  gem 'spring'
+  gem 'sqlite3'
+  # gem 'watchr'
+  gem 'spectator'
+  
 end
 
 gem 'bootstrap-sass'
@@ -40,11 +44,11 @@ group :development do
 #  gem 'spring-commands-rspec'
   gem 'annotate'
 end
-group :development, :test do
+group :test do
+  gem 'rspec'
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'faker'
-  gem 'rspec-rails'
-  gem 'sqlite3'
 end
 group :production do
   gem 'pg'
