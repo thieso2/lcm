@@ -1,0 +1,10 @@
+<div  class="col-sm-5">
+  <h3>Location Information</h3>
+
+  <%= horizontal_form @location do |f| %>
+    <%= f.input :code %>
+    <%= f.input :city %>
+    <%= f.input :address %>
+    <%= f.button :submit %>
+  <% end %>
+</div>
