@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20150421202956) do
   add_index "calls", ["person_id"], name: "index_calls_on_person_id"
 
   create_table "group_types", force: :cascade do |t|
+    t.string   "code",                    null: false
     t.string   "description",             null: false
     t.integer  "category",    default: 0, null: false
     t.datetime "created_at",              null: false
@@ -48,10 +49,10 @@ ActiveRecord::Schema.define(version: 20150421202956) do
 
   create_table "groups", force: :cascade do |t|
     t.integer  "group_type_id"
+    t.integer  "locations_id"
     t.integer  "eid"
     t.string   "shortname"
     t.string   "title"
-    t.string   "location"
     t.date     "startdate"
     t.date     "enddate"
     t.decimal  "baseprice",     precision: 8, scale: 2
@@ -61,6 +62,14 @@ ActiveRecord::Schema.define(version: 20150421202956) do
   end
 
   add_index "groups", ["group_type_id"], name: "index_groups_on_group_type_id"
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "code",       null: false
+    t.string   "city",       null: false
+    t.text     "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "people", force: :cascade do |t|
     t.string   "email",                  default: ""
@@ -84,6 +93,8 @@ ActiveRecord::Schema.define(version: 20150421202956) do
     t.string   "zip"
     t.string   "city"
     t.string   "street"
+    t.string   "housenumber"
+    t.date     "birthday"
     t.string   "phone_private"
     t.string   "phone_work"
     t.string   "phone_mobile"

@@ -10,6 +10,8 @@ class AddFieldsToPeople < ActiveRecord::Migration
       t.string  :zip
       t.string  :city
       t.string  :street
+      t.string  :housenumber
+      t.date    :birthday
       
       t.string :phone_private
       t.string :phone_work

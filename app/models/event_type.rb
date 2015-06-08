@@ -10,16 +10,5 @@
 #  updated_at  :datetime         not null
 #
 
-class GroupType < ActiveRecord::Base
-  enum category: [:event, :team]
-  
-  has_many :groups  
-  
-  #scope :team, -> { where(internal: true) }
-  #scope :course, -> { where(internal: false) }
-
-  def to_s
-    description
-  end
-  
+class EventType < GroupType
 end
