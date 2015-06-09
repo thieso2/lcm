@@ -13,20 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20150421202956) do
 
-  create_table "assignments", force: :cascade do |t|
-    t.integer  "person_id"
-    t.integer  "group_id"
-    t.integer  "role_type_id"
-    t.date     "startdate"
-    t.date     "enddate"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "assignments", ["group_id"], name: "index_assignments_on_group_id"
-  add_index "assignments", ["person_id"], name: "index_assignments_on_person_id"
-  add_index "assignments", ["role_type_id"], name: "index_assignments_on_role_type_id"
-
   create_table "calls", force: :cascade do |t|
     t.integer  "person_id"
     t.datetime "date"
@@ -39,16 +25,20 @@ ActiveRecord::Schema.define(version: 20150421202956) do
   add_index "calls", ["caller_id"], name: "index_calls_on_caller_id"
   add_index "calls", ["person_id"], name: "index_calls_on_person_id"
 
-  create_table "group_types", force: :cascade do |t|
-    t.string   "code",                    null: false
-    t.string   "description",             null: false
-    t.integer  "category",    default: 0, null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+  create_table "event_role_types", force: :cascade do |t|
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  create_table "groups", force: :cascade do |t|
-    t.integer  "group_type_id"
+  create_table "event_types", force: :cascade do |t|
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.integer  "event_type_id"
     t.integer  "locations_id"
     t.integer  "eid"
     t.string   "shortname"
@@ -56,12 +46,12 @@ ActiveRecord::Schema.define(version: 20150421202956) do
     t.date     "startdate"
     t.date     "enddate"
     t.decimal  "baseprice",     precision: 8, scale: 2
-    t.integer  "group_state",                           default: 0, null: false
+    t.integer  "event_state",                           default: 0, null: false
     t.datetime "created_at",                                        null: false
     t.datetime "updated_at",                                        null: false
   end
 
-  add_index "groups", ["group_type_id"], name: "index_groups_on_group_type_id"
+  add_index "events", ["event_type_id"], name: "index_events_on_event_type_id"
 
   create_table "locations", force: :cascade do |t|
     t.string   "code",       null: false
@@ -107,11 +97,65 @@ ActiveRecord::Schema.define(version: 20150421202956) do
   add_index "people", ["email"], name: "index_people_on_email"
   add_index "people", ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true
 
-  create_table "role_types", force: :cascade do |t|
+  create_table "person_event_assignments", force: :cascade do |t|
+    t.integer  "person_id"
+    t.integer  "event_id"
+    t.integer  "event_role_type_id"
+    t.date     "startdate"
+    t.date     "enddate"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "person_event_assignments", ["event_id"], name: "index_person_event_assignments_on_event_id"
+  add_index "person_event_assignments", ["event_role_type_id"], name: "index_person_event_assignments_on_event_role_type_id"
+  add_index "person_event_assignments", ["person_id"], name: "index_person_event_assignments_on_person_id"
+
+  create_table "person_team_assignments", force: :cascade do |t|
+    t.integer  "person_id"
+    t.integer  "team_id"
+    t.integer  "team_role_type_id"
+    t.date     "startdate"
+    t.date     "enddate"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "person_team_assignments", ["person_id"], name: "index_person_team_assignments_on_person_id"
+  add_index "person_team_assignments", ["team_id"], name: "index_person_team_assignments_on_team_id"
+  add_index "person_team_assignments", ["team_role_type_id"], name: "index_person_team_assignments_on_team_role_type_id"
+
+  create_table "region", force: :cascade do |t|
+    t.string   "code",        null: false
+    t.string   "description", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "team_role_types", force: :cascade do |t|
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "team_types", force: :cascade do |t|
+    t.string   "code",        null: false
+    t.string   "description", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.integer  "team_type_id"
+    t.integer  "regions_id"
+    t.integer  "tid"
+    t.string   "shortname"
+    t.string   "title"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "teams", ["team_type_id"], name: "index_teams_on_team_type_id"
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",      null: false

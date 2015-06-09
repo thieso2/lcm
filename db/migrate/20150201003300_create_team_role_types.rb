@@ -1,6 +1,6 @@
-class CreateEventRoleTypes < ActiveRecord::Migration
+class CreateTeamRoleTypes < ActiveRecord::Migration
   def change
-    create_table :event_role_types do |t|
+    create_table :team_role_types do |t|
       t.string :description
 
       t.timestamps null: false
