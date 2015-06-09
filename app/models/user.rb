@@ -15,6 +15,8 @@
 #  last_sign_in_ip        :string
 #  created_at             :datetime
 #  updated_at             :datetime
+#  regions_id             :integer
+#  pid                    :integer
 #  firstname              :string
 #  lastname               :string
 #  sex                    :string
@@ -30,7 +32,6 @@
 #  phone_work             :string
 #  phone_mobile           :string
 #  notes                  :string
-#  pid                    :integer
 #  do_not_contact         :boolean
 #  access                 :integer
 #

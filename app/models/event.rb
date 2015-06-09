@@ -1,9 +1,9 @@
 # == Schema Information
 #
-# Table name: groups
+# Table name: events
 #
 #  id            :integer          not null, primary key
-#  group_type_id :integer
+#  event_type_id :integer
 #  locations_id  :integer
 #  eid           :integer
 #  shortname     :string
@@ -11,27 +11,21 @@
 #  startdate     :date
 #  enddate       :date
 #  baseprice     :decimal(8, 2)
-#  group_state   :integer          default(0), not null
+#  event_state   :integer          default(0), not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
 
+class Event < ActiveRecord::Base
 
-
-class Event < Group
-
-  belongs_to :event_type #, class_name: :GroupType
-  alias_attribute :event_type_id, :group_type_id
-  alias_attribute :event_type,    :group_type
-  alias_attribute :event_state,   :group_state
-  alias_attribute :state,         :group_state
+  belongs_to :event_type
 
   validates :locations_id, presence: true
 
   validates_presence_of  :startdate #, :enddate
   # validates :enddate, date: { :after_or_equal_to => :startdate }
 
-  default_scope { joins(:group_type).merge(GroupType.event) }
+  default_scope { joins(:event_type).merge(EventType.event) }
 
   scope :open,     -> { where(event_state: Group.group_states[:open]).order(:startdate)}
 
@@ -42,7 +36,7 @@ class Event < Group
       events = events.where("title like ?",       "%#{search[:title]}%")        if search[:title].present?
       events = events.where("description like ?", "%#{search[:description]}%")  if search[:description].present?
       events = events.where("location like ?",    "#{search[:location]}%" )     if search[:location].present?
-      events = events.where("group_state = ?",     search[:state].to_i )        if search[:state].present?
+      events = events.where("event_state = ?",     search[:state].to_i )        if search[:state].present?
       events
     else
       where(nil)
@@ -55,11 +49,11 @@ class Event < Group
   end
 
   def attendees
-    self.assignments.joins(:role_type).joins(:person).includes(:person).order("people.lastname")
+    #self.assignments.joins(:role_type).joins(:person).includes(:person).order("people.lastname")
   end
 
   def assistants
-    self.assignments.joins(:role_type).joins(:person).includes(:role_type).includes(:person).order("people.lastname")
+    #self.assignments.joins(:role_type).joins(:person).includes(:role_type).includes(:person).order("people.lastname")
   end
 
 end

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: event_types
+# Table name: event_role_types
 #
 #  id          :integer          not null, primary key
 #  description :string
@@ -8,5 +8,5 @@
 #  updated_at  :datetime         not null
 #
 
-class EventType <  ActiveRecord::Base
+class EventRoleType <  ActiveRecord::Base
 end
