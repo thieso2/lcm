@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 20150421202956) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "regions_id"
+    t.integer  "pid"
     t.string   "firstname"
     t.string   "lastname"
     t.string   "sex"
@@ -89,7 +91,6 @@ ActiveRecord::Schema.define(version: 20150421202956) do
     t.string   "phone_work"
     t.string   "phone_mobile"
     t.string   "notes"
-    t.integer  "pid"
     t.boolean  "do_not_contact"
     t.integer  "access"
   end

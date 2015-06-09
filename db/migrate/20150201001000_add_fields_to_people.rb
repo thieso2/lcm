@@ -1,6 +1,10 @@
 class AddFieldsToPeople < ActiveRecord::Migration
   def change
     change_table(:people) do |t|
+      t.references :regions
+
+      t.integer :pid
+
       t.string  :firstname
       t.string  :lastname
       t.string  :sex
@@ -12,17 +16,16 @@ class AddFieldsToPeople < ActiveRecord::Migration
       t.string  :street
       t.string  :housenumber
       t.date    :birthday
-      
+
       t.string :phone_private
       t.string :phone_work
       t.string :phone_mobile
 
       t.string :notes
-      
-      t.integer :pid  
+
       t.boolean :do_not_contact
-      
-      
+
+
       t.integer :access
     end
   end
