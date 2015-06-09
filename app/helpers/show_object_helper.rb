@@ -7,7 +7,7 @@ module ShowObjectHelper
     if except = options.fetch(:except, nil)
       attributes.except!(except)
     end
-    
+  
     
     capture do
     content_tag :div do
@@ -20,7 +20,7 @@ module ShowObjectHelper
           concat(
             content_tag(:tr ) do
               concat (
-                content_tag(:td) {attribute.humanize} +
+                content_tag(:td) {t(attribute, scope: "#{SimpleForm.i18n_scope}.#{object.class}" ) } +
                 content_tag(:td) {object.send(attribute.to_sym).to_s}
               )
             end
