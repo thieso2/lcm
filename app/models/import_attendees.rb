@@ -1,11 +1,15 @@
+#
 # Imports ATTENDEES From Excel Table AbsolventenKomplett.xls
+# Author: K.D. Gundermann
+# Date  : 14.04.2015
+#
 class ImportAttendees
-  
+
   SHEET_ATTENDEES = 1
-    
+
   MAPPING = {
       "pID" => "pid",
-      "Kommentar / wichtige Info" => "notes",
+      "Anrede" => "salutation",
       "Nachname" => "lastname",
       "Vorname" => "firstname",
       "Straße" => "street",
@@ -16,21 +20,23 @@ class ImportAttendees
       "Telefon Arbeit"  => "phone_work",
       "Telefon Mobil"   => "phone_mobile",
       "eMail" => "email",
-      "Zuordnung" => "region"
+      "Zuordnung" => "region",
+      "Kommentar / wichtige Info" => "notes"
     }
-      
-  
+
+
     def self.read(file)
       self.new file
     end
-    
+
     def initialize(file)
       @file = file
-      read_attendees      
+      read_attendees
     end
-    
+
     private
     def read_attendees
+      @messages = []
       rows = XlsxImport.read @file.path, SHEET_ATTENDEES
       ActiveRecord::Base.transaction do
         ActiveRecord::Base.logger.silence do
@@ -39,39 +45,21 @@ class ImportAttendees
           end
         end
       end
-      return rows.count
+      return @messages
     end
-    
+
     def import_row(row)
       p = Person.new
       MAPPING.each {|col,field|
-        p.write_attribute(field.to_sym, row[col])
+        p.send(field + "=", row[col])
       }
-            
-      case row["Anrede"]
-        when "Herr" 
-          p.sex = :male
-        when "Frau"
-          p.sex = :female
-        else
-          p.sex = :other
+
+      if p.valid?
+        p.save!
+      else
+        @messages << p.errors
       end
-      
-      case row["Land"]
-        when "D"        
-          p.country = "DE"
-        when "", nil
-          p.country = "DE"            
-      end
-      case row["Status"]
-        when "DNC"
-          p.do_not_contact = true
-      end
-      
-      p.access = :person
-      
-      p.save!
-        
+
     end
-    
+
 end

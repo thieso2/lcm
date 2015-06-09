@@ -53,7 +53,7 @@ class ImportTeilnehmer
     end
     MAPPING.each {|col,field|
       # p.write_attribute(field.to_sym, row[col])
-      p.send(field.to_sym, row[col])
+      p.send(field + "=", row[col])
     }    
     p.access = :person
     
