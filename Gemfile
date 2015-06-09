@@ -29,7 +29,7 @@ group :development, :test do
   gem 'sqlite3'
   # gem 'watchr'
   gem 'spectator'
-  
+
 end
 
 gem 'bootstrap-sass'
@@ -47,6 +47,7 @@ end
 group :test do
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails'
   gem 'faker'
 end
