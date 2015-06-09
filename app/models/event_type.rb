@@ -11,4 +11,8 @@
 #
 
 class EventType < GroupType
+  after_create do
+    self.category = :event
+  end
+
 end
