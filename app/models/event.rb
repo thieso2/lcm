@@ -4,7 +4,7 @@
 #
 #  id            :integer          not null, primary key
 #  event_type_id :integer
-#  locations_id  :integer
+#  location_id   :integer
 #  eid           :integer
 #  shortname     :string
 #  title         :string
@@ -18,16 +18,20 @@
 
 class Event < ActiveRecord::Base
 
-  belongs_to :event_type
+  enum event_state: [:planning, :open, :started, :ended, :closed]
 
-  validates :locations_id, presence: true
+  belongs_to :event_type
+  belongs_to :location
+
+  validates :location_id, presence: true
+
 
   validates_presence_of  :startdate #, :enddate
   # validates :enddate, date: { :after_or_equal_to => :startdate }
 
-  default_scope { joins(:event_type).merge(EventType.event) }
+  default_scope { joins(:event_type) }
 
-  scope :open,     -> { where(event_state: Group.group_states[:open]).order(:startdate)}
+  scope :open, -> { where(event_state: Group.group_states[:open]).order(:startdate)}
 
   def self.search(search)
     if search
@@ -54,6 +58,23 @@ class Event < ActiveRecord::Base
 
   def assistants
     #self.assignments.joins(:role_type).joins(:person).includes(:role_type).includes(:person).order("people.lastname")
+  end
+
+  def startdate_code
+    startdate.strftime("%y%m")
+  end
+  # def location=(city)
+  #   l = Location.where(city: city).first
+  #   self.location = l.id if l
+  # end
+
+  before_save do
+    if self.shortname.nil?
+      self.shortname = event_type.code +  location.code + startdate_code
+    end
+    if self.title.nil?
+      self.title = event_type.description
+    end
   end
 
 end
