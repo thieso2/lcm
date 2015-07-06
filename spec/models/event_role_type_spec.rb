@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: role_types
+# Table name: event_role_types
 #
 #  id          :integer          not null, primary key
 #  description :string
@@ -10,6 +10,6 @@
 
 require 'rails_helper'
 
-RSpec.describe RoleType, :type => :model do
+RSpec.describe EventRoleType, :type => :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

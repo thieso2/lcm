@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: event_types
+# Table name: team_types
 #
 #  id          :integer          not null, primary key
 #  code        :string           not null
@@ -9,9 +9,8 @@
 #  updated_at  :datetime         not null
 #
 
-FactoryGirl.define do
-  factory :event_type do
-    code        "LMF"
-    description "Landmark Forum"
-  end
+require 'rails_helper'
+
+RSpec.describe TeamType, type: :model do
+  it { should have_many :teams }
 end

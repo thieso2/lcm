@@ -1,11 +1,13 @@
 # == Schema Information
 #
-# Table name: assignments
+# Table name: teams
 #
 #  id           :integer          not null, primary key
-#  person_id    :integer
-#  group_id     :integer
-#  role_type_id :integer
+#  team_type_id :integer
+#  region_id    :integer
+#  tid          :integer
+#  shortname    :string
+#  title        :string
 #  startdate    :date
 #  enddate      :date
 #  created_at   :datetime         not null
@@ -13,10 +15,8 @@
 #
 
 FactoryGirl.define do
-  factory :assignment do
-    Person nil
-    Course nil
-    RoleType nil
+  factory :team do
+    association   :team_type
   end
-
 end
+
