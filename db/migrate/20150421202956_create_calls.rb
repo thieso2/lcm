@@ -2,6 +2,7 @@ class CreateCalls < ActiveRecord::Migration
   def change
     create_table :calls do |t|
       t.belongs_to  :person, index: true
+
       t.datetime    :date
       t.integer     :caller_id, index: true
       t.text        :info

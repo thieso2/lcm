@@ -9,14 +9,16 @@ Rails.application.routes.draw do
   #resources :group_types
   #resources :groups
 
+  resources :event_role_types
   resources :event_types
   resources :events
+
+  resources :team_role_types
   resources :team_types
   resources :teams
 
   resources :locations
 
-  resources :role_types
   resources :assignments
   resources :calls
 

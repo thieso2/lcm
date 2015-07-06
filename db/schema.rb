@@ -32,14 +32,15 @@ ActiveRecord::Schema.define(version: 20150421202956) do
   end
 
   create_table "event_types", force: :cascade do |t|
-    t.string   "description"
+    t.string   "code",        null: false
+    t.string   "description", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
   create_table "events", force: :cascade do |t|
     t.integer  "event_type_id"
-    t.integer  "locations_id"
+    t.integer  "location_id"
     t.integer  "eid"
     t.string   "shortname"
     t.string   "title"
@@ -126,7 +127,7 @@ ActiveRecord::Schema.define(version: 20150421202956) do
   add_index "person_team_assignments", ["team_id"], name: "index_person_team_assignments_on_team_id"
   add_index "person_team_assignments", ["team_role_type_id"], name: "index_person_team_assignments_on_team_role_type_id"
 
-  create_table "region", force: :cascade do |t|
+  create_table "regions", force: :cascade do |t|
     t.string   "code",        null: false
     t.string   "description", null: false
     t.datetime "created_at",  null: false
@@ -148,10 +149,12 @@ ActiveRecord::Schema.define(version: 20150421202956) do
 
   create_table "teams", force: :cascade do |t|
     t.integer  "team_type_id"
-    t.integer  "regions_id"
+    t.integer  "region_id"
     t.integer  "tid"
     t.string   "shortname"
     t.string   "title"
+    t.date     "startdate"
+    t.date     "enddate"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end

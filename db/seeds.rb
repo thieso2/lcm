@@ -10,65 +10,62 @@ admin = CreateAdminService.new.call
 puts 'CREATED ADMIN USER: ' << admin.email
 
 # user = Person.create!(firstname: "Klaus", sex: :male )
-klaus = Person.create!(firstname: "klaus", lastname: "Gundermann", sex: :male, country: "DE" )
+klaus = Person.create!(firstname: "Klaus", lastname: "Gundermann", sex: :male, country: "DE" )
 
-loc_ger = Location.create! code: "GER", city: "Germany"
+reg_ger = Region.create! code: "GER", description: "Germany"
+
 loc_frk = Location.create! code: "FRK", city: "Frankfurt"
 loc_ham = Location.create! code: "HAM", city: "Hamburg"
 loc_muc = Location.create! code: "MUC", city: "München"
 loc_lnd = Location.create! code: "LND", city: "London"
 
-gt_lmf = GroupType.create! code: "LMF", description: "Landmark Forum",        category: :event
-gt_fgk = GroupType.create! code: "FGK", description: "Fortgeschrittenenkurs", category: :event
-gt_exc  = GroupType.create! code: "EXC", description: "Seminar Excellence",   category: :event
-gt_cap  = GroupType.create! code: "CAP", description: "Seminar Kommunikation: Zugang durch Kraft",category: :event
-gt_cpc  = GroupType.create! code: "CPC", description: "Seminar Kommunikation: die Kraft zu Kreieren",category: :event
-gt_fia  = GroupType.create! code: "FIA", description: "Seminar Forum in Aktion",category: :event
+evt_lmf  = EventType.create! code: "LMF", description: "Landmark Forum"
+evt_fgk  = EventType.create! code: "FGK", description: "Fortgeschrittenenkurs"
+evt_exc  = EventType.create! code: "EXC", description: "Seminar Excellence"
+evt_cap  = EventType.create! code: "CAP", description: "Seminar Kommunikation: Zugang durch Kraft"
+evt_cpc  = EventType.create! code: "CPC", description: "Seminar Kommunikation: die Kraft zu Kreieren"
+evt_fia  = EventType.create! code: "FIA", description: "Seminar Forum in Aktion"
 
-gt_assist = GroupType.create! code: "ASS", description: "Assistance Programm", category: :team
-gt_admins = GroupType.create! code: "ADM", description: "Administration",      category: :team
+tt_assist = TeamType.create! code: "ASS", description: "Assistance Programm"
+tt_admins = TeamType.create! code: "ADM", description: "Administration"
 
-rl_fol   = RoleType.create! description: "Forum Leader"
-rl_fos   = RoleType.create! description: "Forum Supervisor"
-rl_om    = RoleType.create! description: "Operations Manager"
-rl_att   = RoleType.create! description: "Attendee"
-rl_int   = RoleType.create! description: "Interested"
-rl_ass   = RoleType.create! description: "Assistant"
-rl_admin = RoleType.create! description: "Administrator"
+rl_fol   = EventRoleType.create! description: "Forum Leader"
+rl_fos   = EventRoleType.create! description: "Forum Supervisor"
+rl_om    = EventRoleType.create! description: "Operations Manager"
+rl_att   = EventRoleType.create! description: "Attendee"
+rl_int   = EventRoleType.create! description: "Interested"
 
-admins = Team.create!(group_type: gt_admins, title: "Germany", startdate: "2015-01-01")
+rl_admin = TeamRoleType.create! description: "Administrator"
+rl_ass   = TeamRoleType.create! description: "Assistant"
+
+admins = Team.create!(team_type: tt_admins, title: "Germany", startdate: "2015-01-01")
 
 puts "Created Team: #{admins}"
 
-Assignment.create!(person: klaus, group: admins, role_type: rl_admin)
-
-if false
+PersonTeamAssignment.create!(person: klaus, team: admins, team_role_type: rl_admin)
 
 # -----------------------------------------------------------------
 # Create Landmark Forum Frankfurt 2015/05
 
-forum = Event.create!(event_type: gt_lmf, location: loc_frk,
+forum = Event.create!(event_type: evt_lmf, location: loc_frk,
                       startdate: "2015-05-01", event_state: "open")
 puts "Created Event: #{forum}"
 
-Assignment.create!(person: klaus, group: forum, role_type: rl_att)
+PersonEventAssignment.create!(person: klaus, event: forum, event_role_type: rl_att)
 
 # -----------------------------------------------------------------
 # Create Seminar Excellence Munich 2015/02-03
 
-excellence = Event.create!(event_type: gt_se, location: loc-muc,
+excellence = Event.create!(event_type: evt_exc, location: loc_muc,
                            startdate: "2015-02-01", event_state: "open")
 puts "Created Event: #{excellence}"
 
-Assignment.create!(person: klaus, group: excellence, role_type: rl_att)
+PersonEventAssignment.create!(person: klaus, event: excellence, event_role_type: rl_att)
 
 # -----------------------------------------------------------------
 # Create Assistance Programm Germany
 
-assistance = Event.create!(event_type: gt_assist, location: loc_ger,
-                           startdate: "2010-01-01", event_state: "open")
+assistance = Team.create!(team_type: tt_assist, region: reg_ger)
 puts "Created Event: #{assistance}"
 
-Assignment.create!(person: klaus, group: assistance, role_type: rl_ass, startdate: "2015-02-01", enddate: "2015-03-31")
-
-end
+PersonTeamAssignment.create!(person: klaus, team: assistance, team_role_type: rl_ass, startdate: "2015-02-01", enddate: "2015-03-31")

@@ -11,4 +11,7 @@
 #
 
 class Location < ActiveRecord::Base
+  def to_s
+    "#{code} : #{city}"
+  end
 end

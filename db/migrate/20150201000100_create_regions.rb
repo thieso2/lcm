@@ -1,6 +1,6 @@
 class CreateRegions < ActiveRecord::Migration
   def change
-    create_table(:region) do |t|
+    create_table :regions do |t|
       t.string  :code,          null: false
       t.string  :description,   null: false
 

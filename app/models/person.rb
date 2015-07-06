@@ -47,8 +47,9 @@ class Person < ActiveRecord::Base
   after_initialize :set_default_values, :if => :new_record?
   after_initialize :set_default_access, :if => :new_record?
 
-  has_many :assignments
   has_many :calls
+  has_many :person_team_assignments
+  has_many :person_event_assignments
 
   # validates :sex,      presence: true
   validates :lastname, presence: true
@@ -80,11 +81,11 @@ class Person < ActiveRecord::Base
   end
 
   def events
-    Assignment.where(Person_id: id).joins(group: :group_type).merge(GroupType.event)
+    PersonEventAssignment.where(Person_id: id).joins(event: :event_type) #.merge(GroupType.event)
   end
 
   def teams
-    Assignment.where(Person_id: id).joins(group: :group_type).merge(GroupType.team)
+    PersonTeamAssignment.where(Person_id: id) # .joins(group: :group_type).merge(GroupType.team)
   end
 
   def salutation
