@@ -4,7 +4,7 @@ class CreateEvents < ActiveRecord::Migration
       t.belongs_to :event_type, index: true
       # t.has_one :location
       # t.add_foreign_key :locations
-      t.references :locations
+      t.references :location
 
       t.integer :eid            # old Event ID
       t.string  :shortname

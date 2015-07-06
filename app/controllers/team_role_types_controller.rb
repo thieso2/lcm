@@ -1,10 +1,10 @@
-class RoleTypesController < ApplicationController
+class TeamRoleTypesController < ApplicationController
   before_action :set_role_type, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
   def index
-    @role_types = RoleType.all
+    @role_types = TeamRoleType.all
     respond_with(@role_types)
   end
 
@@ -13,7 +13,7 @@ class RoleTypesController < ApplicationController
   end
 
   def new
-    @role_type = RoleType.new
+    @role_type = TeamRoleType.new
     respond_with(@role_type)
   end
 
@@ -22,7 +22,7 @@ class RoleTypesController < ApplicationController
   end
 
   def create
-    @role_type = RoleType.new(role_type_params)
+    @role_type = TeamRoleType.new(role_type_params)
     flash[:notice] = 'RoleType was successfully created.' if @role_type.save
     respond_with(@role_type)
   end
@@ -30,7 +30,7 @@ class RoleTypesController < ApplicationController
   def update
     flash[:notice] = 'RoleType was successfully updated.' if @role_type.update(role_type_params)
     #respond_with(@role_type)
-    redirect_to role_types_path
+    redirect_to team_role_types_path
   end
 
   def destroy
@@ -40,10 +40,10 @@ class RoleTypesController < ApplicationController
 
   private
     def set_role_type
-      @role_type = RoleType.find(params[:id])
+      @role_type = TeamRoleType.find(params[:id])
     end
 
     def role_type_params
-      params.require(:role_type).permit(:description)
+      params.require(:team_role_type).permit(:description)
     end
 end

@@ -10,4 +10,9 @@
 #
 
 class TeamType <  ActiveRecord::Base
+  has_many :teams
+
+  def to_s
+    code + ":" + description
+  end
 end

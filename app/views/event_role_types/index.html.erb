@@ -14,8 +14,8 @@
       <tr>
         <td><%= role_type.description %></td>
         <td><%# link_to 'Show', role_type %></td>
-        <td><%= link_to 'Edit', edit_role_type_path(role_type) %></td>
-        <td><%= link_to 'Destroy', role_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to I18n.t('views.edit'), edit_event_role_type_path(role_type) %></td>
+        <td><%= link_to I18n.t('views.destroy'), role_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -23,4 +23,4 @@
 
 <br>
 
-<%= link_to 'New Role type', new_role_type_path %>
+<%= link_to I18n.t('views.new') + ' Role type', new_event_role_type_path %>
