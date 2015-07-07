@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421202956) do
+ActiveRecord::Schema.define(version: 20150707202816) do
 
   create_table "calls", force: :cascade do |t|
     t.integer  "person_id"
@@ -53,6 +53,39 @@ ActiveRecord::Schema.define(version: 20150421202956) do
   end
 
   add_index "events", ["event_type_id"], name: "index_events_on_event_type_id"
+
+  create_table "importrows", force: :cascade do |t|
+    t.integer  "importsteps_id"
+    t.integer  "row"
+    t.string   "rawdata"
+    t.string   "importdata"
+    t.string   "conflictdata"
+    t.integer  "state"
+    t.string   "message"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "imports", force: :cascade do |t|
+    t.string   "fromfile"
+    t.datetime "starttime"
+    t.datetime "finishtime"
+    t.integer  "person_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "imports", ["person_id"], name: "index_imports_on_person_id"
+
+  create_table "importsteps", force: :cascade do |t|
+    t.integer  "import_id"
+    t.string   "description"
+    t.integer  "totalrows"
+    t.integer  "validrows"
+    t.integer  "errorrows"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "locations", force: :cascade do |t|
     t.string   "code",       null: false
