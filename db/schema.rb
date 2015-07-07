@@ -70,12 +70,12 @@ ActiveRecord::Schema.define(version: 20150707202816) do
     t.string   "fromfile"
     t.datetime "starttime"
     t.datetime "finishtime"
-    t.integer  "person_id"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "imports", ["person_id"], name: "index_imports_on_person_id"
+  add_index "imports", ["user_id"], name: "index_imports_on_user_id"
 
   create_table "importsteps", force: :cascade do |t|
     t.integer  "import_id"

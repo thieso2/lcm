@@ -1,4 +1,4 @@
 class Import < ActiveRecord::Base
-  belongs_to  :person
+  belongs_to  :user
   has_many    :importstep
 end
