@@ -50,6 +50,7 @@ group :test do
   gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'capybara'
 end
 group :production do
   gem 'pg'
