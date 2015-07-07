@@ -25,27 +25,28 @@ class ImportAttendees
     }
 
 
-    def self.read(file)
-      self.new file
+    def self.read(import, file)
+      self.new import, file
     end
 
-    def initialize(file)
+    def initialize(import, file)
+      @import = import
       @file = file
+      @step = ImportStep.new(description: "Import Attendees")
+      import.importstep << @step
       read_attendees
     end
 
     private
     def read_attendees
-      @messages = []
       rows = XlsxImport.read @file.path, SHEET_ATTENDEES
       ActiveRecord::Base.transaction do
         ActiveRecord::Base.logger.silence do
           rows.each do |row|
-            import_row row
+            @step.importrow << import_row(row)
           end
         end
       end
-      return @messages
     end
 
     def import_row(row)
@@ -54,10 +55,11 @@ class ImportAttendees
         p.send(field + "=", row[col])
       }
 
+      r = ImportRow.new(rawdata: row, importdata: p)
       if p.valid?
         p.save!
       else
-        @messages << p.errors
+        r.message p.errors
       end
 
     end
