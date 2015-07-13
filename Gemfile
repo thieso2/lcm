@@ -23,7 +23,8 @@ gem 'paper_trail', '~> 4.0.0.beta'
 gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'master'  # For 4.x
 
 group :development, :test do
-  gem 'byebug'
+  # gem 'byebug'
+  gem 'pry-byebug'
   gem 'web-console', '~> 2.0'
 #  gem 'spring'
   gem 'sqlite3'
