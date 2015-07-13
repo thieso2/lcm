@@ -49,7 +49,7 @@ class Event < ActiveRecord::Base
   end
 
   def to_s
-    "#{event_type.description} in #{location} starting at #{startdate}"
+    "#{eid} #{event_type} in #{location} starting at #{startdate}"
   end
 
   def attendees
@@ -63,10 +63,35 @@ class Event < ActiveRecord::Base
   def startdate_code
     startdate.strftime("%y%m")
   end
-  # def location=(city)
-  #   l = Location.where(city: city).first
-  #   self.location = l.id if l
-  # end
+
+  # --------------------------------------------------------
+
+  def city=(city)
+     l = Location.where(city: city).first
+     self.location = l if l
+  end
+
+  def setshortname=(shortname)
+
+    if shortname[0,3] == "Sem"
+      evtcode = shortname[-3,3]
+    elsif shortname[0,3] == "ILP"
+      evtcode = shortname[-3,3]
+      loc = Location.where(code: "GER")
+    else
+      evtcode = shortname[0,3]
+    end
+    evt = EventType.where(code: evtcode).first
+    self.event_type = evt
+
+    if self.location.nil?
+      loccode = shortname[3,3]
+      loc = Location.where(code: loccode).first
+      self.location = loc
+    end
+
+  end
+
 
   before_save do
     if self.shortname.nil?

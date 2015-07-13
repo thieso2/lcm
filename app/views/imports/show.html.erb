@@ -1,6 +1,6 @@
 <div class="container">
-  <%= "#{@info}" %>
-  <%  @info.import_step.each do |step| %>
+  <%= "#{@import}" %>
+  <%  @import.import_step.each do |step| %>
     <%= "#{step}" %><br>"
     <% step.import_row.each do |row| %>
       <%= "#{row}" %>

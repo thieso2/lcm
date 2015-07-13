@@ -1,4 +1,4 @@
-class CreateImportsteps < ActiveRecord::Migration
+class CreateImportSteps < ActiveRecord::Migration
   def change
     create_table :import_steps do |t|
       t.references  :import

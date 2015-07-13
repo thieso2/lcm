@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(version: 20150707202816) do
 
   add_index "events", ["event_type_id"], name: "index_events_on_event_type_id"
 
-  create_table "importrows", force: :cascade do |t|
-    t.integer  "importsteps_id"
+  create_table "import_rows", force: :cascade do |t|
+    t.integer  "import_step_id"
     t.integer  "row"
     t.string   "rawdata"
     t.string   "importdata"
@@ -64,6 +64,16 @@ ActiveRecord::Schema.define(version: 20150707202816) do
     t.string   "message"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+  end
+
+  create_table "import_steps", force: :cascade do |t|
+    t.integer  "import_id"
+    t.string   "description"
+    t.integer  "totalrows"
+    t.integer  "validrows"
+    t.integer  "errorrows"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "imports", force: :cascade do |t|
@@ -76,16 +86,6 @@ ActiveRecord::Schema.define(version: 20150707202816) do
   end
 
   add_index "imports", ["user_id"], name: "index_imports_on_user_id"
-
-  create_table "importsteps", force: :cascade do |t|
-    t.integer  "import_id"
-    t.string   "description"
-    t.integer  "totalrows"
-    t.integer  "validrows"
-    t.integer  "errorrows"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
 
   create_table "locations", force: :cascade do |t|
     t.string   "code",       null: false

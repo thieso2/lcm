@@ -1,7 +1,7 @@
-class CreateImportrows < ActiveRecord::Migration
+class CreateImportRows < ActiveRecord::Migration
   def change
     create_table :import_rows do |t|
-      t.references  :import_steps
+      t.references  :import_step
       t.integer     :row
       t.string      :rawdata
       t.string      :importdata

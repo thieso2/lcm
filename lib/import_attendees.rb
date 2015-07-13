@@ -33,20 +33,20 @@ class ImportAttendees
       @import = import
       @file = file
       @step = ImportStep.new(description: "Import Attendees")
-      import.importstep << @step
+      @import.import_step << @step
       read_attendees
     end
 
     private
     def read_attendees
       rows = XlsxImport.read @file.path, SHEET_ATTENDEES
-      ActiveRecord::Base.transaction do
+      #ActiveRecord::Base.transaction do
         ActiveRecord::Base.logger.silence do
           rows.each do |row|
-            @step.importrow << import_row(row)
+            @step.import_row << import_row(row)
           end
         end
-      end
+      #end
     end
 
     def import_row(row)
@@ -61,7 +61,7 @@ class ImportAttendees
       else
         r.message p.errors
       end
-
+      return r
     end
 
 end

@@ -24,4 +24,5 @@ Rails.application.routes.draw do
 
   resource :import_teilnehmer,   only: [:new, :create]
   resource :import_absolventen,  only: [:new, :create]
+  resource :import, only: [:index, :show]
 end
