@@ -73,11 +73,11 @@ class Person < ActiveRecord::Base
     "#{firstname} #{lastname}"
   end
   def to_s
-    fullname
+    "#{fullname} #{country}-#{zip} #{city}"
   end
 
-  def assign_to(group, role)
-    assignments.create!(group: group, role_type: role)
+  def assign_to_event(event, role)
+    person_event_assignments.create!(event: event, event_role_type: role)
   end
 
   def events

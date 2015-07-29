@@ -8,12 +8,14 @@ class ImportAbsolventensController < ApplicationController
   def create
     file = secure_params[:file]
     if file
-      import = Import.create!(fromfile: file.original_filename, starttime: DateTime.now, user: current_user)
-      ImportAttendees.read(import, file)
-      # ImportEvents.read(import, file)
-      # ImportAssignments.read(file)
-      binding.pry
-      redirect_to import_path(import)
+      import = ImportJob.create!(
+          original_filename: file.original_filename,
+          temp_filename: file.tempfile.path,
+          user_id: current_user.id)
+
+      ImportAbsolventens.perform(import.id)
+      # Sidekiq: ImportAbsolventens.perform_async(import.id)
+      redirect_to import_jobs_path(import.id)
     else
       flash[:error] =  "Bitte eine Datei auswählen"
     end

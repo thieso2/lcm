@@ -54,6 +54,18 @@ ActiveRecord::Schema.define(version: 20150707202816) do
 
   add_index "events", ["event_type_id"], name: "index_events_on_event_type_id"
 
+  create_table "import_jobs", force: :cascade do |t|
+    t.string   "original_filename"
+    t.string   "temp_filename"
+    t.datetime "starttime"
+    t.datetime "finishtime"
+    t.integer  "user_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "import_jobs", ["user_id"], name: "index_import_jobs_on_user_id"
+
   create_table "import_rows", force: :cascade do |t|
     t.integer  "import_step_id"
     t.integer  "row"
@@ -67,25 +79,15 @@ ActiveRecord::Schema.define(version: 20150707202816) do
   end
 
   create_table "import_steps", force: :cascade do |t|
-    t.integer  "import_id"
+    t.integer  "import_job_id"
     t.string   "description"
     t.integer  "totalrows"
     t.integer  "validrows"
     t.integer  "errorrows"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "errortext"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
-
-  create_table "imports", force: :cascade do |t|
-    t.string   "fromfile"
-    t.datetime "starttime"
-    t.datetime "finishtime"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "imports", ["user_id"], name: "index_imports_on_user_id"
 
   create_table "locations", force: :cascade do |t|
     t.string   "code",       null: false

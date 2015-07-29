@@ -22,6 +22,8 @@ gem 'paper_trail', '~> 4.0.0.beta'
 
 gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'master'  # For 4.x
 
+gem 'sidekiq'
+
 group :development, :test do
   # gem 'byebug'
   gem 'pry-byebug'

@@ -1,9 +1,0 @@
-<div class="container">
-  <%= "#{@import}" %>
-  <%  @import.import_step.each do |step| %>
-    <%= "#{step}" %><br>"
-    <% step.import_row.each do |row| %>
-      <%= "#{row}" %>
-    <% end %>
-  <% end %>
-</div>

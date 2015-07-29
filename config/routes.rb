@@ -22,7 +22,9 @@ Rails.application.routes.draw do
   resources :assignments
   resources :calls
 
+  resources :import_jobs,         only: [:index, :show, :destroy]
+
   resource :import_teilnehmer,   only: [:new, :create]
   resource :import_absolventen,  only: [:new, :create]
-  resource :import, only: [:index, :show]
+
 end

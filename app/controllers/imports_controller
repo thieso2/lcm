@@ -1,8 +1,0 @@
-class ImportsController < ApplicationController
-  before_filter :authenticate_user!
-
-  def show
-    @import = Import.find(params)
-  end
-end
-

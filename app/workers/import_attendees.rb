@@ -25,25 +25,30 @@ class ImportAttendees
     }
 
 
-    def self.read(import, file)
-      self.new import, file
+    def self.read(import)
+      self.new import
     end
 
-    def initialize(import, file)
+    def initialize(import)
       @import = import
-      @file = file
-      @step = ImportStep.new(description: "Import Attendees")
-      @import.import_step << @step
       read_attendees
     end
 
     private
     def read_attendees
-      rows = XlsxImport.read @file.path, SHEET_ATTENDEES
+      @import.log :step, description: "Import Attendees: Load Excel File"
+      begin
+        rows = XlsxImport.read @import.temp_filename, SHEET_ATTENDEES
+      rescue XlsxImport::Error => e
+        @import.log :error, e.to_s
+        return
+      end
+
+      @import.log :step, description: "Import Attendees: Create Records"
       #ActiveRecord::Base.transaction do
         ActiveRecord::Base.logger.silence do
           rows.each do |row|
-            @step.import_row << import_row(row)
+            import_row(row)
           end
         end
       #end
@@ -55,13 +60,10 @@ class ImportAttendees
         p.send(field + "=", row[col])
       }
 
-      r = ImportRow.new(rawdata: row, importdata: p)
       if p.valid?
         p.save!
-      else
-        r.message p.errors
       end
-      return r
+      @import.log :row, row: row[:row], rawdata: row, importdata: p, message: p.errors.full_messages
     end
 
 end

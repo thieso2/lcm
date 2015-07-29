@@ -23,6 +23,7 @@ class Event < ActiveRecord::Base
   belongs_to :event_type
   belongs_to :location
 
+  validates :event_type_id, presence: true
   validates :location_id, presence: true
 
 
@@ -95,7 +96,7 @@ class Event < ActiveRecord::Base
 
   before_save do
     if self.shortname.nil?
-      self.shortname = event_type.code +  location.code + startdate_code
+      self.shortname = event_type.code + location.code + startdate_code
     end
     if self.title.nil?
       self.title = event_type.description
