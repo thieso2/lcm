@@ -48,6 +48,7 @@ group :development do
   gem 'rails_layout'
 #  gem 'spring-commands-rspec'
   gem 'annotate'
+  gem 'ruby-prof'
 end
 group :test do
   gem 'rspec'
