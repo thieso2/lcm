@@ -36,7 +36,7 @@ class ImportAttendees
 
     private
     def read_attendees
-      @import.log :step, description: "Import Attendees: Load Excel File"
+      step = @import.log(:step, description: "Import Attendees: Load Excel File")
       begin
         rows = XlsxImport.read @import.temp_filename, SHEET_ATTENDEES
       rescue XlsxImport::Error => e
@@ -44,7 +44,9 @@ class ImportAttendees
         return
       end
 
-      @import.log :step, description: "Import Attendees: Create Records"
+      step.totalrows = rows.count
+
+      step = @import.log(:step, description: "Import Attendees: Create Records")
       #ActiveRecord::Base.transaction do
         ActiveRecord::Base.logger.silence do
           rows.each do |row|
@@ -60,9 +62,8 @@ class ImportAttendees
         p.send(field + "=", row[col])
       }
 
-      if p.valid?
-        p.save!
-      end
+      p.valid? && p.save!
+
       @import.log :row, row: row[:row], rawdata: row, importdata: p, message: p.errors.full_messages
     end
 

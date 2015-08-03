@@ -19,7 +19,9 @@ Rails.application.routes.draw do
 
   resources :locations
 
-  resources :assignments
+  resources :person_event_assignments
+  resources :person_team_assignments
+
   resources :calls
 
   resources :import_jobs,         only: [:index, :show, :destroy]

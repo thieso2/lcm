@@ -51,12 +51,18 @@ class ImportJob < ActiveRecord::Base
   def log_step(infos)
     @current_step.save! if @current_step
 
-    @current_step = ImportStep.new(infos)
-    self.import_step  << @current_step
+    import_step << @current_step = ImportStep.new(infos)
+    # self.import_step  << @current_step
+    @current_step
+  end
+
+  def <<(step)
+    import_step << step
   end
 
   def log_row(infos)
-    @current_step.import_row << ImportRow.new(infos)
+    @current_step << @current_row = ImportRow.new(infos)
+    @current_row
   end
 
   def log_error(infos)

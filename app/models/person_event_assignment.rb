@@ -17,4 +17,8 @@ class PersonEventAssignment < ActiveRecord::Base
   belongs_to :event,      required: true
   belongs_to :event_role_type,  required: true
 
+  def to_s
+    "Person #{person} is assigned to Event #{event} in Role #{event_role_type}"
+  end
+
 end

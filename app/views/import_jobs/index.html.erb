@@ -1,0 +1,31 @@
+<h1>List of Imports</h1>
+
+<div class="row">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Filename</th>
+        <th>Start Time</th>
+        <th>Finish Time</th>
+        <th>User</th>
+        <th></th>
+        <th></th>
+      </tr>
+
+    </thead>
+    <tbody>
+    <% @imports.each do |import| %>
+    <tr>
+      <td><%= link_to import.id, import %></td>
+      <td><%= import.original_filename %></td>
+      <td><%= import.starttime %> </td>
+      <td><%= import.finishtime %></td>
+      <td><%= import.user %></td>
+      <td><%= link_to 'Show', import %></td>
+      <td><%= link_to 'Destroy', import, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

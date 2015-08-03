@@ -14,8 +14,8 @@ class ImportAbsolventensController < ApplicationController
           user_id: current_user.id)
 
       ImportAbsolventens.perform(import.id)
-      # Sidekiq: ImportAbsolventens.perform_async(import.id)
-      redirect_to import_jobs_path(import.id)
+      # ImportAbsolventens.perform_async(import.id)   # Sidekiq
+      redirect_to import_job_path(import.id)
     else
       flash[:error] =  "Bitte eine Datei auswählen"
     end

@@ -2,14 +2,15 @@
 #
 # Table name: import_steps
 #
-#  id          :integer          not null, primary key
-#  import_id   :integer
-#  description :string
-#  totalrows   :integer
-#  validrows   :integer
-#  errorrows   :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id            :integer          not null, primary key
+#  import_job_id :integer
+#  description   :string
+#  totalrows     :integer
+#  validrows     :integer
+#  errorrows     :integer
+#  errortext     :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 class ImportStep < ActiveRecord::Base
@@ -38,13 +39,13 @@ class ImportStep < ActiveRecord::Base
   end
 
   def <<(row)
-    super
-    totalrows = totalrows.to_i + 1
-    if row[:message].blank?
-      validrows = validrows.to_i +1
+    import_row << row
+    self.totalrows = self.totalrows.to_i + 1
+    if row.has_error?
+      self.errorrows = self.errorrows.to_i + 1
     else
-      errorrows = errorrows.to_i +1
+      self.validrows = self.validrows.to_i + 1
     end
-
   end
+
 end

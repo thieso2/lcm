@@ -3,7 +3,6 @@
 # Author  : K.D. Gundermann
 # Date:   : 14.04.2015
 #
-
 class ImportAssignments
 
   SHEET_ASSIGNMENTS = 2
