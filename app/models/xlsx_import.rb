@@ -8,6 +8,7 @@ class XlsxImport
   end
 
   def self.read(filename, sheetid)
+    puts "Import #{filename}"
     xls = self.new
     xls.read_creek filename, sheetid
     # xls.read_dullard filename, sheetid

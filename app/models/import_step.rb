@@ -39,9 +39,9 @@ class ImportStep < ActiveRecord::Base
   end
 
   def <<(row)
-    import_row << row
     self.totalrows = self.totalrows.to_i + 1
     if row.has_error?
+      import_row << row
       self.errorrows = self.errorrows.to_i + 1
     else
       self.validrows = self.validrows.to_i + 1

@@ -26,19 +26,21 @@ class ImportEvents
   private
 
   def read_events
-    @import.log :step, description: 'Import Events: Load Excel File'
+    step = @import.log_step description: 'Import Events: Load Excel File'
     begin
       rows = XlsxImport.read @import.temp_filename, SHEET_EVENTS
     rescue XlsxImport::Error => e
-      @import.log :error, e.to_s
+      @import.log_error, e.to_s
       return
     end
+    step.totalrows = rows.count
 
-    @import.log :step, description: 'Import Events: Create Records'
+    @import.log_step description: 'Import Events: Create Records'
     # ActiveRecord::Base.transaction do
     ActiveRecord::Base.logger.silence do
       rows.each do |row|
         next if row['eID'].blank?
+        next if Event.exists?(row['eID'])
         import_row(row)
       end
     end
@@ -64,6 +66,6 @@ class ImportEvents
     if c.valid?
       c.save!
     end
-    @import.log :row,  row: row[:row], rawdata: row, importdata: c, message: c.errors.full_messages
+    @import.log_row  row: row[:row], rawdata: row, importdata: c, message: c.errors.full_messages
   end
 end

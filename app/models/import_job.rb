@@ -22,17 +22,23 @@ class ImportJob < ActiveRecord::Base
 
   def initialize(options={})
     super options
-    starttime = DateTime.now
+    self.starttime = DateTime.now
     @current_step = nil
   end
 
   def finish
-    finishtime =  DateTime.now
+    self.finishtime =  DateTime.now
     save!
+    FileUtils.remove(self.temp_filename)
   end
 
   def to_s
     "##{id} from: #{original_filename} starttime: #{starttime} finishtime: #{finishtime} "
+  end
+
+  def temp_filename=(filename)
+    FileUtils.mv(filename, "/tmp/import-#{filename.hash}.xlsx" )
+    super "/tmp/import-#{filename.hash}.xlsx"
   end
 
   def log(what, infos={})

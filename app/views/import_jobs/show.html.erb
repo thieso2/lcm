@@ -1,32 +1,52 @@
 <div class="row">
 
-    <h2>ImportJob <%= "#{@import}" %></h2>
+    <table class="table">
+        <tr>
+        <td>
+            <h2>ImportJob #<%= @import.id %></h2>
+        </td>
+        <td>
+            From:      <%= @import.original_filename %></br>
+            Started:   <%= l @import.starttime %></br>
+            Finished:  <%= l @import.finishtime %></br>
+            Time used: <%= number_with_precision(@import.finishtime - @import.starttime, precision: 1) %> seconds</br>
+        </td>
+        </tr>
 
-    <div class="column">
 
 
-        <%  @import.import_step.each do |step| %>
-            <div class="row">
-            <div class="column">
+        <% @import.import_step.each do |step| %>
+            <tr>
+            <td>
                 <h3><%= "#{step.description}" %></h3>
-            </div>
-            <div class="column">
-                <%= if step.totalrows.to_i>0 then link_to "Total Rows: #{step.totalrows}", import_job_path(@import, :step => step.id, :rows => :all) end %>
-                <%= if step.validrows.to_i>0 then link_to "Valid Rows: #{step.validrows}", import_job_path(@import, :step => step.id, :rows => :valid) end %>
-                <%= if step.errorrows.to_i>0 then link_to "Error Rows: #{step.errorrows}", import_job_path(@import, :step => step.id, :rows => :error) end %>
+            </td>
+            <td>
+                <%= if step.totalrows.to_i>0 then
+                        "Total Rows: #{step.totalrows}"
+                        # link_to "Total Rows: #{step.totalrows}", import_job_path(@import, :step => step.id, :rows => :all)
+                    end %>
+                <%= if step.validrows.to_i>0 then
+                        "Valid Rows: #{step.validrows}"
+                        # link_to "Valid Rows: #{step.validrows}", import_job_path(@import, :step => step.id, :rows => :valid)
+                    end %>
+                <%= if step.errorrows.to_i>0 then
+                        "Error Rows: #{step.errorrows}"
+                        # link_to "Error Rows: #{step.errorrows}", import_job_path(@import, :step => step.id, :rows => :error)
+                    end %>
                 <%= if step.errortext then "Errors: #{step.errortext}" end %>
-            </div>
-            </div>
+            </td>
+            </tr>
 
             <% step.import_rows(@scope_step, @scope_rows).each do |row| %>
-                <div class="row">
-                    <%= row.to_html.html_safe %>
-                </div><br>
+                <tr>
+                    <td><%= row.rawdata %></td>
+                    <td><%= row.message %></td>
+                </tr>
             <% end %>
         <% end %>
+    </table>
 
       <%= link_to "Refresh", import_job_path(@import) %>
 
-    </div>
 
 </div>

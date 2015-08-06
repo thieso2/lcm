@@ -22,5 +22,5 @@ class ImportAbsolventens
     # enable PaperTrail again
     PaperTrail.enabled = true
     import
-    end
+  end
 end

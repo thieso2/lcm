@@ -18,15 +18,16 @@ class ImportAssignments
 
     private
     def read_assignments
-      @import.log :step, description: "Import Assignments: Load Excel File"
+      step = @import.log_step description: "Import Assignments: Load Excel File"
       begin
         rows = XlsxImport.read @import.temp_filename, SHEET_ASSIGNMENTS
       rescue XlsxImport::Error => e
-        @import.log :error, e.to_s
+        @import.log_error, e.to_s
         return
       end
+      step.totalrows = rows.count
 
-      @import.log :step, description: "Import Assignments: Create Records"
+      @import.log_step, description: "Import Assignments: Create Records"
       #ActiveRecord::Base.transaction do
         ActiveRecord::Base.logger.silence do
           rows.each do |row|
@@ -53,7 +54,7 @@ class ImportAssignments
            errors = p.errors
           end
         end
-        @import.log :row, rawdata: row, message: errors
+        @import.log_row, rawdata: row, message: errors
     end
 
     def role_attendee
