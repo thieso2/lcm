@@ -29,4 +29,7 @@ Rails.application.routes.draw do
   resource :import_teilnehmer,   only: [:new, :create]
   resource :import_absolventen,  only: [:new, :create]
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
 end
