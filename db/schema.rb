@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150707202816) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "calls", force: :cascade do |t|
     t.integer  "person_id"
     t.datetime "date"
@@ -22,8 +25,8 @@ ActiveRecord::Schema.define(version: 20150707202816) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "calls", ["caller_id"], name: "index_calls_on_caller_id"
-  add_index "calls", ["person_id"], name: "index_calls_on_person_id"
+  add_index "calls", ["caller_id"], name: "index_calls_on_caller_id", using: :btree
+  add_index "calls", ["person_id"], name: "index_calls_on_person_id", using: :btree
 
   create_table "event_role_types", force: :cascade do |t|
     t.string   "description"
@@ -52,7 +55,7 @@ ActiveRecord::Schema.define(version: 20150707202816) do
     t.datetime "updated_at",                                        null: false
   end
 
-  add_index "events", ["event_type_id"], name: "index_events_on_event_type_id"
+  add_index "events", ["event_type_id"], name: "index_events_on_event_type_id", using: :btree
 
   create_table "import_jobs", force: :cascade do |t|
     t.string   "original_filename"
@@ -64,7 +67,7 @@ ActiveRecord::Schema.define(version: 20150707202816) do
     t.datetime "updated_at",        null: false
   end
 
-  add_index "import_jobs", ["user_id"], name: "index_import_jobs_on_user_id"
+  add_index "import_jobs", ["user_id"], name: "index_import_jobs_on_user_id", using: :btree
 
   create_table "import_rows", force: :cascade do |t|
     t.integer  "import_step_id"
@@ -131,8 +134,8 @@ ActiveRecord::Schema.define(version: 20150707202816) do
     t.integer  "access"
   end
 
-  add_index "people", ["email"], name: "index_people_on_email"
-  add_index "people", ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true
+  add_index "people", ["email"], name: "index_people_on_email", using: :btree
+  add_index "people", ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true, using: :btree
 
   create_table "person_event_assignments", force: :cascade do |t|
     t.integer  "person_id"
@@ -144,9 +147,9 @@ ActiveRecord::Schema.define(version: 20150707202816) do
     t.datetime "updated_at",         null: false
   end
 
-  add_index "person_event_assignments", ["event_id"], name: "index_person_event_assignments_on_event_id"
-  add_index "person_event_assignments", ["event_role_type_id"], name: "index_person_event_assignments_on_event_role_type_id"
-  add_index "person_event_assignments", ["person_id"], name: "index_person_event_assignments_on_person_id"
+  add_index "person_event_assignments", ["event_id"], name: "index_person_event_assignments_on_event_id", using: :btree
+  add_index "person_event_assignments", ["event_role_type_id"], name: "index_person_event_assignments_on_event_role_type_id", using: :btree
+  add_index "person_event_assignments", ["person_id"], name: "index_person_event_assignments_on_person_id", using: :btree
 
   create_table "person_team_assignments", force: :cascade do |t|
     t.integer  "person_id"
@@ -158,9 +161,9 @@ ActiveRecord::Schema.define(version: 20150707202816) do
     t.datetime "updated_at",        null: false
   end
 
-  add_index "person_team_assignments", ["person_id"], name: "index_person_team_assignments_on_person_id"
-  add_index "person_team_assignments", ["team_id"], name: "index_person_team_assignments_on_team_id"
-  add_index "person_team_assignments", ["team_role_type_id"], name: "index_person_team_assignments_on_team_role_type_id"
+  add_index "person_team_assignments", ["person_id"], name: "index_person_team_assignments_on_person_id", using: :btree
+  add_index "person_team_assignments", ["team_id"], name: "index_person_team_assignments_on_team_id", using: :btree
+  add_index "person_team_assignments", ["team_role_type_id"], name: "index_person_team_assignments_on_team_role_type_id", using: :btree
 
   create_table "regions", force: :cascade do |t|
     t.string   "code",        null: false
@@ -194,7 +197,7 @@ ActiveRecord::Schema.define(version: 20150707202816) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "teams", ["team_type_id"], name: "index_teams_on_team_type_id"
+  add_index "teams", ["team_type_id"], name: "index_teams_on_team_type_id", using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",      null: false
@@ -206,6 +209,6 @@ ActiveRecord::Schema.define(version: 20150707202816) do
     t.text     "object_changes"
   end
 
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
 end
