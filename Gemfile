@@ -9,6 +9,8 @@ gem 'jquery-rails'
 # gem 'turbolinks'
 # gem 'jbuilder',     '~> 2.0'
 
+gem 'thin'
+
 gem 'simple_form'
 gem 'country_select', github: 'stefanpenner/country_select'
 gem 'enumerize'
