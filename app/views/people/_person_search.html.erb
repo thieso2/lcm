@@ -1,11 +1,10 @@
-<div class="row">
-  <%= inline_form :search, url: people_path, method: :get  do |f| %>
-    <%= f.input :lastname, placeholder: "Lastname"  %>        
-    <%= f.input :country, placeholder: "Country", inline_label: "Country", input_html: { width: "100px" }  %>
-    <%= f.input :zip, placeholder: "ZIP" %> 
-    <%= f.input :city, placeholder: "City" %> 
-    <%= f.button :submit, "Search" %>         
-
+<tr>
+  <%= inline_form "", url: people_path, method: :get  do |f| %>
+    <td></td>
+    <td><%= f.input :lastname,  placeholder: "Lastname"  %></td>
+    <td><%= f.input :country,   placeholder: "Country", inline_label: "Country", input_html: { width: "50px" }  %></td>
+    <td><%= f.input :zip,       placeholder: "ZIP" %></td>
+    <td><%= f.input :city,      placeholder: "City" %></td>
+    <td span="3"><%= f.button :submit, "Search" %></td>
   <% end %>
-  
-</div>
+</tr>

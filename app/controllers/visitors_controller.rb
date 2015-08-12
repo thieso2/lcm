@@ -1,6 +1,6 @@
 class VisitorsController < ApplicationController
-  
+
   def index
-    @events = Event.open    
+    @events = Event.open
   end
 end

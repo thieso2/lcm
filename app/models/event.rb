@@ -18,10 +18,12 @@
 
 class Event < ActiveRecord::Base
 
-  enum event_state: [:planning, :open, :started, :ended, :closed]
+  STATUSES = [:planning, :open, :started, :ended, :closed]
+  enum event_state: STATUSES
 
   belongs_to :event_type
   belongs_to :location
+  has_many   :person_event_assignments
 
   validates :event_type_id, presence: true
   validates :location_id, presence: true
@@ -30,17 +32,18 @@ class Event < ActiveRecord::Base
   validates_presence_of  :startdate #, :enddate
   # validates :enddate, date: { :after_or_equal_to => :startdate }
 
-  default_scope { joins(:event_type) }
+  default_scope { joins(:event_type).order(:startdate) }
 
   scope :open, -> { where(event_state: Group.group_states[:open]).order(:startdate)}
 
   def self.search(search)
+    debugger
     if search
       events = where(nil)
-      events = events.where("shortname like ?",   "%#{search[:shortname]}%" )   if search[:shortname].present?
-      events = events.where("title like ?",       "%#{search[:title]}%")        if search[:title].present?
-      events = events.where("description like ?", "%#{search[:description]}%")  if search[:description].present?
-      events = events.where("location like ?",    "#{search[:location]}%" )     if search[:location].present?
+      events = events.where("shortname ilike ?",   "%#{search[:shortname]}%" )   if search[:shortname].present?
+      events = events.where("title ilike ?",       "%#{search[:title]}%")        if search[:title].present?
+      events = events.where("description ilike ?", "%#{search[:description]}%")  if search[:description].present?
+      events = events.where("location ilike ?",    "#{search[:location]}%" )     if search[:location].present?
       events = events.where("event_state = ?",     search[:state].to_i )        if search[:state].present?
       events
     else
@@ -74,19 +77,33 @@ class Event < ActiveRecord::Base
 
   def setshortname=(shortname)
 
-    if shortname[0,3] == "Sem"
-      evtcode = shortname[-3,3]
-    elsif shortname[0,3] == "ILP"
-      evtcode = shortname[-3,3]
-      loc = Location.where(code: "GER")
+    if shortname.upcase == "WISUNLIMITED"
+      evtcode = "WIS"
+      loccode = "EUR"
+    elsif shortname.upcase =~ "WIS_FuEv"
+      evtcode = "WFW"
+      loccode = "HAN"
+    elsif shortname[0,3].upcase == "SEM"
+      evtcode = shortname[-3,3].upcase
+      loccode = shortname[3,3]
+    elsif shortname[0,3].upcase == "ILP"
+      evtcode = "ILP"
+      loccode = "GER"
+    elsif shortname[0,2] == "ME"
+      evtcode = "ME"
+      loccode = shortname[2,3]
     else
-      evtcode = shortname[0,3]
+      evtcode = shortname[0,3].upcase
+      loccode = shortname[3,3]
     end
+
     evt = EventType.where(code: evtcode).first
+    if evt.nil?
+      debugger
+    end
     self.event_type = evt
 
     if self.location.nil?
-      loccode = shortname[3,3]
       loc = Location.where(code: loccode).first
       self.location = loc
     end

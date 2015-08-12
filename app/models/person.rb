@@ -58,7 +58,7 @@ class Person < ActiveRecord::Base
   def self.search(search)
     if search
       people = where(nil)
-      people = people.where("lastname like ?",  "#{search[:lastname]}%" ) if search[:lastname].present?
+      people = people.where("lastname ilike ?",  "#{search[:lastname]}%" ) if search[:lastname].present?
       people = people.where("country = ?",      "#{search[:country]}" )   if search[:country].present?
       people = people.where("zip like ?",       "#{search[:zip]}%" )      if search[:zip].present?
       people = people.where("city like ?",      "#{search[:city]}%" )     if search[:city].present?
@@ -81,11 +81,12 @@ class Person < ActiveRecord::Base
   end
 
   def events
-    PersonEventAssignment.where(Person_id: id).joins(event: :event_type) #.merge(GroupType.event)
+    PersonEventAssignment.where(person_id: id).includes(event: :event_type).order(:startdate) #.merge(GroupType.event)
+    # Event.includes(person_event_assignments: :event_role_type).where("person_event_assignments.person_id" => id)
   end
 
   def teams
-    PersonTeamAssignment.where(Person_id: id) # .joins(group: :group_type).merge(GroupType.team)
+    PersonTeamAssignment.where(person_id: id) # .joins(group: :group_type).merge(GroupType.team)
   end
 
   def salutation

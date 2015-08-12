@@ -1,11 +1,14 @@
+<div class="container">
+  <div class="row">
+    <h1>List of Events</h1>
+  </div>
 
-<h1>List of Events</h1>
+    <div class="row"><%= render 'event_search' %></div>
+    <div class="row"><%= render 'event_list' %>  </div>
 
-  <div class="row"><%= render 'event_search' %></div>
-  <div class="row"><%= render 'event_list' %>  </div>
+  <br>
 
-<br>
-
-<div class="row">
-  <%= link_to 'New Event', new_event_path %>
+  <div class="row">
+    <%= link_to 'New Event', new_event_path %>
+  </div>
 </div>
