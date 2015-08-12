@@ -1,0 +1,14 @@
+<div  class="col-sm-5">
+  <h3>Team Information</h3>
+
+  <%= horizontal_form @team do |f| %>
+    <%= f.association :event_type %>
+    <%= f.input :tid, readonly: true %>
+    <%= f.input :title %>
+    <%= f.input :shortname %>
+    <%= f.association :region %>
+    <%= f.input :startdate, :include_blank => true %>
+    <%= f.input :enddate,   :include_blank => true %>
+    <%= f.button :submit %>
+  <% end %>
+</div>

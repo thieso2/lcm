@@ -33,8 +33,12 @@ class Team < ActiveRecord::Base
     else
       where(nil)
     end
-
   end
+
+  def assistants
+    #self.assignments.joins(:role_type).joins(:person).includes(:role_type).includes(:person).order("people.lastname")
+  end
+
 
   def to_s
     "#{team_type.description} in #{region} starting at #{startdate}"

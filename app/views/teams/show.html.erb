@@ -1,0 +1,24 @@
+<div class="container">
+  <div  class="col-sm-5">
+      <%= bettertabs_bootstrap :person do |tab| %>
+        <%= tab.ajax :team do  %>
+          <%= show_object @team, only: controller.class::VISIBLE_ATTRIBUTES %>
+          <div class="col-sm-5">
+            <%= link_to 'Edit', edit_team_path(@team), {class: "btn btn-default"} %>
+            <%= link_to 'Destroy', @team, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </div>
+        <% end %>
+      <% end %>
+  </div>
+
+    <div class="col-sm-5">
+      <div class="tabbable">
+        <%= bettertabs_bootstrap :team_tabs do |tab|
+          # tab.ajax :attendees,  locals: { object: @event.attendees }
+          tab.ajax :assistants, locals: { object: @team.assistants }
+        end
+        %>
+      </div>
+    </div>
+  </div>
+</div>

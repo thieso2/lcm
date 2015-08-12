@@ -10,4 +10,7 @@
 #
 
 class Region < ActiveRecord::Base
+  def to_s
+    "#{code}:#{description}"
+  end
 end

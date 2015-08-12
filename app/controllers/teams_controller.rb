@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
   respond_to :html
 
   VISIBLE_ATTRIBUTES =
-  %w( team_type eid shortname location startdate enddate baseprice group_state )
+  %w( tid team_type shortname region startdate enddate )
 
   def index
     @teams = Team.search(params[:search]).order(startdate: :desc).take(20)

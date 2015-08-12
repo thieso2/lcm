@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <h1>List of Teams</h1>
+  </div>
+
+    <div class="row"><%# render 'team_search' %></div>
+    <div class="row"><%= render 'team_list' %>  </div>
+
+  <br>
+
+  <div class="row">
+    <%= link_to 'New Team', new_team_path %>
+  </div>
+</div>
