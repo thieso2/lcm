@@ -1,12 +1,9 @@
 <div class="container">
-  <table class="table">
-    <tbody>
-      <% @info.each do |info| %>
-        <tr>          
-          <td><%= "#{info}" %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  
+  <%= "#{@info}" %>
+  <%  @info.import_step.each do |step| %>
+    <%= "#{step}" %><br>"
+    <% step.import_row.each do |row| %>
+      <%= "#{row}" %>
+    <% end %>
+  <% end %>
 </div>

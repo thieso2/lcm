@@ -7,9 +7,9 @@
         </td>
         <td>
             From:      <%= @import.original_filename %></br>
-            Started:   <%= l @import.starttime %></br>
-            Finished:  <%= l @import.finishtime %></br>
-            Time used: <%= number_with_precision(@import.finishtime - @import.starttime, precision: 1) %> seconds</br>
+            Started:   <%= l @import.starttime,  format: :short %></br>
+            Finished:  <%= l @import.finishtime, format: :short %></br>
+            Time used: <%= number_with_precision(@import.time_used, precision: 1) %> seconds</br>
         </td>
         </tr>
 
@@ -25,13 +25,14 @@
                         "Total Rows: #{step.totalrows}"
                         # link_to "Total Rows: #{step.totalrows}", import_job_path(@import, :step => step.id, :rows => :all)
                     end %>
+                <br/>
                 <%= if step.validrows.to_i>0 then
-                        "Valid Rows: #{step.validrows}"
-                        # link_to "Valid Rows: #{step.validrows}", import_job_path(@import, :step => step.id, :rows => :valid)
+                        #"Valid Rows: #{step.validrows}"
+                        link_to "Valid Rows: #{step.validrows}", import_job_path(@import, :step => step.id, :rows => :valid)
                     end %>
                 <%= if step.errorrows.to_i>0 then
-                        "Error Rows: #{step.errorrows}"
-                        # link_to "Error Rows: #{step.errorrows}", import_job_path(@import, :step => step.id, :rows => :error)
+                        # "Error Rows: #{step.errorrows}"
+                        link_to "Error Rows: #{step.errorrows}", import_job_path(@import, :step => step.id, :rows => :error)
                     end %>
                 <%= if step.errortext then "Errors: #{step.errortext}" end %>
             </td>

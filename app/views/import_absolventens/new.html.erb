@@ -1,10 +1,23 @@
 <div class="container">
-  <h1>Import Absolventen Excel File</h1>
-  
-  <%= horizontal_form :import_absolventen, url: import_absolventen_path do |f| %>
-    <%= f.label :file, "Bitte wählen Sie die Absolventen Datei aus:" %>
-    <%= f.input :file, as: :file, label: "Excel File:" %>
-    <%= f.submit "Import File" %>    
-  <% end %>
-  
+  <div class="row">
+    <h1>Import Absolventen Excel File</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+    <p>In der Excel Datei "Absolventen Komplett" stehen:
+      <ul>ALLE Absolventen und</ul>
+      <ul>ALLE Kurse</ul>
+     die jemals stattgefunden haben.
+    </p>
+    <p>Sie sind die Grundlage zur Füllung der Datenbank.</p>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <%= horizontal_form :import_absolventen, url: import_absolventen_path do |f| %>
+      <%= f.input :file, as: :file, label: "Import aus Absolventen Excel Datei:" %>
+      <%= f.submit "Import File" %>
+    <% end %>
+  </div>
 </div>

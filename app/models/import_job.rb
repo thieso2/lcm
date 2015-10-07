@@ -36,6 +36,15 @@ class ImportJob < ActiveRecord::Base
     "##{id} from: #{original_filename} starttime: #{starttime} finishtime: #{finishtime} "
   end
 
+  def time_used
+    if finishtime
+      finishtime - starttime
+    else
+      0
+    end
+  end
+
+
   def temp_filename=(filename)
     FileUtils.mv(filename, "/tmp/import-#{filename.hash}.xlsx" )
     super "/tmp/import-#{filename.hash}.xlsx"

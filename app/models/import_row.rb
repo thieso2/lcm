@@ -26,7 +26,7 @@ class ImportRow < ActiveRecord::Base
   }
   scope :valid,   -> { where(state: 1) }
   scope :invalid, -> { where(state: 2) }
-  default_scope   -> { where(state: 2) }
+  # default_scope   -> { where(state: 2) }
 
   def to_s
     "Row ##{row} #{rawdata} =>>> #{importdata} #{state} #{message}"
