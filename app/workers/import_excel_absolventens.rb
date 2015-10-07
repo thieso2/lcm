@@ -1,5 +1,5 @@
 # Imports Absolventen, Events and Assignments from an Excel File
-class ImportAbsolventens
+class ImportExcelAbsolventens
   include Sidekiq::Worker
 
   def self.perform(jobid)

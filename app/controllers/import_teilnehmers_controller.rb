@@ -1,15 +1,24 @@
 class ImportTeilnehmersController < ApplicationController
   before_filter :authenticate_user!
-  
+
   def new
-    
+
   end
-  
+
   def create
-    event = Event.find_by(id: secure_params[:event_id].to_i)
+    # event = Event.find_by(id: secure_params[:event_id].to_i)
     file = secure_params[:file]
-    if event && file
-      @info = ImportTeilnehmer.read(file, event)
+    # if event && file
+    if file
+      import = ImportJob.create!(
+          original_filename: file.original_filename,
+
+          temp_filename: file.tempfile.path,
+          user_id: current_user.id)
+
+      ImportExcelTeilnehmer.perform(import.id)
+      redirect_to import_job_path(import.id)
+
     else
       @info = []
       flash[:error] =  "Grrrr"
@@ -21,5 +30,5 @@ class ImportTeilnehmersController < ApplicationController
     params
     . require(:import_teilnehmer)
   end
-  
+
 end
