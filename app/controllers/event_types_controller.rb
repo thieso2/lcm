@@ -23,7 +23,7 @@ class EventTypesController < ApplicationController
   def create
     @event_type = EventType.new(course_type_params)
     if @event_type.save
-      redirect_to event_types_path, notice: "Successfully created CourseType"
+      redirect_to event_types_path, notice: "Successfully created EventType"
     else
       respond_with(@event_type)
     end
@@ -32,13 +32,13 @@ class EventTypesController < ApplicationController
   def update
     @event_type.update(course_type_params)
     # respond_with(@event_type)
-    redirect_to course_types_path, notice: "Successfully updated CourseType"
+    redirect_to course_types_path, notice: "Successfully updated EventType"
   end
 
   def destroy
     @event_type.destroy
     # respond_with(@event_type)
-    redirect_to course_types_path, notice: "Successfully deleted CourseType"
+    redirect_to course_types_path, notice: "Successfully deleted EventType"
   end
 
   private
