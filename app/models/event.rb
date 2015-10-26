@@ -37,13 +37,12 @@ class Event < ActiveRecord::Base
   scope :open, -> { where(event_state: Group.group_states[:open]).order(:startdate)}
 
   def self.search(search)
-    debugger
     if search
       events = where(nil)
       events = events.where("shortname ilike ?",   "%#{search[:shortname]}%" )   if search[:shortname].present?
       events = events.where("title ilike ?",       "%#{search[:title]}%")        if search[:title].present?
       events = events.where("description ilike ?", "%#{search[:description]}%")  if search[:description].present?
-      events = events.where("location ilike ?",    "#{search[:location]}%" )     if search[:location].present?
+      events = events.where("location_id = ?",     search[:location].to_i )     if search[:location].present?
       events = events.where("event_state = ?",     search[:state].to_i )        if search[:state].present?
       events
     else
@@ -57,7 +56,7 @@ class Event < ActiveRecord::Base
   end
 
   def attendees
-    #self.assignments.joins(:role_type).joins(:person).includes(:person).order("people.lastname")
+    self.person_event_assignments.includes(:person).order("people.lastname")
   end
 
   def assistants
@@ -80,12 +79,13 @@ class Event < ActiveRecord::Base
     if shortname.upcase == "WISUNLIMITED"
       evtcode = "WIS"
       loccode = "EUR"
-    elsif shortname.upcase =~ "WIS_FuEv"
+    elsif shortname.upcase.start_with? == "WIS_FuEv"
       evtcode = "WFW"
       loccode = "HAN"
     elsif shortname[0,3].upcase == "SEM"
       evtcode = shortname[-3,3].upcase
       loccode = shortname[3,3]
+      ym_code = shortname[6,4]
     elsif shortname[0,3].upcase == "ILP"
       evtcode = "ILP"
       loccode = "GER"
@@ -95,6 +95,7 @@ class Event < ActiveRecord::Base
     else
       evtcode = shortname[0,3].upcase
       loccode = shortname[3,3]
+      ym_code = shortname[6,4]
     end
 
     evt = EventType.where(code: evtcode).first
@@ -106,6 +107,10 @@ class Event < ActiveRecord::Base
     if self.location.nil?
       loc = Location.where(code: loccode).first
       self.location = loc
+    end
+
+    if self.startdate.nil? && ym_code
+      self.startdate = "20" + ym_code + "01"   # Year Month and Day "01"
     end
 
   end
