@@ -1,0 +1,25 @@
+<div class="container">
+<div class="row">
+<h1><%= @report.name %></h1>
+<h3><%= @report.description %></h3>
+<table class="table">
+  <thead>
+    <tr>
+      <% @results.fields.each do |field| %>
+        <th><%= field %></th>
+      <% end %>
+    </tr>
+  </thead>
+<% @results.each_row do |row| %>
+  <tr>
+    <% row.each do |column| %>
+      <td>
+        <%= column %>
+      </td>
+    <% end %>
+  </tr>
+
+<% end %>
+</table>
+</div>
+</div>
