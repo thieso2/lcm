@@ -82,3 +82,12 @@ assistance = Team.create!(team_type: tt_assist, region: reg_ger)
 puts "Created Event: #{assistance}"
 
 PersonTeamAssignment.create!(person: klaus, team: assistance, team_role_type: rl_ass, startdate: "2015-02-01", enddate: "2015-03-31")
+
+# -----------------------------------------------------------------
+# Reporting
+
+Report.create!(
+  name: 'POT Frankfurt',
+  url_name: 'pot_frankfurt',
+  description: 'Alle Teilnehmer die mindestens entweder FGK und ein Seminar oder zwei Seminare gemacht haben'
+)
