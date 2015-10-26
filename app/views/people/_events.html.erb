@@ -1,6 +1,13 @@
 
   <table class="table">
-    <% person.events.each do |assignment| %>
+    <thead>
+      <tr>
+        <th>Datum</th>
+        <th>Event</th>
+        <th>Rolle</th>
+      </tr>
+    </thead>
+    <% person.events.order("startdate DESC").each do |assignment| %>
       <tr>
         <td><%= assignment.event.startdate %></td>
         <td><%= "#{assignment.event.event_type}" %></br><%= "#{assignment.event.title}" %></td>

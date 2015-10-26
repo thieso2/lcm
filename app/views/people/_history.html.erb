@@ -2,22 +2,17 @@
     <% person.versions.each do |version| %>
       <tr>
         <td><%= t version.event %></td>
-        <td>
-          <% version.changeset.each do |change| %>
-            <% if change[1][0].class == Time %>
-              <%= change[0] %>:
-                <%= localize change[1][0], :format => :short %>
-                =>
-                <%= localize change[1][1], :format => :short %>
-            <% else %>
-              <%= t change[0] %>: <%= change[1][0] %> => <%= change[1][1] %> <%= change[1][0].class %>
-            <% end %>
-            <br>
-              
-          <% end %>
-        </td>
-        
+        <td span="3"><%= l version.created_at %></td>
       </tr>
+      <% version.changeset.each do |change| %>
+        <tr>
+          <td></td>
+          <td><%= t change[0], scope: 'simple_form.Person' %></td>
+          <td><%= l change[1][0] %></td>
+          <td>=></td>
+          <td><%= l change[1][1] %></td>
+        </tr>
+      <% end %>
     <% end %>
   </table>
-  
+

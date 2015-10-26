@@ -7,7 +7,7 @@ class PeopleController < ApplicationController
   respond_to :html
 
   VISIBLE_ATTRIBUTES =
-    %w(sex firstname lastname email country city street
+    %w(pid sex firstname lastname email country city street
                     phone_private phone_work phone_mobile)
 
   def index

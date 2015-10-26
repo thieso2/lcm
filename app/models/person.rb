@@ -70,10 +70,10 @@ class Person < ActiveRecord::Base
   end
 
   def fullname
-    "#{firstname} #{lastname}"
+    "#{lastname}, #{firstname}"
   end
   def to_s
-    "#{fullname} #{country}-#{zip} #{city}"
+    "#{lastname}, #{firstname} #{country}-#{zip} #{city}"
   end
 
   def assign_to_event(event, role)
@@ -81,7 +81,7 @@ class Person < ActiveRecord::Base
   end
 
   def events
-    PersonEventAssignment.where(person_id: id).includes(event: :event_type).order(:startdate) #.merge(GroupType.event)
+    PersonEventAssignment.where(person_id: id).includes(event: :event_type).order("startdate DESC") #.merge(GroupType.event)
     # Event.includes(person_event_assignments: :event_role_type).where("person_event_assignments.person_id" => id)
   end
 

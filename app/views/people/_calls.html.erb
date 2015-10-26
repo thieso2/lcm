@@ -1,17 +1,24 @@
-  
+
   <table class="table">
+    <thead>
+      <tr>
+        <th>Datum</th>
+        <th>Von</th>
+        <th>Info</th>
+      </tr>
+    </thead>
     <% person.calls.each do |call| %>
       <tr>
         <td><%= localize call.date, :format => :short %></td>
         <td><%= call.caller %></td>
         <td><%= call.info %></td>
-        <td><%= link_to 'Show', call %></td>
-        <td><%= link_to 'Edit', edit_call_path(call) %></td>
+        <td><%# link_to 'Show', call %></td>
+        <td><%# link_to 'Edit', edit_call_path(call) %></td>
         <td><%= link_to 'Remove', call, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-      
+
     <% end %>
   </table>
-  
+
   <%= link_to 'Add new call', new_call_path(person: person), {class: "btn btn-default"} %>
-  
+
