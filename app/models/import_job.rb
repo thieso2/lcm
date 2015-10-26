@@ -40,7 +40,7 @@ class ImportJob < ActiveRecord::Base
     if finishtime
       finishtime - starttime
     else
-      0
+      (DateTime.now - starttime.to_datetime).to_f
     end
   end
 

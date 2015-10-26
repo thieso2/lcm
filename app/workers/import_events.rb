@@ -30,7 +30,7 @@ class ImportEvents
     begin
       rows = XlsxImport.read @import.temp_filename, SHEET_EVENTS
     rescue XlsxImport::Error => e
-      @import.log_error, e.to_s
+      @import.log_error e.to_s
       return
     end
     step.totalrows = rows.count

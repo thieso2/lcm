@@ -1,6 +1,7 @@
 # Imports Absolventen, Events and Assignments from an Excel File
 class ImportExcelAbsolventens
   include Sidekiq::Worker
+  sidekiq_options :retry => false
 
   def self.perform(jobid)
     x = new
@@ -14,9 +15,11 @@ class ImportExcelAbsolventens
     end
 
     import = ImportJob.find(jobid)
-    ImportAttendees.read(import)
-    ImportEvents.read(import)
-    ImportAssignments.read(import)
+    ActiveRecord::Base.transaction do
+      ImportAttendees.read(import)
+      ImportEvents.read(import)
+      ImportAssignments.read(import)
+    end
     import.finish
 
     # enable PaperTrail again

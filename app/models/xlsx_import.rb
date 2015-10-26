@@ -25,6 +25,7 @@ class XlsxImport
     printer = RubyProf::FlatPrinter.new(result)
     printer.print(STDOUT)
 
+    debugger
     sheet = workbook.sheets[sheetid]
     rows = []
     sheet.rows.each do |row|

@@ -28,14 +28,11 @@ class ImportStep < ActiveRecord::Base
 
   def import_rows(scope_step, scope_state)
     if scope_step.to_i == self.id
-      if scope_state.to_sym == :all
-        import_row
-      else
-        import_row.by_state(scope_state)
-      end
+      x = import_row.by_state(scope_state)
     else
-      import_row
+      x = import_row.by_state(:invalid)
     end
+    x
   end
 
   def <<(row)

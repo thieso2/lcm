@@ -1,6 +1,7 @@
 # Imports Absolventen, Events and Assignments from an Excel File
 class ImportExcelTeilnehmer
   include Sidekiq::Worker
+  sidekiq_options :retry => false
 
   def self.perform(jobid)
     x = new
@@ -23,7 +24,7 @@ class ImportExcelTeilnehmer
     shortname = import.original_filename[/(.*)_/, 1]
     unless evt = Event.where(shortname: shortname).first
       evt = Event.create
-      evt.setshortname shortname
+      evt.setshortname=shortname
       evt.save!
     end
     evt

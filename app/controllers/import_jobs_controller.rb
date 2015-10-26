@@ -9,8 +9,8 @@ class ImportJobsController < ApplicationController
 
   def show
     @import = ImportJob.find(params[:id])
-    @scope_step = params[:step]
-    @scope_rows = params[:rows]
+    @scope_step  = params[:step]  || 0
+    @scope_state = params[:state] || :invalid
   end
 
   def destroy
