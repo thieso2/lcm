@@ -4,9 +4,9 @@
 #
 #  id          :integer          not null, primary key
 #  code        :string           not null
-#  description :string           not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  description :string
+#  created_at  :datetime
+#  updated_at  :datetime
 #
 
 class Region < ActiveRecord::Base

@@ -1,7 +1,7 @@
 class AddFieldsToPeople < ActiveRecord::Migration
   def change
     change_table(:people) do |t|
-      t.references :regions
+      t.belongs_to :region
 
       t.integer :pid
 

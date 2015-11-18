@@ -15,7 +15,7 @@
 #  last_sign_in_ip        :string
 #  created_at             :datetime
 #  updated_at             :datetime
-#  regions_id             :integer
+#  region_id              :integer
 #  pid                    :integer
 #  firstname              :string
 #  lastname               :string
