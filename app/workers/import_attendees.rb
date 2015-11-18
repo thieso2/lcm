@@ -4,6 +4,7 @@
 # Date  : 14.04.2015
 #
 class ImportAttendees
+  require 'xlsx_import'
 
   SHEET_ATTENDEES = 1
 
@@ -38,7 +39,7 @@ class ImportAttendees
     def read_attendees
       step = @import.log(:step, description: "Import Attendees: Load Excel File")
       begin
-        rows = XlsxImport.read @import.temp_filename, SHEET_ATTENDEES
+        rows = XlsxImport.read_sheet @import.temp_filename, SHEET_ATTENDEES
       rescue XlsxImport::Error => e
         @import.log :error, e.to_s
         return

@@ -11,6 +11,7 @@ class ImportTeilnehmer
   MAPPING = {
     "PID" => "pid",
     "Anrede" => "salutation",
+    "Name" => "lastname",
     "Nachname" => "lastname",
     "Vorname" => "firstname",
     "Straße" => "street",
@@ -38,7 +39,7 @@ class ImportTeilnehmer
   def read_teilnehmer
     step = @import.log(:step, description: "Import Teilnehmer: Load Excel File")
     begin
-      rows = XlsxImport.read @import.temp_filename, SHEET_TEILNEHMER
+      rows = XlsxImport.read_sheet @import.temp_filename, SHEET_TEILNEHMER
     rescue XlsxImport::Error => e
       @import.log :error, e.to_s
       return
@@ -56,9 +57,14 @@ class ImportTeilnehmer
   end
 
   def import_row(row)
+    debugger  if row[:row].to_i == 1
+    return if row["Name"].blank? && row["Nachname"].blank?
+
     if p = find_person(row)
       MAPPING.each {|col,field|
-        p.send(field + "=", row[col])
+        unless row[col].blank?
+          p.send(field + "=", row[col])
+        end
       }
       if p.valid?
         p.save!
@@ -77,12 +83,15 @@ class ImportTeilnehmer
       end
     end
 
+    lastname = row["Nachname"] || row["Name"]
+    firstname = row["Vorname"]
     country = row["Land"]
     country = "DE" if country = "D"
-    query1 = Person.where(country: country).where(lastname: row["Nachname"]).where(firstname: row["Vorname"])
+
+    query1 = Person.where(country: country).where(lastname: lastname).where(firstname: firstname)
     query2 = query1.where(zip: row["PLZ"])
     if query1.count == 0
-      return Person.new
+      return Person.new(pid: Person.new_pid)
     elsif query1.count == 1
       return query1.first
     elsif query2.count == 1
@@ -93,10 +102,15 @@ class ImportTeilnehmer
   end
 
   def show_duplicates(row)
+
+    lastname = row["Nachname"] || row["Name"]
+    firstname = row["Vorname"]
     country = row["Land"]
     country = "DE" if country = "D"
-    query = Person.where(country: country).where(lastname: row["Nachname"]).where(firstname: row["Vorname"]).where(zip: row["PLZ"])
-    query = query.select([:pid, :lastname, :firstname, :country, :zip, :street])
+
+    query = Person.where(country: country).where(lastname: lastname).where(firstname: firstname)
+                  .where(zip: row["PLZ"])
+    query = query.select([:pid, :lastname, :firstname, :country, :zip, :city, :street])
     return  "Person '#{row["Nachname"]} #{row["Vorname"]}' nicht genau bestimmbar.\nÄhnliche Personen:" + query.all.to_a.join("<br>")
   end
 

@@ -15,7 +15,7 @@
 #  last_sign_in_ip        :string
 #  created_at             :datetime
 #  updated_at             :datetime
-#  regions_id             :integer
+#  region_id              :integer
 #  pid                    :integer
 #  firstname              :string
 #  lastname               :string
@@ -73,6 +73,11 @@ class Person < ActiveRecord::Base
 
   end
 
+  def self.new_pid
+    Person.maximum(:pid) +1
+  end
+
+
   def fullname
     "#{lastname}, #{firstname}"
   end
@@ -116,6 +121,18 @@ class Person < ActiveRecord::Base
       super
     end
   end
+
+  def region=(region)
+    return if region.blank?
+
+    r = Region.where(code: region).first
+    if r
+      super r
+    else
+      super Region.create!(code: region)
+    end
+  end
+
 
   def status=(value)
     if value == "DNC"

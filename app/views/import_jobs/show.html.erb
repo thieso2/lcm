@@ -8,7 +8,7 @@
         <td>
             <h2>Import From: <%= @import.original_filename %></h2>
             Started:   <%= l @import.starttime,  format: :short %></br>
-            Finished:  <%= l @import.finishtime, format: :short %></br>
+            Finished:  <%= l @import.finishtime, format: :short if @import.finishtime %></br>
             Time used: <%= number_with_precision(@import.time_used, precision: 1) %> seconds</br>
         </td>
         <td>
@@ -17,7 +17,7 @@
 
 
 
-        <% @import.import_step.each do |step| %>
+        <% @import.import_step.order(:id).each do |step| %>
             <tr>
             <td>
                 <h3>Step #<%= step.id %></h3>
@@ -43,7 +43,7 @@
             </td>
             </tr>
 
-            <% step.import_rows(@scope_step, @scope_state).each do |row| %>
+            <% step.import_rows(@scope_step, @scope_state).order(:row).each do |row| %>
                 <tr>
                     <td> </td>
                     <td><%= row.rawdata %></td>

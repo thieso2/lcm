@@ -20,7 +20,7 @@ class ImportAssignments
     def read_assignments
       step = @import.log_step description: "Import Assignments: Load Excel File"
       begin
-        rows = XlsxImport.read @import.temp_filename, SHEET_ASSIGNMENTS
+        rows = XlsxImport.read_sheet @import.temp_filename, SHEET_ASSIGNMENTS
       rescue XlsxImport::Error => e
         @import.log_error e.to_s
         return

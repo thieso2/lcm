@@ -1,18 +1,26 @@
 # Import of Xlsx-File
 #
 class XlsxImport
-  require 'creek'
   # require 'remote_table'
 
   class Error < StandardError
   end
 
-  def self.read(filename, sheetid)
+  def self.read_sheet(filename, sheetid)
     puts "Import #{filename}"
     xls = self.new
     xls.read_creek filename, sheetid
     # xls.read_dullard filename, sheetid
   end
+
+  def self.read_sheetnames(filename)
+    xls = self.new
+    xls.read_sheets_creek(filename)
+  end
+
+  # ----------------------------------------------------------------------
+
+  require 'dullard'
 
   def read_dullard(filename, sheetid)
     RubyProf.start
@@ -53,6 +61,8 @@ class XlsxImport
 
   # -------------------------------------------------------------------------
 
+  require 'creek'
+
   def read_creek(filename, sheetid)
     #RubyProf.start
     begin
@@ -79,6 +89,15 @@ class XlsxImport
       end
     end
     rows
+  end
+
+  def read_sheets_creek(filename)
+    begin
+      creek = Creek::Book.new filename
+    rescue Zip::Error => e
+      raise XlsxImport::Error.new(e)
+    end
+    creek.sheets
   end
 
   private

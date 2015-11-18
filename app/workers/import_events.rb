@@ -9,7 +9,7 @@ class ImportEvents
 
   MAPPING = {
     'eID' => 'eid',
-    'eName' => 'setshortname',
+    'eName' => 'filename',
     'eBeschreibung' => 'title',
     'eOrt' => 'city'
   }
@@ -28,7 +28,7 @@ class ImportEvents
   def read_events
     step = @import.log_step description: 'Import Events: Load Excel File'
     begin
-      rows = XlsxImport.read @import.temp_filename, SHEET_EVENTS
+      rows = XlsxImport.read_sheet @import.temp_filename, SHEET_EVENTS
     rescue XlsxImport::Error => e
       @import.log_error e.to_s
       return

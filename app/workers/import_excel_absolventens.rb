@@ -15,11 +15,10 @@ class ImportExcelAbsolventens
     end
 
     import = ImportJob.find(jobid)
-    ActiveRecord::Base.transaction do
-      ImportAttendees.read(import)
-      ImportEvents.read(import)
-      ImportAssignments.read(import)
-    end
+    ActiveRecord::Base.transaction { ImportAttendees.read(import) }
+    ActiveRecord::Base.transaction { ImportEvents.read(import) }
+    ActiveRecord::Base.transaction { ImportAssignments.read(import) }
+
     import.finish
 
     # enable PaperTrail again
