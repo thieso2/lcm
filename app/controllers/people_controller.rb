@@ -11,7 +11,7 @@ class PeopleController < ApplicationController
                     phone_private phone_work phone_mobile)
 
   def index
-    @persons = Person.search(params).take(15)
+    @persons = Person.search(filter_params).take(15)
     authorize Person
   end
 
@@ -77,11 +77,19 @@ class PeopleController < ApplicationController
   def secure_params
     params
     . require(:person)
-    . permit(:firstname, :lastname, :sex, :country,
+    . permit(:pid, :firstname, :lastname, :sex, :country,
               :zip, :city, :street, :email,
               :phone_private, :phone_work, :phone_mobile,
               :do_not_contact, :access, :password)
   end
 
+  def filter_params
+    if params[:person]
+      @filter = params.require(:person)
+    else
+      @filter = params
+    end
+    @filter.permit(:pid, :lastname, :country, :zip, :city)
+  end
 
 end

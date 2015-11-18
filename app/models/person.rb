@@ -51,14 +51,18 @@ class Person < ActiveRecord::Base
   has_many :person_team_assignments
   has_many :person_event_assignments
 
+  belongs_to :region
+
   # validates :sex,      presence: true
-  validates :lastname, presence: true
-  validates :country,  presence: true
+  validates :pid,       presence: true
+  validates :lastname,  presence: true
+  validates :country,   presence: true
 
   def self.search(search)
     if search
       people = where(nil)
-      people = people.where("lastname ilike ?",  "#{search[:lastname]}%" ) if search[:lastname].present?
+      people = people.where("pid = ?",          "#{search[:pid]}" )      if search[:pid].present?
+      people = people.where("lastname ilike ?", "#{search[:lastname]}%" ) if search[:lastname].present?
       people = people.where("country = ?",      "#{search[:country]}" )   if search[:country].present?
       people = people.where("zip like ?",       "#{search[:zip]}%" )      if search[:zip].present?
       people = people.where("city like ?",      "#{search[:city]}%" )     if search[:city].present?
