@@ -16,11 +16,18 @@ gem 'country_select', github: 'stefanpenner/country_select'
 gem 'enumerize'
 
 gem 'creek'
-gem 'dullard'
-gem 'spreadsheet'
+# gem 'dullard'
+# gem 'spreadsheet'
 # gem 'remote_table'  No Ruby 2.x support ?!?
 
+gem 'zip-zip'
+gem 'axlsx'     # Write Excel-Files
+# gem 'acts_as_xlsx'
+
 gem 'bettertabs'
+gem 'kaminari'
+gem 'kaminari-i18n'
+gem 'kaminari-bootstrap'
 
 # gem 'vestal_versions', :git => 'git://github.com/scottwillson/vestal_versions'
 gem 'paper_trail', '~> 4.0.0.beta'
@@ -30,6 +37,11 @@ gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'master'  # For 4.x
 gem 'sinatra'
 gem 'sidekiq'
 gem 'redis'
+
+gem 'bootstrap-sass'
+gem 'devise'
+gem 'devise-i18n'
+gem 'pundit'
 
 group :development, :test do
   # gem 'byebug'
@@ -42,13 +54,9 @@ group :development, :test do
   gem 'spectator'
 end
 
-gem 'bootstrap-sass'
-gem 'devise'
-gem 'devise-i18n'
-gem 'pundit'
-
 group :development do
   gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'quiet_assets'
   gem 'rails_layout'
   #  gem 'spring-commands-rspec'
@@ -56,6 +64,7 @@ group :development do
   gem 'ruby-prof'
   gem 'rubocop'
 end
+
 group :test do
   gem 'rspec'
   gem 'rspec-rails'
@@ -64,13 +73,16 @@ group :test do
   gem 'faker'
   gem 'capybara'
 end
-group :production do
-  gem 'pg'
-  gem 'rails_12factor'
-end
+
 group :test do
   #  gem 'capybara'
   #  gem 'database_cleaner'
   #  gem 'launchy'
   #  gem 'selenium-webdriver'
 end
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
+
