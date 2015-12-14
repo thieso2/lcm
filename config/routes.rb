@@ -5,17 +5,18 @@ Rails.application.routes.draw do
   devise_for :user
 
   resources :people
+  resources :events
+  resources :teams
+
 
   #resources :group_types
   #resources :groups
 
   resources :event_role_types
   resources :event_types
-  resources :events
 
   resources :team_role_types
   resources :team_types
-  resources :teams
 
   resources :locations
 
@@ -28,6 +29,8 @@ Rails.application.routes.draw do
 
   resource :import_teilnehmer,   only: [:new, :create]
   resource :import_absolventen,  only: [:new, :create]
+
+  resource :export_absolventen,  only: [:new, :create]
 
   resources :report, only: [:index, :show]
 

@@ -2,7 +2,7 @@ require 'axlsx'
 
 class ExportExcelAbsolventen
 
-  def export(to_file)
+  def self.export(to_file)
     p = Axlsx::Package.new
     wb = p.workbook
 
@@ -10,7 +10,8 @@ class ExportExcelAbsolventen
     ExportEvents.process(wb)
     ExportAssignments.process(wb)
 
-    p.serialize to_file
+    p.serialize  to_file
+    #p.to_stream.read
   end
 
 end
