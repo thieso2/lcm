@@ -1,22 +1,27 @@
 <div class="row">
   <table class="table">
+
     <thead>
       <tr>
-        <th>id</th>
+        <th>PID</th>
         <th>Name</th>
         <th>Country</th>
         <th>ZIP</th>
         <th>City</th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
+      <%= render 'person_search' %>
       <% @persons.each do |person| %>
         <tr>
-          <td><%= person.id %></td>
-          <td><%= person.fullname %></td>
-          <td><%= person.country %></td>
-          <td><%= person.zip %></td>
-          <td><%= person.city %></td>
+          <td><%= link_to person.pid, person %></td>
+          <td><%= link_to person.fullname, person %></td>
+          <td><%= unless person.country.blank?  then link_to person.country, people_path(country: person.country)   end %></td>
+          <td><%= unless person.zip.blank?      then link_to person.zip,     people_path(zip:     person.zip.to_s)  end %></td>
+          <td><%= unless person.city.blank?     then link_to person.city,    people_path(city:    person.city.to_s) end  %></td>
           <td><%= link_to 'Show', person %></td>
           <td><%= link_to 'Edit', edit_person_path(person) %></td>
           <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -25,4 +30,4 @@
     </tbody>
   </table>
 </div>
-</div>
+

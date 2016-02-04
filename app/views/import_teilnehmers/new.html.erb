@@ -1,12 +1,19 @@
 <div class="container">
-  <h1>Import Excel File</h1>
-  
+  <div class="row">
+    <h1>Import Excel File</h1>
+  </div>
+
+  <div class="row">
+    In der Excel Datei "Teilnehmer" stehen die Teilnehmer zu einem Event.
+  </div>
+  <br/>
+  <div class="row">
   <%= horizontal_form :import_teilnehmer, url: import_teilnehmer_path do |f| %>
-    <%= f.input :event_id, collection: Event.all.order(startdate: :desc).collect {|c| [c.to_s, c.id]},
+    <%# f.input :event_id, collection: Event.all.order(startdate: :desc).collect {|c| [c.to_s, c.id]},
                   label: 'Select Course', required: true %>
 
-    <%= f.input :file, as: :file, label: "Excel File:" %>
-    <%= f.submit "Import File" %>    
+    <%= f.input :file, as: :file, label: "Bitte wählen Sie Teilnehmer Excel Datei aus:" %>
+    <%= f.submit "Import File" %>
   <% end %>
-  
+
 </div>

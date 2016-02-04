@@ -6,7 +6,9 @@ class ReportController < ApplicationController
 
   def show
     @report  = Report.find_by_url_name(params[:id])
-    @query = @report.send(@report.url_name.to_sym)
-    @results = @query.page(params[:page]).per(15)
+    #@query = @report.send(@report.url_name.to_sym)
+    #@results = @query.page(params[:page]).per(15)
+    @results = Report.send(@report.url_name)
+
   end
 end

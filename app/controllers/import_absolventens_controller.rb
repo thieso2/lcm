@@ -7,12 +7,7 @@ class ImportAbsolventensController < ApplicationController
 
   def create
     file = secure_params[:file]
-    @info = ""
     if file
-      #@info << ImportAttendees.read(file)
-      #@info << ImportEvents.read(file)
-      #@info << ImportAssignments.read(file)
-
       import = ImportJob.create!(
           original_filename: file.original_filename,
 

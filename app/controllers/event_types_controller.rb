@@ -4,7 +4,7 @@ class EventTypesController < ApplicationController
   respond_to :html
 
   def index
-    @event_types = GroupType.event.all
+    @event_types = EventType.all
     respond_with(@event_types)
   end
 
@@ -13,7 +13,7 @@ class EventTypesController < ApplicationController
   end
 
   def new
-    @event_type = GroupType.new
+    @event_type = EventType.new
     respond_with(@event_type)
   end
 
@@ -21,9 +21,9 @@ class EventTypesController < ApplicationController
   end
 
   def create
-    @event_type = GroupType.new(course_type_params)
-    if @event_type.save 
-      redirect_to event_types_path, notice: "Successfully created CourseType"
+    @event_type = EventType.new(course_type_params)
+    if @event_type.save
+      redirect_to event_types_path, notice: "Successfully created EventType"
     else
       respond_with(@event_type)
     end
@@ -32,18 +32,18 @@ class EventTypesController < ApplicationController
   def update
     @event_type.update(course_type_params)
     # respond_with(@event_type)
-    redirect_to course_types_path, notice: "Successfully updated CourseType"
+    redirect_to course_types_path, notice: "Successfully updated EventType"
   end
 
   def destroy
     @event_type.destroy
     # respond_with(@event_type)
-    redirect_to course_types_path, notice: "Successfully deleted CourseType"
+    redirect_to course_types_path, notice: "Successfully deleted EventType"
   end
 
   private
     def find_course_type
-      @event_type = GroupType.event.find(params[:id])
+      @event_type = EventType.find(params[:id])
     end
 
     def course_type_params

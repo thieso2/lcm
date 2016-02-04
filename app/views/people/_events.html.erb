@@ -1,16 +1,30 @@
-  
+
   <table class="table">
-    <% person.events.each do |assignment| %>
+    <thead>
       <tr>
-        <td><%= assignment.group %></td>
-        <td><%= assignment.role_type %></td>
-        <td><%= link_to 'Show', assignment %></td>
-        <td><%= link_to 'Edit', edit_assignment_path(assignment) %></td>
+        <th>Datum</th>
+        <th>Event</th>
+        <th>Rolle</th>
+      </tr>
+    </thead>
+    <% person.events.order("startdate DESC").each do |assignment| %>
+      <tr>
+        <td><%= assignment.event.startdate %></td>
+        <td>
+            <%= link_to assignment.event do %>
+              <%= "#{assignment.event.event_type}" %>
+              </br>
+              <%= "#{assignment.event.title}" %>
+            <% end %>
+        </td>
+        <td><%= assignment.event_role_type %></td>
+        <td><%# link_to 'Show', assignment %></td>
+        <td><%# link_to 'Edit', edit_person_event_assignment_path(assignment) %></td>
         <td><%= link_to 'Remove', assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-      
+
     <% end %>
   </table>
-  
-  <%= link_to 'Assign to new event', new_assignment_path(person: person), {class: "btn btn-default"} %>
-  
+
+  <%= link_to 'Assign to new event', new_person_event_assignment_path(person: person), {class: "btn btn-default"} %>
+

@@ -1,0 +1,29 @@
+<div class="row">
+  <h1><%= @report.name %></h1>
+  <h3><%= @report.description %></h3>
+  <h4><%= @query.count(:id) %> Ergebnisse</h4>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <% @results.first.attributes.keys.each do |field| %>
+          <th><%= field %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @results.each do |row| %>
+        <tr>
+          <% row.attributes.each_pair do |s,column| %>
+            <td>
+              <%= column %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @results %>
+
+</div>

@@ -1,0 +1,59 @@
+<div class="row">
+
+    <table class="table">
+        <tr>
+        <td>
+            <h2>Job #<%= @import.id %></h2>
+        </td>
+        <td>
+            <h2>Import From: <%= @import.original_filename %></h2>
+            Started:   <%= l @import.starttime,  format: :short %></br>
+            Finished:  <%= l @import.finishtime, format: :short if @import.finishtime %></br>
+            Time used: <%= number_with_precision(@import.time_used, precision: 1) %> seconds</br>
+        </td>
+        <td>
+        </td>
+        </tr>
+
+
+
+        <% @import.import_step.order(:id).each do |step| %>
+            <tr>
+            <td>
+                <h3>Step #<%= step.id %></h3>
+            </td>
+            <td>
+                <h3><%= "#{step.description}" %></h3>
+            </td>
+            <td>
+                <%= if step.totalrows.to_i>0 then
+                        "Total Rows: #{step.totalrows}"
+                        link_to "Total Rows: #{step.totalrows}", import_job_path(@import, :step => step.id, :state => :all)
+                    end %>
+                <br/>
+                <%= if step.validrows.to_i>0 then
+                        #"Valid Rows: #{step.validrows}"
+                        link_to "Valid Rows: #{step.validrows}", import_job_path(@import, :step => step.id, :state => :valid)
+                    end %>
+                <%= if step.errorrows.to_i>0 then
+                        # "Error Rows: #{step.errorrows}"
+                        link_to "Error Rows: #{step.errorrows}", import_job_path(@import, :step => step.id, :state => :error)
+                    end %>
+                <%= if step.errortext then "Errors: #{step.errortext}" end %>
+            </td>
+            </tr>
+
+            <% step.import_rows(@scope_step, @scope_state).order(:row).each do |row| %>
+                <tr>
+                    <td> </td>
+                    <td><%= row.rawdata %></td>
+                    <td><%= row.message %></td>
+                </tr>
+            <% end %>
+        <% end %>
+    </table>
+
+      <%= link_to "Refresh", import_job_path(@import) %>
+
+
+</div>

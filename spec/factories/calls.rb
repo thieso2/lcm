@@ -12,8 +12,8 @@
 #
 
 FactoryGirl.define do
-  factory :call do
-    
+  factory :call, aliases: [:phonecall] do
+
   end
 
 end

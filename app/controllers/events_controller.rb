@@ -4,10 +4,10 @@ class EventsController < ApplicationController
   respond_to :html
 
   VISIBLE_ATTRIBUTES =
-  %w( event_type eid shortname location startdate enddate baseprice group_state )
+  %w( eid shortname location startdate enddate baseprice event_state )
 
-  def index    
-    @events = Event.search(params[:search]).order(startdate: :desc).take(20)
+  def index
+    @events = Event.search(params[:search]).order(startdate: :desc).take(15)
     respond_with(@events)
   end
 

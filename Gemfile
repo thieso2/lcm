@@ -1,21 +1,33 @@
-source 'https://rubygems.org'
+source 'https://RubyGems.org'
 ruby '2.2.0'
+
 gem 'rails', '>=4.2.0'
 gem 'sass-rails',   '~> 5.0'
 gem 'uglifier',     '>= 1.3.0'
-#gem 'coffee-rails', '~> 4.1.0'
+# gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
-#gem 'turbolinks'
-#gem 'jbuilder',     '~> 2.0'
+# gem 'turbolinks'
+# gem 'jbuilder',     '~> 2.0'
+
+gem 'thin'
 
 gem 'simple_form'
 gem 'country_select', github: 'stefanpenner/country_select'
 gem 'enumerize'
 
 gem 'creek'
-# gem 'remote_table'  Keine Ruby 2.x Unterstützung ?!?
+# gem 'dullard'
+# gem 'spreadsheet'
+# gem 'remote_table'  No Ruby 2.x support ?!?
+
+gem 'zip-zip'
+gem 'axlsx'     # Write Excel-Files
+# gem 'acts_as_xlsx'
 
 gem 'bettertabs'
+gem 'kaminari'
+gem 'kaminari-i18n'
+gem 'kaminari-bootstrap'
 
 # gem 'vestal_versions', :git => 'git://github.com/scottwillson/vestal_versions'
 gem 'paper_trail', '~> 4.0.0.beta'
@@ -34,36 +46,42 @@ gem 'pundit'
 group :development, :test do
   gem 'byebug'
   gem 'pry-byebug'
-
   gem 'web-console', '~> 2.0'
-#  gem 'spring'
+  # gem 'spring'
   gem 'sqlite3'
+  gem 'pg'        # Postgresql
   # gem 'watchr'
   gem 'spectator'
 end
 
 group :development do
   gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'quiet_assets'
   gem 'rails_layout'
-#  gem 'spring-commands-rspec'
+  #  gem 'spring-commands-rspec'
   gem 'annotate'
+  gem 'ruby-prof'
+  gem 'rubocop'
 end
+
 group :test do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails'
   gem 'faker'
-end
-group :production do
-  gem 'pg'
-  gem 'rails_12factor'
+  gem 'capybara'
 end
 
 group :test do
-#  gem 'capybara'
-#  gem 'database_cleaner'
-#  gem 'launchy'
-#  gem 'selenium-webdriver'
+  #  gem 'capybara'
+  #  gem 'database_cleaner'
+  #  gem 'launchy'
+  #  gem 'selenium-webdriver'
+end
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
 end

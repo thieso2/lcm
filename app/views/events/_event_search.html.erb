@@ -1,7 +1,11 @@
-<%= inline_form :search, url: events_path, method: :get  do |f| %>
-  <%= f.input :shortname, placeholder: "Short Name"  %>
-  <%= f.input :title,     placeholder: "Title",    inline_label: "Title"  %>
-  <%= f.input :location,  placeholder: "Location", label: "Location" %>
-  <%= f.input :state,     placeholder: "State", collection: Group.group_states %>
-  <%= f.button :submit, "Search" %>         
-<% end %>
+<tr>
+  <%= inline_form :search, url: events_path, method: :get  do |f| %>
+    <td><%= f.input :shortname, placeholder: "Short Name"  %></td>
+    <td><%= f.input :title,     placeholder: "Title",    inline_label: "Title"  %></td>
+    <td><%= f.input :location,  placeholder: "Location", collection: Location.all, prompt: "Alle Orte" %></td>
+    <td></td>
+    <td></td>
+    <td><%= f.input :state,     placeholder: "State",    collection: Group.group_states, prompt: "Alle" %></td>
+    <td span="2"><%= f.button :submit, "Search" %></td>
+  <% end %>
+</tr>

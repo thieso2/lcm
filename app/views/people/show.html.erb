@@ -1,19 +1,21 @@
 <div class="row">
+  <h3>Person : <%= @person %></h3>
+</div>
+
+<div class="row">
   <div class="col-sm-5">
     <%= bettertabs_bootstrap :person do |tab| %>
-      <%= tab.ajax :person do  %> 
+      <%= tab.ajax :person do  %>
         <%= show_object @person, only: controller.class::VISIBLE_ATTRIBUTES %>
-      
-        <div class="col-sm-5">
-          <%= link_to 'Edit', edit_person_path(@person), {class: "btn btn-default"} %>
-        </div>
+
+        <%= link_to 'Edit', edit_person_path(@person), {class: "btn btn-default"} %>
       <% end %>
-    <% end %>  
+    <% end %>
   </div>
 
 
-  <div class="col-sm-5">
-    <div class="tabbable">
+  <div class="col-sm-7">
+    <% # div class="tabbable" %>
       <%= bettertabs_bootstrap :person_tabs do |tab|
         tab.ajax :events,   locals: { person: @person }
         tab.ajax :teams,    locals: { person: @person }
@@ -22,7 +24,7 @@
       end
       %>
     </div>
-  </div>  
+  </div>
 </div>
 
 

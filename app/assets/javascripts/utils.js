@@ -10,7 +10,15 @@ function disable_form() {
      $('form.readonly select').prop('disabled', true);
 }
 
+function mark_do_not_contact() {
+  $('td').filter( function(index) {
+    return $(this).text() == "!!! Do not contact !!!"
+  })
+  .addClass('dnc');
+}
+
 $(document).ready( function() {
     create_buttons();
     disable_form();
+    mark_do_not_contact();
 });

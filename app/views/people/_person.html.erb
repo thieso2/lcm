@@ -2,19 +2,26 @@
 
   <%= f.error_notification %>
 
+  <%= f.input :pid %>
+  <%= f.input :title %>
   <%= f.input :sex, collection: Person.sex.options %>
-  <%= f.input :firstname %> 
-  <%= f.input :lastname  %> 
+  <%= f.input :firstname %>
+  <%= f.input :callby %>
+  <%= f.input :lastname  %>
+  <%= f.input :birthday %>
   <%= f.input :country, priority_countries: ["GB", "FR", "DE"] %>
-  <%= f.input :zip %> 
-  <%= f.input :city %> 
+  <%= f.input :zip %>
+  <%= f.input :city %>
   <%= f.input :street %>
+  <%= f.input :housenumber %>
+  <%= f.input :state %>
+  <%= f.input :date %>
   <%= f.input :phone_private %>
   <%= f.input :phone_work %>
   <%= f.input :phone_mobile %>
-  
+
   <%= f.input :do_not_contact, as: :boolean %>
-  
+
   <%= f.input :access, collection: Person.accesses.keys.map {|right| [right.titleize,right]} %>
   <%= f.button :submit %>
   <%= link_to "Cancel", :back, {:class=>"btn btn-default"} %>

@@ -1,4 +1,4 @@
-def Report::xxxpot_frankfurt
+def Report::pot_frankfurt
   sql = "
 SELECT pid, lastname, firstname, email
 FROM people

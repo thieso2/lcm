@@ -1,24 +1,25 @@
 class PeopleController < ApplicationController
   before_filter :authenticate_user!
-  
+
   before_action :find_person, only: [:show, :edit, :update, :destroy]
   after_action  :verify_authorized
-  
-  respond_to :html
-  
-  VISIBLE_ATTRIBUTES =
-    %w(sex firstname lastname email country city street
-                    phone_private phone_work phone_mobile) 
 
-  def index    
-    @persons = Person.search(params[:search]).take(20)
+  respond_to :html
+
+  VISIBLE_ATTRIBUTES =
+    %w(pid title sex firstname callby lastname birthday email country city street housenumber
+                    state date
+                    phone_private phone_work phone_mobile region)
+
+  def index
+    @persons = Person.search(filter_params).take(15)
     authorize Person
   end
 
   def show
     authorize @person
   end
-  
+
   def new
     @person = Person.new
     authorize @person
@@ -28,7 +29,7 @@ class PeopleController < ApplicationController
   def create
     @person = Person.new(secure_params)
     authorize @person
-    
+
     respond_to do |format|
       if @person.save
         format.html { redirect_to @person, notice: 'Person was successfully created.' }
@@ -39,15 +40,15 @@ class PeopleController < ApplicationController
       end
     end
   end
-  
-  def edit           
+
+  def edit
     @person = Person.find(params[:id])
     authorize @person
     respond_with @person
   end
 
   def update
-    
+
     authorize @person
     if @person.update(secure_params)
       respond_with(@person)
@@ -58,7 +59,7 @@ class PeopleController < ApplicationController
     #if @person.update_attributes(secure_params)
     #  redirect_to person_path, :notice => "Person updated."
     #else
-    #  #format.html { render :edit, @person}      
+    #  #format.html { render :edit, @person}
     #  redirect_to edit_person_path(@person), :alert => "Unable to update person. #{@person.errors.messages}"
     #end
   end
@@ -77,11 +78,20 @@ class PeopleController < ApplicationController
   def secure_params
     params
     . require(:person)
-    . permit(:firstname, :lastname, :sex, :country,
+    . permit(:pid, :firstname, :lastname, :sex, :country,
               :zip, :city, :street, :email,
+	      :state, :date,
               :phone_private, :phone_work, :phone_mobile,
               :do_not_contact, :access, :password)
   end
 
+  def filter_params
+    if params[:person]
+      @filter = params.require(:person)
+    else
+      @filter = params
+    end
+    @filter.permit(:pid, :lastname, :country, :zip, :city)
+  end
 
 end

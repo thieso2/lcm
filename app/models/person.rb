@@ -15,6 +15,8 @@
 #  last_sign_in_ip        :string
 #  created_at             :datetime
 #  updated_at             :datetime
+#  region_id              :integer
+#  pid                    :integer
 #  firstname              :string
 #  lastname               :string
 #  callby                 :string
@@ -31,12 +33,15 @@
 #  phone_work             :string
 #  phone_mobile           :string
 #  notes                  :string
-#  pid                    :integer
 #  do_not_contact         :boolean
 #  access                 :integer
 #
 
+
+
 class Person < ActiveRecord::Base
+  self.primary_key = :pid
+
   extend Enumerize
   # versioned
   has_paper_trail
@@ -47,12 +52,18 @@ class Person < ActiveRecord::Base
   after_initialize :set_default_values, :if => :new_record?
   after_initialize :set_default_access, :if => :new_record?
 
-  has_many :assignments
+  before_validation {if self.pid.blank? then self.pid = Person.new_pid end} # in theory this could give the same pid for two concurrent actions
+
   has_many :calls
+  has_many :person_team_assignments
+  has_many :person_event_assignments
+
+  belongs_to :region
 
   # validates :sex,      presence: true
-  validates :lastname, presence: true
-  validates :country,  presence: true
+  validates :pid,       presence: true
+  validates :lastname,  presence: true
+  validates :country,   presence: true
 
   def self.search(search)
     if search
@@ -69,23 +80,29 @@ class Person < ActiveRecord::Base
 
   end
 
-  def fullname
-    "#{firstname} #{lastname}"
-  end
-  def to_s
-    fullname
+  def self.new_pid
+    Person.maximum(:pid) +1
   end
 
-  def assign_to(group, role)
-    assignments.create!(group: group, role_type: role)
+
+  def fullname
+    "#{lastname}, #{firstname}"
+  end
+  def to_s
+    "#{lastname}, #{firstname} #{country}-#{zip} #{city}"
+  end
+
+  def assign_to_event(event, role)
+    person_event_assignments.create!(event: event, event_role_type: role)
   end
 
   def events
-    Assignment.where(Person_id: id).joins(group: :group_type).merge(GroupType.event)
+    PersonEventAssignment.where(person_id: id).includes(event: :event_type).order("startdate DESC") #.merge(GroupType.event)
+    # Event.includes(person_event_assignments: :event_role_type).where("person_event_assignments.person_id" => id)
   end
 
   def teams
-    Assignment.where(Person_id: id).joins(group: :group_type).merge(GroupType.team)
+    PersonTeamAssignment.where(person_id: id) # .joins(group: :group_type).merge(GroupType.team)
   end
 
   def salutation
@@ -116,6 +133,18 @@ class Person < ActiveRecord::Base
       super
     end
   end
+
+  def region=(region)
+    return if region.blank?
+
+    r = Region.where(code: region).first
+    if r
+      super r
+    else
+      super Region.create!(code: region)
+    end
+  end
+
 
   def status=(value)
     if value == "DNC"

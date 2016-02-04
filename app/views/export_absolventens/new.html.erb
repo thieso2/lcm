@@ -1,0 +1,18 @@
+<div class="row">
+  <h1>Export der Daten in eine Absolventen Excel Datei</h1>
+</div>
+
+<div class="row">
+  <div class="col-sm-6">
+    Die Daten ...
+  </div>
+</div>
+
+<br/>
+
+<div class="row">
+  <%= horizontal_form :export_absolventen, url: export_absolventen_path do |f| %>
+    <%# f.input :file, as: :file, label: "Export in die Absolventen Excel Datei:" %>
+    <%= f.submit "Export File" %>
+  <% end %>
+</div>

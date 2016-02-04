@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   include Pundit
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_filter :reload_libs #, :if => defined? RELOAD_LIBS
   before_action :set_locale
 
   helper :show_object

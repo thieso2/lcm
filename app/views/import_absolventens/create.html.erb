@@ -1,3 +1,9 @@
-<div class="container">
-  <%= @info.inspect %>   
+<div class="row">
+  <%= "#{@info}" %>
+  <%  @info.import_step.each do |step| %>
+    <%= "#{step}" %><br>"
+    <% step.import_row.each do |row| %>
+      <%= "#{row}" %>
+    <% end %>
+  <% end %>
 </div>
