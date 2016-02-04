@@ -7,8 +7,9 @@ class PeopleController < ApplicationController
   respond_to :html
 
   VISIBLE_ATTRIBUTES =
-    %w(pid sex firstname lastname email country city street
-                    phone_private phone_work phone_mobile)
+    %w(pid title sex firstname callby lastname birthday email country city street housenumber
+                    state date
+                    phone_private phone_work phone_mobile region)
 
   def index
     @persons = Person.search(filter_params).take(15)
@@ -79,6 +80,7 @@ class PeopleController < ApplicationController
     . require(:person)
     . permit(:pid, :firstname, :lastname, :sex, :country,
               :zip, :city, :street, :email,
+	      :state, :date,
               :phone_private, :phone_work, :phone_mobile,
               :do_not_contact, :access, :password)
   end

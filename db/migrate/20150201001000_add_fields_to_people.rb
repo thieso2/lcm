@@ -18,6 +18,9 @@ class AddFieldsToPeople < ActiveRecord::Migration
       t.string  :housenumber
       t.date    :birthday
 
+      t.string  :state # "Status"
+      t.string  :date # "Datum"
+
       t.string :phone_private
       t.string :phone_work
       t.string :phone_mobile

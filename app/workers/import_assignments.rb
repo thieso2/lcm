@@ -29,7 +29,7 @@ class ImportAssignments
 
       @import.log_step description: "Import Assignments: Create Records"
       #ActiveRecord::Base.transaction do
-        ActiveRecord::Base.logger.silence do
+        ActiveRecord::Base.logger.quietly do
           rows.each do |row|
             next if row["zID"].blank?
             import_row(row)

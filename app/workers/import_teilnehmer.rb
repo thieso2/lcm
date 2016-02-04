@@ -14,10 +14,14 @@ class ImportTeilnehmer
     "Name" => "lastname",
     "Nachname" => "lastname",
     "Vorname" => "firstname",
+    "Rufname" => "callby",
+    "Titel" => "title",
     "Straße" => "street",
+    "HNr" => "housenumber",
     "PLZ" => "zip",
     "Ort" => "city",
     "Land" => "country",
+    "Geb.Datum" => "birthday",
     "Telefon Privat"  => "phone_private",
     "Telefon Arbeit"  => "phone_work",
     "Telefon Mobil"   => "phone_mobile",
@@ -48,7 +52,7 @@ class ImportTeilnehmer
     step.totalrows = rows.count
     step = @import.log(:step, description: "Import Teilnehmer: Update Records")
     #ActiveRecord::Base.transaction do
-    ActiveRecord::Base.logger.silence do
+    ActiveRecord::Base.logger.quietly do
         rows.each do |row|
           import_row(row)
         end
@@ -57,7 +61,7 @@ class ImportTeilnehmer
   end
 
   def import_row(row)
-    debugger  if row[:row].to_i == 1
+    # debugger  if row[:row].to_i == 1
     return if row["Name"].blank? && row["Nachname"].blank?
 
     if p = find_person(row)
@@ -77,7 +81,8 @@ class ImportTeilnehmer
   end
 
   def find_person(row)
-    if pid=row["PID"].to_i && pid && pid > 0
+    pid=row["PID"].to_i
+    if pid > 0
       if p = Person.where(pid: pid).first
         return p
       end
@@ -86,7 +91,7 @@ class ImportTeilnehmer
     lastname = row["Nachname"] || row["Name"]
     firstname = row["Vorname"]
     country = row["Land"]
-    country = "DE" if country = "D"
+    country = "DE" if country == "D"
 
     query1 = Person.where(country: country).where(lastname: lastname).where(firstname: firstname)
     query2 = query1.where(zip: row["PLZ"])

@@ -11,12 +11,18 @@ class ImportAttendees
   MAPPING = {
       "pID" => "pid",
       "Anrede" => "salutation",
+      "Titel" => "title",
       "Nachname" => "lastname",
       "Vorname" => "firstname",
+      "Rufname" => "callby",
       "Straße" => "street",
+      "HNr" => "housenumber",
       "PLZ" => "zip",
       "Ort" => "city",
       "Land" => "country",
+      "Geb.Datum" => "birthday",
+      "Status" => "state",
+      "Datum" => "date",
       "Telefon Privat"  => "phone_private",
       "Telefon Arbeit"  => "phone_work",
       "Telefon Mobil"   => "phone_mobile",
@@ -42,7 +48,7 @@ class ImportAttendees
         rows = XlsxImport.read_sheet @import.temp_filename, SHEET_ATTENDEES
       rescue XlsxImport::Error => e
         @import.log :error, e.to_s
-        return
+        return nil
       end
 
       step.totalrows = rows.count

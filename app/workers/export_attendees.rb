@@ -3,23 +3,25 @@ class ExportAttendees
 
   MAPPING = {
       "pID" => "pid",
-      "Anrede" => "salutation",
+      "Kommentar / wichtige Info" => "notes",
+      "Status" => "state",
+      "Datum" => "date",
       "Nachname" => "lastname",
       "Vorname" => "firstname",
       "Rufname" => "callby",
+      "Anrede" => "salutation",
       "Titel" => "title",
+      "Geb.Datum" => "birthday",
       "Straße" => "street",
       "HNr" => "housenumber",
       "PLZ" => "zip",
       "Ort" => "city",
       "Land" => "country",
-      "Geb.Datum" => "birthday",
       "Telefon Privat"  => "phone_private",
       "Telefon Arbeit"  => "phone_work",
       "Telefon Mobil"   => "phone_mobile",
       "eMail" => "email",
-      "Zuordnung" => "code",
-      "Kommentar / wichtige Info" => "notes"
+      "Zuordnung" => "code"
     }
 
   def self.process(xls_workbook)

@@ -1,5 +1,5 @@
 # Imports Absolventen, Events and Assignments from an Excel File
-class ImportExcelAbsolventens
+class ImportExcelAbsolventen
   include Sidekiq::Worker
   sidekiq_options :retry => false
 
@@ -9,10 +9,13 @@ class ImportExcelAbsolventens
   end
 
   def perform(jobid)
-    if Person.count < 5
-      # Initial load of database => disable PaperTrail
-      PaperTrail.enabled = false
-    end
+    # Initial load of database => disable PaperTrail
+    PaperTrail.enabled = false
+
+    PersonEventAssignment.delete_all
+    PersonTeamAssignment.delete_all
+    Event.delete_all
+    Person.delete_all("pid > 1")
 
     import = ImportJob.find(jobid)
     ActiveRecord::Base.transaction { ImportAttendees.read(import) }
