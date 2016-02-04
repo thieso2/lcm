@@ -3,12 +3,13 @@ class AddFieldsToPeople < ActiveRecord::Migration
     change_table(:people) do |t|
       t.belongs_to :region
 
-      t.integer :pid
+      # t.integer :pid
 
       t.string  :firstname
       t.string  :lastname
+      t.string  :callby
       t.string  :sex
-      t.integer :salutation
+      t.string  :title
       t.string  :country
       t.string  :region
       t.string  :zip

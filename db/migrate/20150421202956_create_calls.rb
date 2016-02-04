@@ -8,6 +8,7 @@ class CreateCalls < ActiveRecord::Migration
       t.text        :info
       t.timestamps null: false
     end
-    add_foreign_key :calls, :Person, column: :caller_id
+
+    add_foreign_key :calls, :people, column: :caller_id, primary_key: :pid
   end
 end

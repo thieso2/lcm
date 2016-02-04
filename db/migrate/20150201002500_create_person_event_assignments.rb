@@ -8,10 +8,11 @@ class CreatePersonEventAssignments < ActiveRecord::Migration
       t.date :startdate
       t.date :enddate
 
-      t.timestamps null: false
+      t.timestamps
     end
-    add_foreign_key :assignments, :People
-    add_foreign_key :assignments, :Events
-    add_foreign_key :assignments, :EventRoleTypes
+
+    add_foreign_key :person_event_assignments, :people, primary_key: :pid
+    add_foreign_key :person_event_assignments, :events, primary_key: :eid
+    add_foreign_key :person_event_assignments, :event_role_types
   end
 end

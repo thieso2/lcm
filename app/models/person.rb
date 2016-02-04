@@ -36,7 +36,11 @@
 #  access                 :integer
 #
 
+
+
 class Person < ActiveRecord::Base
+  self.primary_key = :pid
+
   extend Enumerize
   # versioned
   has_paper_trail
@@ -46,6 +50,8 @@ class Person < ActiveRecord::Base
 
   after_initialize :set_default_values, :if => :new_record?
   after_initialize :set_default_access, :if => :new_record?
+
+  before_validation {if self.pid.blank? then self.pid = Person.new_pid end} # in theory this could give the same pid for two concurrent actions
 
   has_many :calls
   has_many :person_team_assignments
