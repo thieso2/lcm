@@ -4,7 +4,7 @@ class CreateTeams < ActiveRecord::Migration
       t.belongs_to :team_type, index: true
       t.references :region
 
-      t.integer :tid            # old Event ID
+      # t.integer :tid            # old Event ID
       t.string  :shortname
       t.string  :title
       t.date    :startdate

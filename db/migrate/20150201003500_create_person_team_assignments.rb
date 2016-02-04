@@ -1,8 +1,8 @@
 class CreatePersonTeamAssignments < ActiveRecord::Migration
   def change
     create_table :person_team_assignments do |t|
-      t.references :person,    index: true
-      t.references :team,     index: true
+      t.references :person,         index: true
+      t.references :team,           index: true
       t.references :team_role_type, index: true
 
       t.date :startdate
