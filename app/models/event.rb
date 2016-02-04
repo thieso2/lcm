@@ -16,7 +16,11 @@
 #  updated_at    :datetime         not null
 #
 
+
+
 class Event < ActiveRecord::Base
+
+  self.primary_key = :eid
 
   STATUSES = [:planning, :open, :started, :ended, :closed]
   enum event_state: STATUSES
@@ -26,8 +30,7 @@ class Event < ActiveRecord::Base
   has_many   :person_event_assignments
 
   validates :event_type_id, presence: true
-  validates :location_id, presence: true
-
+  validates :location_id,   presence: true
 
   validates_presence_of  :startdate #, :enddate
   # validates :enddate, date: { :after_or_equal_to => :startdate }
@@ -35,6 +38,39 @@ class Event < ActiveRecord::Base
   default_scope { joins(:event_type).order(:startdate) }
 
   scope :open, -> { where(event_state: Group.group_states[:open]).order(:startdate)}
+
+  def self.shortname_from_filename(filename)
+    return if filename.blank?
+
+    filename = filename.upcase
+    if filename.start_with? "SEM"
+      prefix  = "Sem"
+      evtcode =  filename[11,3]
+      loccode = filename[3,3]
+      ym_code = filename[6,4]
+    elsif filename.start_with? "WISUNLIMITED"
+      prefix  = ""
+      evtcode = "WIS"
+      loccode = "EUR"
+      ym_code = "0000"
+    elsif filename.start_with? "WIS_FuEv"
+      prefix  = ""
+      evtcode = "WFW"
+      loccode = "HAN"
+      ym_code = filename[9,4]
+    elsif filename.start_with? == "ILP"
+      prefix  = ""
+      evtcode = "ILP"
+      loccode = "GER"
+      ym_code = filename[3,3]
+    else
+      prefix  = ""
+      evtcode = filename[0,3]
+      loccode = filename[3,3]
+      ym_code = filename[6,4]
+    end
+    return prefix + evtcode + loccode + ym_code
+  end
 
   def self.search(search)
     if search
@@ -67,6 +103,10 @@ class Event < ActiveRecord::Base
     startdate.strftime("%y%m")
   end
 
+  def year
+    startdate.year
+  end
+
   # --------------------------------------------------------
 
   def city=(city)
@@ -74,35 +114,28 @@ class Event < ActiveRecord::Base
      self.location = l if l
   end
 
-  def setshortname=(shortname)
+  def filename=(filename)
+    self.shortname = Event.shortname_from_filename(filename)
+  end
 
-    if shortname.upcase == "WISUNLIMITED"
-      evtcode = "WIS"
-      loccode = "EUR"
-    elsif shortname.upcase.start_with? == "WIS_FuEv"
-      evtcode = "WFW"
-      loccode = "HAN"
-    elsif shortname[0,3].upcase == "SEM"
-      evtcode = shortname[-3,3].upcase
-      loccode = shortname[3,3]
-      ym_code = shortname[6,4]
-    elsif shortname[0,3].upcase == "ILP"
-      evtcode = "ILP"
-      loccode = "GER"
-    elsif shortname[0,2] == "ME"
-      evtcode = "ME"
-      loccode = shortname[2,3]
+  def shortname=(shortname)
+    super
+    if shortname.start_with?("Sem")
+      evtcode = shortname[0,6]
+      loccode = shortname[6,3]
+      ym_code = shortname[9,4]
     else
-      evtcode = shortname[0,3].upcase
+      evtcode = shortname[0,3]
       loccode = shortname[3,3]
       ym_code = shortname[6,4]
     end
 
     evt = EventType.where(code: evtcode).first
     if evt.nil?
-      debugger
+      logger.error "EventType #{evtcode} not found"
+    else
+      self.event_type = evt
     end
-    self.event_type = evt
 
     if self.location.nil?
       loc = Location.where(code: loccode).first
@@ -117,9 +150,9 @@ class Event < ActiveRecord::Base
 
 
   before_save do
-    if self.shortname.nil?
-      self.shortname = event_type.code + location.code + startdate_code
-    end
+    #if self.filename.nil?
+    #  self.filename = event_type.code + location.code + startdate_code
+    #end
     if self.title.nil?
       self.title = event_type.description
     end
