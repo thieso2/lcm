@@ -1,23 +1,27 @@
 <div  class="col-sm-5">
+  <div class="tabbable">
     <%= bettertabs_bootstrap :person do |tab| %>
       <%= tab.ajax :event do  %>
         <%= show_object @event, only: controller.class::VISIBLE_ATTRIBUTES %>
-        <div>Anzahl Teilnehmer: <%= @event.person_event_assignments.count %></div>
-        <div class="col-sm-5">
+        <div class="row">
+          Anzahl Teilnehmer: <%= @event.person_event_assignments.count %>
+        </div>
+        <div class="row">
           <%= link_to 'Edit', edit_event_path(@event), {class: "btn btn-default"} %>
           <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' } %>
         </div>
       <% end %>
     <% end %>
-</div>
-
-  <div class="col-sm-5">
-    <div class="tabbable">
-      <%= bettertabs_bootstrap :event_tabs do |tab|
-        tab.ajax :attendees,  locals: { object: @event.attendees }
-        tab.ajax :assistants, locals: { object: @event.assistants }
-      end
-      %>
-    </div>
   </div>
 </div>
+
+<div class="col-sm-6">
+  <div class="tabbable">
+    <%= bettertabs_bootstrap :event_tabs do |tab|
+      tab.ajax :attendees,  locals: { object: @event.attendees }
+      tab.ajax :assistants, locals: { object: @event.assistants }
+    end
+    %>
+  </div>
+</div>
+

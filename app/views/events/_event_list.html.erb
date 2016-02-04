@@ -12,9 +12,11 @@
   </thead>
 
   <tbody>
+    <%= render 'events/event_search' %>
+
     <% @events.each do |event| %>
       <tr>
-        <td><%= event.shortname %></td>
+        <td><%= link_to event.shortname, event %></td>
         <td><%# event.event_type.try(:description) %>
             <%= event.title %></td>
         <td><%= event.location %></td>

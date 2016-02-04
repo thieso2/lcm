@@ -10,10 +10,16 @@
     <% person.events.order("startdate DESC").each do |assignment| %>
       <tr>
         <td><%= assignment.event.startdate %></td>
-        <td><%= "#{assignment.event.event_type}" %></br><%= "#{assignment.event.title}" %></td>
+        <td>
+            <%= link_to assignment.event do %>
+              <%= "#{assignment.event.event_type}" %>
+              </br>
+              <%= "#{assignment.event.title}" %>
+            <% end %>
+        </td>
         <td><%= assignment.event_role_type %></td>
-        <td><%= link_to 'Show', assignment %></td>
-        <td><%= link_to 'Edit', edit_person_event_assignment_path(assignment) %></td>
+        <td><%# link_to 'Show', assignment %></td>
+        <td><%# link_to 'Edit', edit_person_event_assignment_path(assignment) %></td>
         <td><%= link_to 'Remove', assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
 
