@@ -5,22 +5,3 @@ de:
     required:
       text: 'benötigt'
       mark: '*'
-    person:
-      sex: 'Geschlecht'
-    Person:
-      Sex: 'Geschlecht'
-    labels:
-      defaults:
-        sex: "Wo isses"
-      person:
-        sex: "Hui"
-      people:
-        sex: "HuiHui"
-        
-  attributes:
-    sex: "Dödel"
-    
-  helpers:
-    label:
-      person:
-        sex: "Dingens"

@@ -37,7 +37,7 @@ Rails.application.configure do
     user_name: Rails.application.secrets.email_provider_username,
     password: Rails.application.secrets.email_provider_password
   }
-  
+
   # ActionMailer Config
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
@@ -57,7 +57,9 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  
+
   config.web_console.whitelisted_ips = "192.168.178.0/8"
-  
+
+  BetterErrors::Middleware.allow_ip! "192.168.178.0"
+
 end

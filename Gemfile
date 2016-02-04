@@ -22,20 +22,25 @@ gem 'paper_trail', '~> 4.0.0.beta'
 
 gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'master'  # For 4.x
 
-group :development, :test do
-  gem 'byebug'
-  gem 'web-console', '~> 2.0'
-#  gem 'spring'
-  gem 'sqlite3'
-  # gem 'watchr'
-  gem 'spectator'
-
-end
+gem 'sinatra'
+gem 'sidekiq'
+gem 'redis'
 
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'devise-i18n'
 gem 'pundit'
+
+group :development, :test do
+  gem 'byebug'
+  gem 'pry-byebug'
+
+  gem 'web-console', '~> 2.0'
+#  gem 'spring'
+  gem 'sqlite3'
+  # gem 'watchr'
+  gem 'spectator'
+end
 
 group :development do
   gem 'better_errors'
@@ -55,6 +60,7 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
+
 group :test do
 #  gem 'capybara'
 #  gem 'database_cleaner'

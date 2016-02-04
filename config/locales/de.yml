@@ -3,4 +3,43 @@ de:
   phone_private: "Tel. Privat"
   phone_work: "Tel. Arbeit"
   do_not_contact: "Do Not Contact"
-  
+
+  male:   'Herr'
+  female: 'Frau'
+  other:  ''
+
+  Person:
+    pid:        'PID'
+    title:      'Titel'
+    sex:        'Geschlecht'
+    firstname:  'Vorname'
+    callby:     'Rufname'
+    lastname:   'Nachname'
+    birthday:   'Geburtstag'
+    country:    'Land'
+    city:       'Ort'
+    street:     'Strasse'
+    housenumber: 'Hausnummer'
+    email:      'EMail'
+    state:      'Status'
+    date:       'Datum'
+    phone_private: 'Tel. Privat'
+    phone_work:    'Tel. Arbeit'
+    phone_mobile:  'Tel. Mobil'
+    region:        'Region'
+
+  Event:
+    eid: 'EID'
+    shortname: 'Name'
+    location:   'Veranstaltungsort'
+    startdate:  'Start'
+    enddate:    'Ende'
+    baseprice:  'Preis'
+    event_state: 'Status'
+
+activerecord:
+  attributes:
+    person:
+      city: 'CCC'
+    people:
+      city: 'CCC'

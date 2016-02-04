@@ -17,8 +17,9 @@
 #  updated_at             :datetime
 #  firstname              :string
 #  lastname               :string
+#  callby                 :string
 #  sex                    :string
-#  salutation             :integer
+#  title                  :string
 #  country                :string
 #  region                 :string
 #  zip                    :string
@@ -55,8 +56,9 @@ class Person < ActiveRecord::Base
 
   def self.search(search)
     if search
-      people = where(nil)
-      people = people.where("lastname like ?",  "#{search[:lastname]}%" ) if search[:lastname].present?
+      people = where("pid > 1")
+      people = people.where("pid = ?",          "#{search[:pid]}" )      if search[:pid].present?
+      people = people.where("lastname ilike ?", "#{search[:lastname]}%" ) if search[:lastname].present?
       people = people.where("country = ?",      "#{search[:country]}" )   if search[:country].present?
       people = people.where("zip like ?",       "#{search[:zip]}%" )      if search[:zip].present?
       people = people.where("city like ?",      "#{search[:city]}%" )     if search[:city].present?
@@ -87,6 +89,7 @@ class Person < ActiveRecord::Base
   end
 
   def salutation
+    I18n.translate self.sex
   end
 
   def salutation=(value)
@@ -98,6 +101,10 @@ class Person < ActiveRecord::Base
       else
         self.sex = :other
     end
+  end
+
+  def callby=(name)
+    super unless name==self.firstname
   end
 
   def country=(value="DE")
