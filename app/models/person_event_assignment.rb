@@ -8,8 +8,8 @@
 #  event_role_type_id :integer
 #  startdate          :date
 #  enddate            :date
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
+#  created_at         :datetime
+#  updated_at         :datetime
 #
 
 class PersonEventAssignment < ActiveRecord::Base

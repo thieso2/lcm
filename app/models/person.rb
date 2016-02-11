@@ -2,7 +2,7 @@
 #
 # Table name: people
 #
-#  id                     :integer          not null, primary key
+#  pid                    :integer          not null, primary key
 #  email                  :string           default("")
 #  encrypted_password     :string           default("")
 #  reset_password_token   :string
@@ -16,7 +16,6 @@
 #  created_at             :datetime
 #  updated_at             :datetime
 #  region_id              :integer
-#  pid                    :integer
 #  firstname              :string
 #  lastname               :string
 #  callby                 :string
@@ -29,6 +28,8 @@
 #  street                 :string
 #  housenumber            :string
 #  birthday               :date
+#  state                  :string
+#  date                   :string
 #  phone_private          :string
 #  phone_work             :string
 #  phone_mobile           :string
@@ -37,14 +38,13 @@
 #  access                 :integer
 #
 
-
-
 class Person < ActiveRecord::Base
   self.primary_key = :pid
 
-  extend Enumerize
-  # versioned
+  # track changes to model data
   has_paper_trail
+
+  extend Enumerize
 
   enum access: [:person, :assistant, :admin]
   enumerize :sex, in: [:other, :female, :male]
@@ -81,7 +81,7 @@ class Person < ActiveRecord::Base
   end
 
   def self.new_pid
-    Person.maximum(:pid) +1
+    1 + Person.maximum(:pid).to_i
   end
 
 

@@ -2,21 +2,18 @@
 #
 # Table name: events
 #
-#  id            :integer          not null, primary key
+#  eid           :integer          primary key
 #  event_type_id :integer
 #  location_id   :integer
-#  eid           :integer
 #  shortname     :string
 #  title         :string
 #  startdate     :date
 #  enddate       :date
 #  baseprice     :decimal(8, 2)
 #  event_state   :integer          default(0), not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  created_at    :datetime
+#  updated_at    :datetime
 #
-
-
 
 class Event < ActiveRecord::Base
 
@@ -27,6 +24,7 @@ class Event < ActiveRecord::Base
 
   belongs_to :event_type
   belongs_to :location
+
   has_many   :person_event_assignments
 
   validates :event_type_id, presence: true
@@ -37,7 +35,7 @@ class Event < ActiveRecord::Base
 
   default_scope { joins(:event_type).order(:startdate) }
 
-  scope :open, -> { where(event_state: Group.group_states[:open]).order(:startdate)}
+  # scope :open, -> { where(event_state: Event.open).order(:startdate)}
 
   def self.shortname_from_filename(filename)
     return if filename.blank?

@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: reports
+#
+#  id          :integer          not null, primary key
+#  name        :string
+#  url_name    :string
+#  description :string
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 
 class Report < ActiveRecord::Base
   def pot_frankfurt
