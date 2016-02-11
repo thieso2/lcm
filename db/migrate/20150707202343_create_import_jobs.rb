@@ -6,7 +6,7 @@ class CreateImportJobs < ActiveRecord::Migration
       t.datetime    :starttime
       t.datetime    :finishtime
 
-      t.references  :user, index: true, foreign_key: true
+      t.belongs_to  :person, index: true, foreign_key: {primary_key: :pid}
 
       t.timestamps null: false
     end
