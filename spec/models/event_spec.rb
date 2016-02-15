@@ -30,6 +30,16 @@ RSpec.describe Event, :type => :model do
       expect(subject.event_state).to eq("planning")
       expect(subject.planning?).to be true
     end
+
+    it "should have no :eid" do
+      expect(subject.eid).to be_nil
+    end
+
+    it "should have an :eid after save" do
+      subject.location = FactoryGirl.create(:location)
+      subject.save!
+      expect(subject.eid).to_not be_nil
+    end
   end
 
   describe "Class methods" do

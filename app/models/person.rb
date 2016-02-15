@@ -46,7 +46,6 @@ class Person < ActiveRecord::Base
 
   extend Enumerize
 
-  enum access: [:person, :assistant, :admin]
   enumerize :sex, in: [:other, :female, :male]
 
   after_initialize :set_default_values, :if => :new_record?

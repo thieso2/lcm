@@ -48,6 +48,8 @@ class User < ActiveRecord::Base  # ?< Person
          :recoverable, :rememberable, :trackable,
          :validatable
 
+  enum access: [:person, :assistant, :admin]
+
   def to_s
     email
   end

@@ -1,4 +1,4 @@
-class PersonPolicy
+class UserPolicy
   attr_reader :current_user, :model
 
   def initialize(current_user, model)
@@ -29,7 +29,6 @@ class PersonPolicy
 
   def update?
     @current_user.admin?
-    # true
   end
 
   def destroy?

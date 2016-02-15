@@ -1,11 +1,15 @@
 FactoryGirl.define do
+
+  sequence :email do |n|
+    "user#{n}@example.com"
+  end
+
   factory :user do
-    email     "user@example.com"
-    password  "please123"
+    email
+    password  "changeme"
 
     trait :admin do
       access 'admin'
     end
-
   end
 end
