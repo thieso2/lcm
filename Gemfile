@@ -9,6 +9,12 @@ gem 'jquery-rails'
 # gem 'turbolinks'
 # gem 'jbuilder',     '~> 2.0'
 
+# Database
+# gem 'sqlite3'
+# gem 'pg'        # Postgresql
+gem 'mysql2', '~> 0.3.18'   # Support for 0.4.x in Rails 5??
+
+# WebServer
 gem 'thin'
 
 gem 'simple_form'
@@ -32,7 +38,7 @@ gem 'kaminari-bootstrap'
 # gem 'vestal_versions', :git => 'git://github.com/scottwillson/vestal_versions'
 gem 'paper_trail', '~> 4.0.0.beta'
 
-gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'master'  # For 4.x
+gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'rails-4-x'  # For 4.x
 
 gem 'sinatra'
 gem 'sidekiq'
@@ -48,9 +54,9 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'web-console', '~> 2.0'
   # gem 'spring'
-  gem 'sqlite3'
-  gem 'pg'        # Postgresql
+
   # gem 'watchr'
+  # gem 'guard'
   gem 'spectator'
 end
 
@@ -82,6 +88,5 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
 end
