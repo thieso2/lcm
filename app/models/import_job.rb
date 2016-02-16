@@ -3,11 +3,11 @@
 # Table name: import_jobs
 #
 #  id                :integer          not null, primary key
-#  original_filename :string
-#  temp_filename     :string
+#  original_filename :string(255)
+#  temp_filename     :string(255)
 #  starttime         :datetime
 #  finishtime        :datetime
-#  user_id           :integer
+#  person_id         :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
@@ -20,9 +20,8 @@ class ImportJob < ActiveRecord::Base
     @current_step.save! if @current_step
   end
 
-  def initialize(options={})
-    super options
-    self.starttime = DateTime.now
+  after_initialize do
+    self.starttime ||= DateTime.now
     @current_step = nil
   end
 

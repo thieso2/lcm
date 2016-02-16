@@ -4,11 +4,11 @@
 #
 #  id            :integer          not null, primary key
 #  import_job_id :integer
-#  description   :string
+#  description   :string(255)
 #  totalrows     :integer
 #  validrows     :integer
 #  errorrows     :integer
-#  errortext     :string
+#  errortext     :string(255)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #

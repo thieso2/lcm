@@ -5,11 +5,11 @@
 #  id             :integer          not null, primary key
 #  import_step_id :integer
 #  row            :integer
-#  rawdata        :string
-#  importdata     :string
-#  conflictdata   :string
+#  rawdata        :text(65535)
+#  importdata     :text(65535)
+#  conflictdata   :text(65535)
 #  state          :integer
-#  message        :string
+#  message        :string(255)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #

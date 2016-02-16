@@ -3,8 +3,8 @@
 # Table name: regions
 #
 #  id          :integer          not null, primary key
-#  code        :string           not null
-#  description :string
+#  code        :string(255)      not null
+#  description :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime
 #

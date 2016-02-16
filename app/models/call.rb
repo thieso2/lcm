@@ -6,7 +6,7 @@
 #  person_id  :integer
 #  date       :datetime
 #  caller_id  :integer
-#  info       :text
+#  info       :text(65535)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
