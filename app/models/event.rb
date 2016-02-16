@@ -73,9 +73,9 @@ class Event < ActiveRecord::Base
   def self.search(search)
     if search
       events = where(nil)
-      events = events.where("shortname ilike ?",   "%#{search[:shortname]}%" )   if search[:shortname].present?
-      events = events.where("title ilike ?",       "%#{search[:title]}%")        if search[:title].present?
-      events = events.where("description ilike ?", "%#{search[:description]}%")  if search[:description].present?
+      events = events.where("shortname like ?",   "%#{search[:shortname]}%" )   if search[:shortname].present?
+      events = events.where("title like ?",       "%#{search[:title]}%")        if search[:title].present?
+      events = events.where("description like ?", "%#{search[:description]}%")  if search[:description].present?
       events = events.where("location_id = ?",     search[:location].to_i )     if search[:location].present?
       events = events.where("event_state = ?",     search[:state].to_i )        if search[:state].present?
       events
