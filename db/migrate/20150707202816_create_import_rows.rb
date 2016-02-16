@@ -3,9 +3,9 @@ class CreateImportRows < ActiveRecord::Migration
     create_table :import_rows do |t|
       t.references  :import_step
       t.integer     :row
-      t.string      :rawdata
-      t.string      :importdata
-      t.string      :conflictdata
+      t.text        :rawdata
+      t.text        :importdata
+      t.text        :conflictdata
       t.integer     :state
       t.string      :message
 

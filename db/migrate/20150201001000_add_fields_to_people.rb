@@ -25,7 +25,7 @@ class AddFieldsToPeople < ActiveRecord::Migration
       t.string :phone_work
       t.string :phone_mobile
 
-      t.string :notes
+      t.text   :notes
 
       t.boolean :do_not_contact
 
