@@ -5,8 +5,8 @@
 #  eid           :integer          primary key
 #  event_type_id :integer
 #  location_id   :integer
-#  shortname     :string
-#  title         :string
+#  shortname     :string(255)
+#  title         :string(255)
 #  startdate     :date
 #  enddate       :date
 #  baseprice     :decimal(8, 2)

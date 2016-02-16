@@ -1,14 +1,15 @@
 # == Schema Information
 #
-# Table name: imports
+# Table name: import_jobs
 #
-#  id         :integer          not null, primary key
-#  fromfile   :string
-#  starttime  :datetime
-#  finishtime :datetime
-#  user_id    :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                :integer          not null, primary key
+#  original_filename :string(255)
+#  temp_filename     :string(255)
+#  starttime         :datetime
+#  finishtime        :datetime
+#  person_id         :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
 
 require 'rails_helper'

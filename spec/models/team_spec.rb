@@ -5,8 +5,8 @@
 #  id           :integer          not null, primary key
 #  team_type_id :integer
 #  region_id    :integer
-#  shortname    :string
-#  title        :string
+#  shortname    :string(255)
+#  title        :string(255)
 #  startdate    :date
 #  enddate      :date
 #  created_at   :datetime         not null
