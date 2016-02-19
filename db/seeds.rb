@@ -117,3 +117,8 @@ Report.create!(
   url_name: 'pot_frankfurt',
   description: 'Alle Teilnehmer die mindestens entweder FGK und ein Seminar oder zwei Seminare gemacht haben'
 )
+Report.create!(
+  name: 'Absolventen FGK',
+  url_name: 'absolventen_fgk',
+  description: 'Alle Absolventen die an einem FGK teilgenommen haben.'
+)

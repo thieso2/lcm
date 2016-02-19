@@ -1,22 +1,32 @@
 <div class="row">
-  <h1><%= @report.name %></h1>
-  <h3><%= @report.description %></h3>
-  <h4><%= @query.count(:id) %> Ergebnisse</h4>
-
+  <div class="col-xs-11">
+    <h1><%= @report.name %></h1>
+    <h3><%= @report.description %></h3>
+    <h4><%= @count %> Ergebnisse</h4>
+  </div>
+  <div class="col-xs-1">
+    <%= link_to "Export to Excel", report_export_path(@report) %>
+  </div>
+</div>
+<div class="row">
   <table class="table">
     <thead>
       <tr>
         <% @results.first.attributes.keys.each do |field| %>
-          <th><%= field %></th>
+          <th><%= I18n.t field, scope: ["Person"] %></th>
         <% end %>
       </tr>
     </thead>
     <tbody>
       <% @results.each do |row| %>
         <tr>
-          <% row.attributes.each_pair do |s,column| %>
+          <% row.attributes.each_pair do |field,column| %>
             <td>
-              <%= column %>
+              <% if field == 'id' %>
+                <%= link_to column, person_path(column) %>
+              <% else %>
+                <%= column %>
+              <% end %>
             </td>
           <% end %>
         </tr>

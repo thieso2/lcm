@@ -11,8 +11,9 @@
 #
 
 class Report < ActiveRecord::Base
+
   def pot_frankfurt
-    Person.select("people.id, pid, lastname, firstname, email")
+    Person.select("id, lastname, firstname, email")
     .joins(:region)
     .where("(
             EXISTS (SELECT 1 FROM person_event_assignments
@@ -33,5 +34,17 @@ class Report < ActiveRecord::Base
               WHERE person_id = people.id AND event_types.description LIKE 'Seminar%' ) >= 2
     ")
     .order('lastname, firstname')
+  end
+
+  def absolventen_fgk
+    fgk = EventType.where(code: 'FGK').first   #.try(:id)
+    ffh = Region.where(code: "Frankfurt").first
+
+    Person.select("people.id, lastname, firstname, zip, city, street, housenumber, email, phone_private, phone_work, phone_mobile, birthday, shortname")
+    .joins(:region, :person_event_assignments => :event)
+    .where("events.event_type_id" => fgk)
+    .where(:region => ffh)
+    .where("events.startdate >= ?", "20130101")
+    .order('lastname, firstname, events.startdate')
   end
 end

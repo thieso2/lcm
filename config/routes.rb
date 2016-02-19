@@ -32,7 +32,9 @@ Rails.application.routes.draw do
 
   resource :export_absolventen,  only: [:new, :create]
 
-  resources :report, only: [:index, :show]
+  resources :report, only: [:index, :show] do
+    get :export
+  end
 
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
