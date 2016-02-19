@@ -1,6 +1,6 @@
 <tr>
   <%= inline_form :person, url: people_path, method: :get  do |f| %>
-    <td><%= f.input :pid,       placeholder: "PID"  %></td>
+    <td><%= f.input :id,        placeholder: "PID"  %></td>
     <td><%= f.input :lastname,  placeholder: "Lastname"  %></td>
     <td><%= f.input :country,   placeholder: "Country", inline_label: "Country", input_html: { width: "50px" }  %></td>
     <td><%= f.input :zip,       placeholder: "ZIP" %></td>

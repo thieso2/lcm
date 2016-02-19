@@ -9,6 +9,6 @@ class CreateCalls < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_foreign_key :calls, :people, column: :caller_id, primary_key: :pid
+    add_foreign_key :calls, :people, column: :caller_id
   end
 end

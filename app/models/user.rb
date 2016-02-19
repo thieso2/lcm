@@ -40,7 +40,6 @@
 
 class User < ActiveRecord::Base  # ?< Person
   self.table_name = "people"
-  self.primary_key = :pid
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

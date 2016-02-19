@@ -1,8 +1,6 @@
 class CreateEvents < ActiveRecord::Migration
   def change
-    create_table(:events, id:false) do |t|
-      t.integer     :eid
-
+    create_table(:events) do |t|
       t.belongs_to  :event_type, index: true
       t.references  :location
 
@@ -15,8 +13,6 @@ class CreateEvents < ActiveRecord::Migration
 
       t.timestamps
     end
-
-    add_index :events, :eid, :unique => true
 
     add_foreign_key :events, :event_types
     add_foreign_key :events, :locations

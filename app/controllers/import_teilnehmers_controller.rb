@@ -13,7 +13,7 @@ class ImportTeilnehmersController < ApplicationController
       import = ImportJob.create!(
           original_filename: file.original_filename,
           temp_filename: file.tempfile.path,
-          user_id: current_user.id)
+          person_id: current_user.id)
 
       ImportExcelTeilnehmer.perform(import.id)    # perform_async
       redirect_to import_job_path(import.id)

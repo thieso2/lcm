@@ -39,7 +39,6 @@
 #
 
 class Person < ActiveRecord::Base
-  self.primary_key = :pid
 
   # track changes to model data
   has_paper_trail
@@ -51,7 +50,7 @@ class Person < ActiveRecord::Base
   after_initialize :set_default_values, :if => :new_record?
   after_initialize :set_default_access, :if => :new_record?
 
-  before_validation {if self.pid.blank? then self.pid = Person.new_pid end} # in theory this could give the same pid for two concurrent actions
+  # before_validation {if self.id.blank? then self.id = Person.new_pid end} # in theory this could give the same pid for two concurrent actions
 
   has_many :calls
   has_many :person_team_assignments
@@ -60,14 +59,14 @@ class Person < ActiveRecord::Base
   belongs_to :region
 
   # validates :sex,      presence: true
-  validates :pid,       presence: true
+  validates :id,        presence: true
   validates :lastname,  presence: true
   validates :country,   presence: true
 
   def self.search(search)
     if search
-      people = where("pid > 1")
-      people = people.where("pid = ?",          "#{search[:pid]}" )      if search[:pid].present?
+      people = where("id > 1")
+      people = people.where("id = ?",           "#{search[:pid]}" )       if search[:pid].present?
       people = people.where("lastname like ?",  "#{search[:lastname]}%" ) if search[:lastname].present?
       people = people.where("country = ?",      "#{search[:country]}" )   if search[:country].present?
       people = people.where("zip like ?",       "#{search[:zip]}%" )      if search[:zip].present?
@@ -80,7 +79,7 @@ class Person < ActiveRecord::Base
   end
 
   def self.new_pid
-    1 + Person.maximum(:pid).to_i
+    1 + Person.maximum(:id).to_i
   end
 
 

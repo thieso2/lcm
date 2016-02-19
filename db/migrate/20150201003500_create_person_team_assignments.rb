@@ -10,7 +10,7 @@ class CreatePersonTeamAssignments < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :person_team_assignments, :people, primary_key: :pid
+    add_foreign_key :person_team_assignments, :people
     add_foreign_key :person_team_assignments, :teams
     add_foreign_key :person_team_assignments, :team_role_types
   end

@@ -7,7 +7,7 @@ class PeopleController < ApplicationController
   respond_to :html
 
   VISIBLE_ATTRIBUTES =
-    %w(pid title sex firstname callby lastname birthday email country city street housenumber
+    %w(id title sex firstname callby lastname birthday email country city street housenumber
                     state date
                     phone_private phone_work phone_mobile region)
 
@@ -78,7 +78,7 @@ class PeopleController < ApplicationController
   def secure_params
     params
     . require(:person)
-    . permit(:pid, :firstname, :lastname, :sex, :country,
+    . permit(:id, :firstname, :lastname, :sex, :country,
               :zip, :city, :street, :email,
 	      :state, :date,
               :phone_private, :phone_work, :phone_mobile,
@@ -91,7 +91,7 @@ class PeopleController < ApplicationController
     else
       @filter = params
     end
-    @filter.permit(:pid, :lastname, :country, :zip, :city)
+    @filter.permit(:id, :lastname, :country, :zip, :city)
   end
 
 end

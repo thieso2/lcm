@@ -1,7 +1,6 @@
 class DeviseCreatePeople < ActiveRecord::Migration
   def change
-    create_table(:people, id:false) do |t|
-      t.primary_key :pid
+    create_table(:people) do |t|
 
       ## Database authenticatable
       t.string :email,              :null => true, :default => ""
@@ -36,7 +35,7 @@ class DeviseCreatePeople < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :people, :pid,                  :unique => true
+    # add_index :people, :pid,                  :unique => true
     add_index :people, :email,                :unique => false
     add_index :people, :reset_password_token, :unique => true
     # add_index :people, :confirmation_token,   :unique => true

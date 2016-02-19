@@ -9,7 +9,7 @@ de:
   other:  ''
 
   Person:
-    pid:        'PID'
+    id:         'PID'
     title:      'Titel'
     sex:        'Geschlecht'
     firstname:  'Vorname'
@@ -17,6 +17,7 @@ de:
     lastname:   'Nachname'
     birthday:   'Geburtstag'
     country:    'Land'
+    zip:        'PLZ'
     city:       'Ort'
     street:     'Strasse'
     housenumber: 'Hausnummer'
@@ -29,8 +30,8 @@ de:
     region:        'Region'
 
   Event:
-    eid: 'EID'
-    shortname: 'Name'
+    id:         'EID'
+    shortname:  'Name'
     location:   'Veranstaltungsort'
     startdate:  'Start'
     enddate:    'Ende'

@@ -8,7 +8,7 @@ class ImportEvents
   SHEET_EVENTS = 3
 
   MAPPING = {
-    'eID' => 'eid',
+    'eID' => 'id',
     'eName' => 'filename',
     'eBeschreibung' => 'title',
     'eOrt' => 'city'

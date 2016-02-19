@@ -15,7 +15,7 @@ class ImportExcelAbsolventen
     PersonEventAssignment.delete_all
     PersonTeamAssignment.delete_all
     Event.delete_all
-    Person.delete_all("pid > 1")
+    Person.delete_all("id > 1")
 
     import = ImportJob.find(jobid)
     ActiveRecord::Base.transaction { ImportAttendees.read(import) }

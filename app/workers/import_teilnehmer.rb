@@ -9,7 +9,7 @@ class ImportTeilnehmer
   SHEET_TEILNEHMER = 1
 
   MAPPING = {
-    "PID" => "pid",
+    "PID" => "id",
     "Anrede" => "salutation",
     "Name" => "lastname",
     "Nachname" => "lastname",
@@ -96,7 +96,7 @@ class ImportTeilnehmer
     query1 = Person.where(country: country).where(lastname: lastname).where(firstname: firstname)
     query2 = query1.where(zip: row["PLZ"])
     if query1.count == 0
-      return Person.new(pid: Person.new_pid)
+      return Person.new(id: Person.new_pid)
     elsif query1.count == 1
       return query1.first
     elsif query2.count == 1
@@ -115,7 +115,7 @@ class ImportTeilnehmer
 
     query = Person.where(country: country).where(lastname: lastname).where(firstname: firstname)
                   .where(zip: row["PLZ"])
-    query = query.select([:pid, :lastname, :firstname, :country, :zip, :city, :street])
+    query = query.select([:id, :lastname, :firstname, :country, :zip, :city, :street])
     return  "Person '#{row["Nachname"]} #{row["Vorname"]}' nicht genau bestimmbar.\nÄhnliche Personen:" + query.all.to_a.join("<br>")
   end
 

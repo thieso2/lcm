@@ -40,10 +40,10 @@ class ImportAssignments
 
     def import_row(row)
         errors = []
-        p = Person.where(:pid => row["pID"]).first
+        p = Person.where(:id => row["pID"]).first
         errors <<  "Can not find Person with id: #{row["pID"]}"  unless p
 
-        e = Event.where(:eid => row["eID"]).first
+        e = Event.where(:id => row["eID"]).first
         errors <<  "Can not find Event with id: #{row["eID"]} " unless e
 
         if p && e

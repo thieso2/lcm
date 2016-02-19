@@ -10,9 +10,8 @@ class ImportAbsolventensController < ApplicationController
     if file
       import = ImportJob.create!(
           original_filename: file.original_filename,
-
           temp_filename: file.tempfile.path,
-          user_id: current_user.id)
+          person_id: current_user.id)
 
       ImportExcelAbsolventen.perform(import.id)
       #ImportExcelAbsolventen.perform_async(import.id)   # Sidekiq

@@ -31,14 +31,14 @@ RSpec.describe Event, :type => :model do
       expect(subject.planning?).to be true
     end
 
-    it "should have no :eid" do
-      expect(subject.eid).to be_nil
+    it "should have no :id" do
+      expect(subject.id).to be_nil
     end
 
-    it "should have an :eid after save" do
+    it "should have an :id after save" do
       subject.location = FactoryGirl.create(:location)
       subject.save!
-      expect(subject.eid).to_not be_nil
+      expect(subject.id).to_not be_nil
     end
   end
 

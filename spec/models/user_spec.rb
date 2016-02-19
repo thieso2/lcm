@@ -42,7 +42,7 @@ describe User do
 
   subject { build(:user) }
 
-  it { should respond_to(:pid) }
+  it { should respond_to(:id) }
   it { should respond_to(:email) }
   it { should respond_to(:encrypted_password)}
 

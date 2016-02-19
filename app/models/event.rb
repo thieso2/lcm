@@ -17,8 +17,6 @@
 
 class Event < ActiveRecord::Base
 
-  self.primary_key = :eid
-
   STATUSES = [:planning, :open, :started, :ended, :closed]
   enum event_state: STATUSES
 
@@ -86,7 +84,7 @@ class Event < ActiveRecord::Base
   end
 
   def to_s
-    "#{eid} #{event_type} in #{location} starting at #{startdate}"
+    "#{id} #{event_type} in #{location} starting at #{startdate}"
   end
 
   def attendees

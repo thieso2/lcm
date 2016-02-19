@@ -2,7 +2,7 @@ class ExportAttendees
   require 'xlsx_export'
 
   MAPPING = {
-      "pID" => "pid",
+      "pID" => "id",
       "Kommentar / wichtige Info" => "notes",
       "Status" => "state",
       "Datum" => "date",

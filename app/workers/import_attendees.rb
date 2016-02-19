@@ -9,7 +9,7 @@ class ImportAttendees
   SHEET_ATTENDEES = 1
 
   MAPPING = {
-      "pID" => "pid",
+      "pID" => "id",
       "Anrede" => "salutation",
       "Titel" => "title",
       "Nachname" => "lastname",
