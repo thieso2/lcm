@@ -2,41 +2,30 @@
 #
 # Table name: people
 #
-#  pid                    :integer          not null, primary key
-#  email                  :string(255)      default("")
-#  encrypted_password     :string(255)      default("")
-#  reset_password_token   :string(255)
-#  reset_password_sent_at :datetime
-#  remember_created_at    :datetime
-#  sign_in_count          :integer          default(0), not null
-#  current_sign_in_at     :datetime
-#  last_sign_in_at        :datetime
-#  current_sign_in_ip     :string(255)
-#  last_sign_in_ip        :string(255)
-#  created_at             :datetime
-#  updated_at             :datetime
-#  region_id              :integer
-#  firstname              :string(255)
-#  lastname               :string(255)
-#  callby                 :string(255)
-#  sex                    :string(255)
-#  title                  :string(255)
-#  country                :string(255)
-#  region                 :string(255)
-#  zip                    :string(255)
-#  city                   :string(255)
-#  street                 :string(255)
-#  housenumber            :string(255)
-#  birthday               :date
-#  state                  :string(255)
-#  date                   :string(255)
-#  phone_private          :string(255)
-#  phone_work             :string(255)
-#  phone_mobile           :string(255)
-#  notes                  :text(65535)
-#  do_not_contact         :boolean
-#  access                 :integer
+#  id             :integer          not null, primary key
+#  region_id      :integer
+#  firstname      :string(255)
+#  lastname       :string(255)
+#  callby         :string(255)
+#  sex            :string(255)
+#  title          :string(255)
+#  country        :string(255)
+#  region         :string(255)
+#  zip            :string(255)
+#  city           :string(255)
+#  street         :string(255)
+#  housenumber    :string(255)
+#  birthday       :date
+#  email          :string(255)
+#  state          :string(255)
+#  date           :string(255)
+#  phone_private  :string(255)
+#  phone_work     :string(255)
+#  phone_mobile   :string(255)
+#  notes          :text(65535)
+#  do_not_contact :boolean
 #
+
 
 class Person < ActiveRecord::Base
 
@@ -48,9 +37,8 @@ class Person < ActiveRecord::Base
   enumerize :sex, in: [:other, :female, :male]
 
   after_initialize :set_default_values, :if => :new_record?
-  after_initialize :set_default_access, :if => :new_record?
 
-  # before_validation {if self.id.blank? then self.id = Person.new_pid end} # in theory this could give the same pid for two concurrent actions
+  before_validation {if self.id.blank? then self.id = Person.new_pid end} # in theory this could give the same pid for two concurrent actions
 
   has_many :calls
   has_many :person_team_assignments
@@ -153,9 +141,6 @@ class Person < ActiveRecord::Base
   private
   def set_default_values
     self.country ||= "DE"
-  end
-  def set_default_access
-    self.access ||= :person
   end
 
 end

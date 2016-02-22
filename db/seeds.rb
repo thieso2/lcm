@@ -9,8 +9,6 @@
 admin = CreateAdminService.new.call
 puts 'CREATED ADMIN USER: ' << admin.email
 
-# klaus = Person.create!(id:1, firstname: "Klaus", lastname: "Gundermann", sex: :male, country: "DE" )
-admin_person = Person.find(1)
 
 reg_ger = Region.create! code: "GER", description: "Germany"
 
@@ -79,7 +77,7 @@ admins = Team.create!(team_type: tt_admins, title: "Germany", startdate: "2015-0
 
 puts "Created Team: #{admins}"
 
-PersonTeamAssignment.create!(person: admin_person, team: admins, team_role_type: rl_admin)
+# PersonTeamAssignment.create!(person: admin_person, team: admins, team_role_type: rl_admin)
 
 # -----------------------------------------------------------------
 # Create Landmark Forum Frankfurt 2015/05

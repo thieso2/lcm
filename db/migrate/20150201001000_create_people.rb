@@ -1,9 +1,7 @@
-class AddFieldsToPeople < ActiveRecord::Migration
+class CreatePeople < ActiveRecord::Migration
   def change
-    change_table(:people) do |t|
+    create_table(:people) do |t|
       t.belongs_to :region
-
-      # t.integer :pid
 
       t.string  :firstname
       t.string  :lastname
@@ -18,6 +16,8 @@ class AddFieldsToPeople < ActiveRecord::Migration
       t.string  :housenumber
       t.date    :birthday
 
+      t.string  :email
+
       t.string  :state # "Status"
       t.string  :date # "Datum"
 
@@ -28,9 +28,6 @@ class AddFieldsToPeople < ActiveRecord::Migration
       t.text   :notes
 
       t.boolean :do_not_contact
-
-
-      t.integer :access
     end
   end
 end

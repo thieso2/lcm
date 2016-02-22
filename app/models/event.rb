@@ -2,7 +2,7 @@
 #
 # Table name: events
 #
-#  eid           :integer          primary key
+#  id            :integer          not null, primary key
 #  event_type_id :integer
 #  location_id   :integer
 #  shortname     :string(255)

@@ -22,7 +22,7 @@
 
   <%= f.input :do_not_contact, as: :boolean %>
 
-  <%= f.input :access, collection: Person.accesses.keys.map {|right| [right.titleize,right]} %>
   <%= f.button :submit %>
-  <%= link_to "Cancel", :back, {:class=>"btn btn-default"} %>
+  <%= f.button :cancel %>
+  <%= link_to "Abb", :back, {:class=>"btn btn-default"} %>
 <% end %>

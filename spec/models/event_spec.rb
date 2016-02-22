@@ -2,7 +2,7 @@
 #
 # Table name: events
 #
-#  eid           :integer          primary key
+#  id            :integer          not null, primary key
 #  event_type_id :integer
 #  location_id   :integer
 #  shortname     :string(255)
@@ -22,8 +22,6 @@ RSpec.describe Event, :type => :model do
 
   it { should belong_to(:event_type) }
   it { should belong_to(:location) }
-
-  it { should have_db_column(:eid) }
 
   describe "a newly created event" do
     it "should be in state :planning" do
