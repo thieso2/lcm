@@ -28,6 +28,14 @@ FactoryGirl.define do
     email
     password  "changeme"
 
+    trait :assistant do
+      access 'assistant'
+    end
+
+    trait :leader do
+      access 'leader'
+    end
+
     trait :admin do
       access 'admin'
     end

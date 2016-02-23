@@ -1,46 +1,52 @@
 describe PersonPolicy do
   subject { PersonPolicy }
 
-  let (:current_user) { FactoryGirl.build_stubbed :user }
-  let (:other_user)   { FactoryGirl.build_stubbed :user }
-  let (:admin)        { FactoryGirl.build_stubbed :user, :admin }
+  let (:assistant_user) { FactoryGirl.build_stubbed :user, :assistant }
+  let (:leader_user)    { FactoryGirl.build_stubbed :user, :leader }
+  let (:admin_user)     { FactoryGirl.build_stubbed :user, :admin }
 
   permissions :index? do
-    it "allows access for a user" do
-      expect(subject).to permit(current_user)
+    it "allows access for an assistant" do
+      expect(subject).to permit(assistant_user)
+    end
+    it "allows access for a leader" do
+      expect(subject).to permit(leader_user)
     end
     it "allows access for an admin" do
-      expect(subject).to permit(admin)
+      expect(subject).to permit(admin_user)
     end
   end
 
   permissions :show? do
-    it "prevents other users from seeing your profile" do
-      expect(subject).not_to permit(current_user, other_user)
+    it "allow all users to show person data" do
+      expect(subject).to permit(assistant_user, leader_user, admin_user)
     end
-    it "allows you to see your own profile" do
-      expect(subject).to permit(current_user, current_user)
+  end
+
+  permissions :create? do
+    it "prevents creates for assistants" do
+      expect(subject).not_to permit(assistant_user)
     end
-    it "allows an admin to see any profile" do
-      expect(subject).to permit(admin)
+    it "allow all users to create person data" do
+      expect(subject).to permit(leader_user, admin_user)
     end
   end
 
   permissions :update? do
-    it "prevents updates if not an admin" do
-      expect(subject).not_to permit(current_user)
+    it "prevents updates for assistants" do
+      expect(subject).not_to permit(assistant_user)
     end
-    it "allows an admin to make updates" do
-      expect(subject).to permit(admin)
+    it "allows a leader and an admin to make updates" do
+      expect(subject).to permit(leader_user, admin_user)
     end
   end
 
   permissions :destroy? do
-    it "prevents deleting yourself" do
-      expect(subject).not_to permit(current_user, current_user)
+    it "prevents deleting a person by non-admin" do
+      expect(subject).not_to permit(assistant_user, leader_user)
     end
     it "allows an admin to delete any user" do
-      expect(subject).to permit(admin, other_user)
+      expect(subject).to permit(admin_user)
     end
   end
 

@@ -7,7 +7,6 @@ class PersonPolicy
   end
 
   def index?
-    # @current_user.admin?
     true
   end
 
@@ -16,11 +15,11 @@ class PersonPolicy
   end
 
   def create?
-    true
+    @current_user.leader? || @current_user.admin?
   end
 
   def show?
-    @current_user.admin? or @current_user == @model
+    true
   end
 
   def edit?
@@ -28,12 +27,10 @@ class PersonPolicy
   end
 
   def update?
-    @current_user.admin?
-    # true
+    @current_user.leader? || @current_user.admin?
   end
 
   def destroy?
-    return false if @current_user == @model
     @current_user.admin?
   end
 
