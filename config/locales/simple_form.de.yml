@@ -2,6 +2,38 @@ de:
   simple_form:
     "yes": 'Ja'
     "no": 'Nein'
+
+    buttons:
+      cancel: 'Abbruch'
+
     required:
       text: 'benötigt'
       mark: '*'
+    labels:
+      defaults:
+        password: 'Password'
+
+      person:
+        id: 'PID'
+        firstname: 'Vorname'
+
+      user:
+        new:
+          email: 'E-mail to sign in.'
+        edit:
+          email: 'E-mail.'
+
+    hints:
+      defaults:
+        username: 'User name to sign in.'
+        password: 'No special characters, please.'
+        firstname: 'Vorname der Person'
+
+    include_blanks:
+      defaults:
+        age: 'Sag ich nicht'
+
+    prompts:
+      defaults:
+        age: 'Select your age'
+        firstname: 'Nixname der Person'

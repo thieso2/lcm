@@ -11,5 +11,6 @@ I18n.exception_handler = lambda do |exception, locale, key, options|
     stack = caller(4)
     Rails.logger.info "MissingTranslation: #{locale}.#{key}"
     Rails.logger.info stack.first  # join("\n")
+    puts  "MissingTranslation: #{locale}.#{key}"
   end
 end

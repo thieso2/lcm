@@ -21,7 +21,7 @@ module ShowObjectHelper
             content_tag(:tr ) do
               concat (
                 # content_tag(:td) {t(attribute, scope: "#{SimpleForm.i18n_scope}.#{object.class}" ) } +
-                content_tag(:td) {t(attribute, scope: "#{object.class}" ) } +
+                content_tag(:td) {t(attribute, scope: "activerecord.attributes.#{object.class.name.downcase}" ) } +
                 content_tag(:td) {object.send(attribute.to_sym).to_s}
               )
             end

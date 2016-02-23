@@ -4,43 +4,41 @@ de:
   phone_work: "Tel. Arbeit"
   do_not_contact: "Do Not Contact"
 
-  male:   'Herr'
-  female: 'Frau'
-  other:  ''
+  enumerize:
+    sex:
+      male:   'Herr'
+      female: 'Frau'
+      other:  ''
 
-  Person:
-    id:         'PID'
-    title:      'Titel'
-    sex:        'Geschlecht'
-    firstname:  'Vorname'
-    callby:     'Rufname'
-    lastname:   'Nachname'
-    birthday:   'Geburtstag'
-    country:    'Land'
-    zip:        'PLZ'
-    city:       'Ort'
-    street:     'Strasse'
-    housenumber: 'Hausnummer'
-    email:      'EMail'
-    state:      'Status'
-    date:       'Datum'
-    phone_private: 'Tel. Privat'
-    phone_work:    'Tel. Arbeit'
-    phone_mobile:  'Tel. Mobil'
-    region:        'Region'
+  activerecord:
+    attributes:
+      person:
+        id:         'PID'
+        title:      'Titel'
+        sex:        'Geschlecht'
+        firstname:  'Vorname'
+        callby:     'Rufname'
+        lastname:   'Nachname'
+        birthday:   'Geburtstag'
+        country:    'Land'
+        zip:        'PLZ'
+        city:       'Ort'
+        street:     'Strasse'
+        housenumber: 'Hausnummer'
+        email:      'EMail'
+        state:      'Status'
+        date:       'Datum'
+        phone_private: 'Tel. Privat'
+        phone_work:    'Tel. Arbeit'
+        phone_mobile:  'Tel. Mobil'
+        region:        'Region'
 
-  Event:
-    id:         'EID'
-    shortname:  'Name'
-    location:   'Veranstaltungsort'
-    startdate:  'Start'
-    enddate:    'Ende'
-    baseprice:  'Preis'
-    event_state: 'Status'
+      event:
+        id:         'EID'
+        shortname:  'Name'
+        location:   'Veranstaltungsort'
+        startdate:  'Start'
+        enddate:    'Ende'
+        baseprice:  'Preis'
+        event_state: 'Status'
 
-activerecord:
-  attributes:
-    person:
-      city: 'CCC'
-    people:
-      city: 'CCC'
