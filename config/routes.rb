@@ -3,22 +3,19 @@ Rails.application.routes.draw do
   root to: 'visitors#index'
 
   devise_for :user
-
+  resources :users
   resources :people
   resources :events
   resources :teams
 
 
-  #resources :group_types
-  #resources :groups
+  resources :locations
 
   resources :event_role_types
   resources :event_types
 
   resources :team_role_types
   resources :team_types
-
-  resources :locations
 
   resources :person_event_assignments
   resources :person_team_assignments
