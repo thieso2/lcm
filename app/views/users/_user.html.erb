@@ -1,0 +1,11 @@
+<div class="authform">
+  <%= simple_form_for(@user, :html => { :role => 'form'}) do |f| %>
+
+  <%= f.error_notification %>
+
+  <%= f.input :email %>
+  <%= f.input :password %>
+  <%= f.input :password_confirmation %>
+  <%= f.button :submit %>
+
+ </div>

@@ -1,0 +1,5 @@
+<div class="row">
+  <h3>Person : <%= @user %></h3>
+</div>
+
+<%= show_object @user, only: controller.class::VISIBLE_ATTRIBUTES %>

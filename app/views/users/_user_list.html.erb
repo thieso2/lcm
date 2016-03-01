@@ -1,0 +1,32 @@
+<div class="row">
+  <table class="table">
+
+    <thead>
+      <tr>
+        <th><%= label :user, :id %></th>
+        <th><%= label :user, :email %></th>
+        <th><%= label :user, :current_sign_in_at %></th>
+        <th><%= label :user, :last_sign_in_at %></th>
+        <th><%= label :user, :sign_in_count %></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.each do |user| %>
+        <tr>
+          <td><%= link_to user.id, user %></td>
+          <td><%= link_to user.email, user %></td>
+          <td><%= l user.current_sign_in_at if user.current_sign_in_at %></td>
+          <td><%= l user.last_sign_in_at if user.last_sign_in_at %></td>
+          <td><%= user.sign_in_count %></td>
+          <td><%= link_to 'Show', user %></td>
+          <td><%= link_to 'Edit', edit_user_path(user) %></td>
+          <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
