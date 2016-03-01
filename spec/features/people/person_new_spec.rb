@@ -16,7 +16,7 @@ feature 'Person new', :devise do
     expect(page).to have_content 'New Person'
   end
 
-  # scenarion with German language
+  # scenario with German language
   #   Given I exist as a user
   #   And I am signed in
   #   And I am administrator

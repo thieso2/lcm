@@ -1,8 +1,12 @@
 class UserPolicy < ApplicationPolicy
 
 
+  def index?
+    super or @current_user.leader?
+  end
+
   def show?
-    @current_user.admin? or @current_user == @model
+    super or @current_user.leader? or @current_user == @model
   end
 
   def destroy?
