@@ -24,8 +24,7 @@ class ImportExcelTeilnehmer
   private
   def find_or_create_event(import)
     unless evt = Event.where(shortname: Event.shortname_from_filename(import.original_filename) ).first
-      evt = Event.create(filename: import.original_filename)
-      evt.save!
+      evt = Event.create!(filename: import.original_filename)
     end
     evt
   end

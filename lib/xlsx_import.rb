@@ -1,5 +1,16 @@
 # Import of Xlsx-File
 #
+
+
+require 'creek'
+class Creek::Book
+  def sheet_by_name(sheet_name)
+    index = sheets.find_index { |sheet| sheet.name == sheet_name }
+    index && sheets[index]
+  end
+end
+
+
 class XlsxImport
   # require 'remote_table'
 
@@ -66,9 +77,8 @@ class XlsxImport
 
   # -------------------------------------------------------------------------
 
-  require 'creek'
 
-  def read_creek(filename, sheetid)
+  def read_creek(filename, sheet_name)
     #RubyProf.start
     begin
       creek = Creek::Book.new filename
@@ -80,7 +90,8 @@ class XlsxImport
     #printer.print(STDOUT)
 
 
-    sheet = creek.sheets[sheetid]
+    # sheet = creek.sheets[sheetid]
+    sheet = creek.sheet_by_name(sheet_name)
     puts "reading #{sheet.name}"
 
     rows = []

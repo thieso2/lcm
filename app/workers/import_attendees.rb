@@ -6,7 +6,7 @@
 class ImportAttendees
   require 'xlsx_import'
 
-  SHEET_ATTENDEES = 1
+  SHEET_ATTENDEES = "Attendees"
 
   MAPPING = {
       "pID" => "id",

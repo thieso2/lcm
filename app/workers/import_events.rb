@@ -5,7 +5,7 @@
 #
 class ImportEvents
 
-  SHEET_EVENTS = 3
+  SHEET_EVENTS = "Events"
 
   MAPPING = {
     'eID' => 'id',

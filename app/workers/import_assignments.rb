@@ -5,7 +5,7 @@
 #
 class ImportAssignments
 
-  SHEET_ASSIGNMENTS = 2
+  SHEET_ASSIGNMENTS = "Assignments"
 
     def self.read(import)
       self.new import
