@@ -13,7 +13,7 @@
 class Report < ActiveRecord::Base
 
   def pot_frankfurt
-    Person.select("id, lastname, firstname, email")
+    Person.select("people.id, lastname, firstname, email")
     .joins(:region)
     .where("(
             EXISTS (SELECT 1 FROM person_event_assignments

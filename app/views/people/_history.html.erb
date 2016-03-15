@@ -2,7 +2,8 @@
     <% person.versions.each do |version| %>
       <tr>
         <td><%= t version.event %></td>
-        <td span="3"><%= l version.created_at %></td>
+        <td span="3"><%= l version.created_at, format: :short %></td>
+        <td><%= find_version_author_name(version) %></td>
       </tr>
       <% version.changeset.each do |change| %>
         <tr>

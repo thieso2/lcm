@@ -54,9 +54,9 @@ class ImportEvents
     #c.event_type_id = 1
     unless row['eJahr'].blank?
       if row['eZeitraum'].blank?
-        c.startdate = row['eJahr'] + '0101'
+        c.startdate = row['eJahr'].to_i.to_s + '0101'
       else
-        c.startdate = row['eJahr'] + row['eZeitraum'][0..1] + '01'
+        c.startdate = row['eJahr'].to_i.to_s + row['eZeitraum'][0..1] + '01'
       end
     else
       c.startdate = '20000101'

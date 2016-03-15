@@ -1,8 +1,13 @@
 de:
+  edit: "Bearbeiten"
   update: "Aktualisiert"
   phone_private: "Tel. Privat"
   phone_work: "Tel. Arbeit"
   do_not_contact: "Do Not Contact"
+
+  time:
+    formats:
+      short: '%d.%m.%Y %H:%M'
 
   enumerize:
     sex:

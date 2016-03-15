@@ -78,9 +78,10 @@ class PeopleController < ApplicationController
   def secure_params
     params
     . require(:person)
-    . permit(:id, :firstname, :lastname, :sex, :country,
-              :zip, :city, :street, :email,
-	      :state, :date,
+    . permit(:id, :title, :firstname, :lastname, :callby,
+              :birthday, :sex, :country,
+              :zip, :city, :street, :housenumber, :email,
+              :state, :date,
               :phone_private, :phone_work, :phone_mobile,
               :do_not_contact, :access, :password)
   end

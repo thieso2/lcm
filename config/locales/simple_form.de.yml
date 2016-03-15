@@ -13,9 +13,27 @@ de:
       defaults:
         password: 'Password'
 
-      person:
-        id: 'PID'
-        firstname: 'Vorname'
+    Person:
+      id:         'PID'
+      title:      'Titel'
+      sex:        'Geschlecht'
+      firstname:  'Vorname'
+      callby:     'Rufname'
+      lastname:   'Nachname'
+      birthday:   'Geburtstag'
+      country:    'Land'
+      zip:        'PLZ'
+      city:       'Ort'
+      street:     'Strasse'
+      housenumber: 'Hausnummer'
+      email:      'EMail'
+      state:      'Status'
+      date:       'Datum'
+      phone_private: 'Tel. Privat'
+      phone_work:    'Tel. Arbeit'
+      phone_mobile:  'Tel. Mobil'
+      region:        'Region'
+      do_not_contact: 'DNC'
 
       user:
         new:
