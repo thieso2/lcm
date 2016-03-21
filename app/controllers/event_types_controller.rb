@@ -1,5 +1,5 @@
 class EventTypesController < ApplicationController
-  before_action :find_course_type, only: [:show, :edit, :update, :destroy]
+  before_action :find_event_type, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
@@ -21,7 +21,7 @@ class EventTypesController < ApplicationController
   end
 
   def create
-    @event_type = EventType.new(course_type_params)
+    @event_type = EventType.new(event_type_params)
     if @event_type.save
       redirect_to event_types_path, notice: "Successfully created EventType"
     else
@@ -30,23 +30,23 @@ class EventTypesController < ApplicationController
   end
 
   def update
-    @event_type.update(course_type_params)
+    @event_type.update(event_type_params)
     # respond_with(@event_type)
-    redirect_to course_types_path, notice: "Successfully updated EventType"
+    redirect_to event_types_path, notice: "Successfully updated EventType"
   end
 
   def destroy
     @event_type.destroy
     # respond_with(@event_type)
-    redirect_to course_types_path, notice: "Successfully deleted EventType"
+    redirect_to event_types_path, notice: "Successfully deleted EventType"
   end
 
   private
-    def find_course_type
+    def find_event_type
       @event_type = EventType.find(params[:id])
     end
 
-    def course_type_params
-      params.require(:course_type).permit(:description)
+    def event_type_params
+      params.require(:event_type).permit(:description)
     end
 end

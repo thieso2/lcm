@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
 
   resources :locations
+  resources :regions
 
   resources :event_role_types
   resources :event_types

@@ -11,6 +11,6 @@
 
 class Region < ActiveRecord::Base
   def to_s
-    "#{code}:#{description}"
+    "#{code}"
   end
 end

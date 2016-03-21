@@ -37,6 +37,8 @@ de:
         phone_work:    'Tel. Arbeit'
         phone_mobile:  'Tel. Mobil'
         region:        'Region'
+        ooa_es:     'Out-of-area Abschlussabend'
+        ooa_sem:    'Out-of-area Seminar'
 
       event:
         id:         'EID'

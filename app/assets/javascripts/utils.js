@@ -12,7 +12,9 @@ function disable_form() {
 
 function mark_do_not_contact() {
   $('td').filter( function(index) {
-    return $(this).text() == "!!! Do not contact !!!"
+    return ($(this).text() == "!!! Do not contact !!!" ||
+            $(this).text() == "!!! Do not phone !!!" ||
+            $(this).text() == "!!! Do not eMail !!!")
   })
   .addClass('dnc');
 }

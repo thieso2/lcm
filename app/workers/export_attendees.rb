@@ -20,6 +20,8 @@ class ExportAttendees
       "Telefon Privat"  => "phone_private",
       "Telefon Arbeit"  => "phone_work",
       "Telefon Mobil"   => "phone_mobile",
+      "OOA FRK" => "ooa_es",
+      "OOA Semr" => "ooa_sem",
       "eMail" => "email",
       "Zuordnung" => "code"
     }

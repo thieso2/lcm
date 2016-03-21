@@ -23,7 +23,7 @@ class Event < ActiveRecord::Base
   belongs_to :event_type
   belongs_to :location
 
-  has_many   :person_event_assignments
+  has_many   :person_event_assignments, dependent: :destroy
 
   validates :event_type_id, presence: true
   validates :location_id,   presence: true

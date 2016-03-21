@@ -22,7 +22,10 @@
 
   <%= f.input :do_not_contact, as: :boolean %>
 
+  <%= f.input :ooa_es, as: :boolean %>
+  <%= f.input :ooa_sem, as: :boolean %>
+  <%= f.input :region %>
+
   <%= f.button :submit %>
-  <%= f.button :cancel %>
   <%= link_to "Abb", :back, {:class=>"btn btn-default"} %>
 <% end %>

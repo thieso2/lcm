@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026205553) do
+ActiveRecord::Schema.define(version: 20160321193610) do
 
   create_table "calls", force: :cascade do |t|
     t.integer  "person_id",  limit: 4
@@ -119,6 +119,8 @@ ActiveRecord::Schema.define(version: 20151026205553) do
     t.string  "phone_mobile",   limit: 255
     t.text    "notes",          limit: 65535
     t.boolean "do_not_contact"
+    t.boolean "ooa_es"
+    t.boolean "ooa_sem"
   end
 
   create_table "person_event_assignments", force: :cascade do |t|

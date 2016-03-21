@@ -52,15 +52,13 @@ class ImportEvents
     MAPPING.each { |col, field| c.send(field + '=', row[col]) }
 
     #c.event_type_id = 1
-    unless row['eJahr'].blank?
-      if row['eZeitraum'].blank?
-        c.startdate = row['eJahr'].to_i.to_s + '0101'
-      else
-        c.startdate = row['eJahr'].to_i.to_s + row['eZeitraum'][0..1] + '01'
-      end
-    else
-      c.startdate = '20000101'
-    end
+    date = /[0-9]+/.match(row['eName']).to_s
+    year = "20" + /[0-9][0-9]/.match(date).to_s
+    month = /[0-9][0-9]([0-9][0-9])/.match(date)
+    month = month ? month[1] : "01"
+    month = "01" if month == "00"
+    day = "01"
+    c.startdate = year + month + day
     c.event_state = :closed
 
     if c.valid?

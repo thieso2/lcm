@@ -6,7 +6,7 @@
 
 class ImportTeilnehmer
 
-  SHEET_TEILNEHMER = 1
+  SHEET_TEILNEHMER = "Teilnehmerliste"
 
   MAPPING = {
     "PID" => "id",

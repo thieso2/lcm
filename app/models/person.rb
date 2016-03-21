@@ -79,7 +79,9 @@ class Person < ActiveRecord::Base
   end
 
   def assign_to_event(event, role)
-    person_event_assignments.create!(event: event, event_role_type: role)
+    unless person_event_assignments.exists?(event: event)
+      person_event_assignments.create!(event: event, event_role_type: role)
+    end
   end
 
   def events
@@ -135,6 +137,22 @@ class Person < ActiveRecord::Base
   def status=(value)
     if value == "DNC"
       self.do_not_contact = true
+    end
+  end
+
+  def ooa_es=(value)
+    if value == "Y" || value == "y" || value == "J" || value == "j"
+      super true
+    else
+      super value # don't overwrite a nil value with false
+    end
+  end
+
+  def ooa_sem=(value)
+    if value == "Y" || value == "y" || value == "J" || value == "j"
+      super true
+    else
+      super value # don't overwrite a nil value with false
     end
   end
 
