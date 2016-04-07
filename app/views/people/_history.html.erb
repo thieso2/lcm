@@ -1,9 +1,9 @@
   <table class="table">
-    <% person.versions.each do |version| %>
+    <% @data.each do |version| %>
       <tr>
         <td><%= t version.event %></td>
-        <td span="3"><%= l version.created_at, format: :short %></td>
-        <td><%= find_version_author_name(version) %></td>
+        <td colspan="4">am: <%= l version.created_at, format: :short %>
+                     von: <%= find_version_author_name(version) %></td>
       </tr>
       <% version.changeset.each do |change| %>
         <tr>
@@ -16,4 +16,8 @@
       <% end %>
     <% end %>
   </table>
+
+<div>
+  <%= paginate @data %>
+</div>
 

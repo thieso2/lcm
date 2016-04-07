@@ -18,6 +18,23 @@ class PeopleController < ApplicationController
 
   def show
     authorize @person
+    case params[:person_tabs_selected_tab]
+    when 'events', nil then
+      @data = @person.event_assignments
+      per_page = 8
+    when 'teams'
+      @data = @person.team_assignments
+      per_page = 8
+    when 'calls'
+      @data = @person.calls
+      per_page = 10
+    when 'history'
+      @data = @person.versions
+      per_page = 1
+    else
+      @data = nil
+    end
+    @data = @data.page(params[:page]).per(per_page)
   end
 
   def new
@@ -51,7 +68,8 @@ class PeopleController < ApplicationController
 
     authorize @person
     if @person.update(secure_params)
-      respond_with(@person)
+      # respond_with(@person, :notice => "Person updated.")
+      redirect_to person_path(person_tabs_selected_tab: 'history'), :notice => "Person updated."
     else
       render :edit
     end

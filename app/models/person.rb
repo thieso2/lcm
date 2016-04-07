@@ -84,13 +84,12 @@ class Person < ActiveRecord::Base
     end
   end
 
-  def events
-    PersonEventAssignment.where(person_id: id).includes(event: :event_type).order("startdate DESC") #.merge(GroupType.event)
-    # Event.includes(person_event_assignments: :event_role_type).where("person_event_assignments.person_id" => id)
+  def event_assignments
+    person_event_assignments.joins(:event).order("events.startdate DESC")
   end
 
-  def teams
-    PersonTeamAssignment.where(person_id: id) # .joins(group: :group_type).merge(GroupType.team)
+  def team_assignments
+    person_team_assignments # .joins(group: :group_type).merge(GroupType.team)
   end
 
   def salutation
