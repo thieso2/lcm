@@ -19,7 +19,10 @@ class PeopleController < ApplicationController
   def show
     authorize @person
     case params[:person_tabs_selected_tab]
-    when 'events', nil then
+    when 'person', nil then
+      @data = @person
+      per_page = 1
+    when 'events' then
       @data = @person.event_assignments
       per_page = 8
     when 'teams'
@@ -34,7 +37,11 @@ class PeopleController < ApplicationController
     else
       @data = nil
     end
-    @data = @data.page(params[:page]).per(per_page)
+
+    if @data.respond_to? :page
+      @data = @data.page(params[:page]).per(per_page)
+    end
+
   end
 
   def new
@@ -44,7 +51,7 @@ class PeopleController < ApplicationController
   end
 
   def create
-    @person = Person.new(secure_params)
+    @person = Person.new(secure_create_params)
     authorize @person
 
     respond_to do |format|
@@ -67,7 +74,7 @@ class PeopleController < ApplicationController
   def update
 
     authorize @person
-    if @person.update(secure_params)
+    if @person.update(secure_update_params)
       # respond_with(@person, :notice => "Person updated.")
       redirect_to person_path(person_tabs_selected_tab: 'history'), :notice => "Person updated."
     else
@@ -93,15 +100,19 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id])
   end
 
-  def secure_params
+  def secure_update_params
     params
-    . require(:person)
-    . permit(:id, :title, :firstname, :lastname, :callby,
+      .require(:person)
+      .permit(:title, :firstname, :lastname, :callby,
               :birthday, :sex, :country,
               :zip, :city, :street, :housenumber, :email,
               :state, :date,
               :phone_private, :phone_work, :phone_mobile,
-              :do_not_contact, :access, :password, :ooa_es, :ooa_sem)
+              :do_not_contact, :ooa_es, :ooa_sem,
+              :region)
+  end
+  def secure_create_params
+    secure_update_params.permit(:id)
   end
 
   def filter_params

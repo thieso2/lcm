@@ -1,6 +1,7 @@
-<%= horizontal_form @person do |f| %>
-
-  <%= f.error_notification %>
+<div class="row">
+<% show_object @person, only: controller.class::VISIBLE_ATTRIBUTES %>
+<%= horizontal_form @person, readonly: true do |f| %>
+  <div class="col-md-6">
 
   <%= f.input :id %>
   <%= f.input :title %>
@@ -8,24 +9,33 @@
   <%= f.input :firstname %>
   <%= f.input :callby %>
   <%= f.input :lastname  %>
-  <%= f.input :birthday %>
+  <%= f.input :birthday, as: :string %>
   <%= f.input :country, priority_countries: ["GB", "FR", "DE"] %>
   <%= f.input :zip %>
   <%= f.input :city %>
   <%= f.input :street %>
   <%= f.input :housenumber %>
-  <%= f.input :state %>
-  <%= f.input :date %>
+  </div>
+
+  <div class="col-md-6">
   <%= f.input :phone_private %>
   <%= f.input :phone_work %>
   <%= f.input :phone_mobile %>
 
+  <%= f.input :state %>
+  <%= f.input :date %>
+
   <%= f.input :do_not_contact, as: :boolean %>
 
-  <%= f.input :ooa_es, as: :boolean %>
+  <%= f.input :ooa_es,  as: :boolean %>
   <%= f.input :ooa_sem, as: :boolean %>
-  <%= f.input :region %>
+  <%= f.input :region, collection: Region.all %>
+  </div>
 
-  <%= f.button :submit %>
-  <%= link_to "Abb", :back, {:class=>"btn btn-default"} %>
 <% end %>
+
+</div>
+
+<div>
+  <%= link_to I18n.t(:edit), edit_person_path(@person), {class: "btn btn-default"} %>
+</div>

@@ -3,20 +3,10 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-5">
-    <%= bettertabs_bootstrap :person do |tab| %>
-      <%= tab.ajax :person do  %>
-        <%= show_object @person, only: controller.class::VISIBLE_ATTRIBUTES %>
-
-        <%= link_to I18n.t(:edit), edit_person_path(@person), {class: "btn btn-default"} %>
-      <% end %>
-    <% end %>
-  </div>
-
-
-  <div class="col-sm-7">
+  <div class="col">
     <% # div class="tabbable" %>
       <%= bettertabs_bootstrap :person_tabs do |tab|
+        tab.ajax :person,   locals: { person: @person }
         tab.ajax :events,   locals: { person: @person }
         tab.ajax :teams,    locals: { person: @person }
         tab.ajax :calls,    locals: { person: @person }
@@ -25,10 +15,4 @@
       %>
     </div>
   </div>
-</div>
-
-
-
-<div class="col-sm-1">
-  <%# link_to 'Back', people_path, {class: "btn btn-default"} %>
 </div>
