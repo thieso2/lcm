@@ -1,0 +1,47 @@
+<%= horizontal_form @person do |f| %>
+
+  <div class="row">
+  <%= f.error_notification %>
+  </div>
+
+  <div class="row">
+  <div class="col-md-6">
+
+  <%= f.input :id, readonly: true %>
+  <%= f.input :title %>
+  <%= f.input :sex, collection: Person.sex.options %>
+  <%= f.input :firstname %>
+  <%= f.input :callby %>
+  <%= f.input :lastname  %>
+  <%= f.input :birthday, include_blank: true, start_year: 1900, end_year: Date.today.year %>
+  <%= f.input :country, priority_countries: ["GB", "FR", "DE"] %>
+  <%= f.input :zip %>
+  <%= f.input :city %>
+  <%= f.input :street %>
+  <%= f.input :housenumber %>
+  </div>
+
+  <div class="col-md-6">
+  <%= f.input :phone_private %>
+  <%= f.input :phone_work %>
+  <%= f.input :phone_mobile %>
+
+  <%= f.input :state %>
+  <%= f.input :date %>
+
+  <%= f.input :do_not_contact, as: :boolean %>
+
+  <%= f.input :ooa_es,  as: :boolean %>
+  <%= f.input :ooa_sem, as: :boolean %>
+  <%= f.input :region, collection: Region.all %>
+  </div>
+  </div>
+
+  <div class="row">
+  <%= f.button :submit %>
+  <%= link_to "Abbruch", :back, {:class=>"btn btn-default"} %>
+  </div>
+
+<% end %>
+
+</div>
