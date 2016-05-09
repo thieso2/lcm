@@ -60,6 +60,9 @@ group :development, :test do
   # gem 'guard'
   gem 'spectator'
   gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-passenger'
 end
 
 group :development do
