@@ -96,3 +96,5 @@ end
 group :production do
   # gem 'rails_12factor'
 end
+
+gem 'airbrake', '~> 5.0'

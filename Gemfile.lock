@@ -53,6 +53,9 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    airbrake (5.2.3)
+      airbrake-ruby (~> 1.2)
+    airbrake-ruby (1.2.4)
     airbrussh (1.0.1)
       sshkit (>= 1.6.1, != 1.7.0)
     annotate (2.6.10)
@@ -350,6 +353,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake (~> 5.0)
   annotate
   axlsx
   better_errors
