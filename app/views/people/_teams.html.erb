@@ -1,5 +1,56 @@
 
 <table class="table">
+  <thead>
+    <tr>
+      <th>Team</th>
+      <th>Bereich</th>
+      <th>Event</th>
+      <th>von</th>
+      <th>bis</th>
+      <th>Aktuell</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ProdSHam1509_FIA</td>
+      <td>Produktion</td>
+      <td>FIA Hamburg 09/2015</td>
+      <td>15.09.15</td>
+      <td>20.12.15</td>
+      <td></td>
+      <td><%= link_to 'Show', "#" %></td>
+    </tr>
+    <tr>
+      <td>ProdSHam1601_HAP</td>
+      <td>Produktion</td>
+      <td>HAP Hamburg 01/2016</td>
+      <td>20.01.16</td>
+      <td>10.04.16</td>
+      <td>X</td>
+      <td><%= link_to 'Show', "#" %></td>
+    </tr>
+    <tr>
+      <td>DatenVerwaltungsteam</td>
+      <td>Verwaltung</td>
+      <td></td>
+      <td>01.01.16</td>
+      <td>31.12.16</td>
+      <td>X</td>
+      <td><%= link_to 'Show', "#" %></td>
+    </tr>
+    <tr>
+      <td>ZT Frankfurt</td>
+      <td>Zukunftsteam</td>
+      <td></td>
+      <td>01.01.16</td>
+      <td>31.12.16</td>
+      <td>X</td>
+      <td><%= link_to 'Show', "#" %></td>
+    </tr>
+
+  </tbody>
+
   <% @data.each do |assignment| %>
     <tr>
       <td><%= assignment.group %></td>
