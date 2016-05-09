@@ -118,9 +118,9 @@ ActiveRecord::Schema.define(version: 20160321193610) do
     t.string  "phone_work",     limit: 255
     t.string  "phone_mobile",   limit: 255
     t.text    "notes",          limit: 65535
-    t.boolean "do_not_contact"
-    t.boolean "ooa_es"
-    t.boolean "ooa_sem"
+    t.boolean "do_not_contact",               default: false
+    t.boolean "ooa_es",                       default: false
+    t.boolean "ooa_sem",                      default: false
   end
 
   create_table "person_event_assignments", force: :cascade do |t|

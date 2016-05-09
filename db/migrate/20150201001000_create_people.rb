@@ -27,7 +27,7 @@ class CreatePeople < ActiveRecord::Migration
 
       t.text   :notes
 
-      t.boolean :do_not_contact
+      t.boolean :do_not_contact, default: false
     end
   end
 end
