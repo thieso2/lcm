@@ -92,6 +92,8 @@ class XlsxImport
 
     # sheet = creek.sheets[sheetid]
     sheet = creek.sheet_by_name(sheet_name)
+    raise XlsxImport::Error.new("Can not find sheet '#{sheet_name}'") unless sheet
+
     puts "reading #{sheet.name}"
 
     rows = []
