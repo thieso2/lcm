@@ -1,4 +1,6 @@
-set :deploy_to, '/var/www/htdocs/webs/web6/home/files/rails/lcm-staging'
+set :bundle_without, %w{test}.join(' ')
+
+set :deploy_to, '/var/www/htdocs/webs/web6/home/files/rails/lcm-development'
 
 # server-based syntax
 # ======================

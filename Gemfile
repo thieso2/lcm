@@ -50,12 +50,11 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'pundit'
 
-gem 'web-console'
 
 group :development, :test do
   gem 'byebug'
   gem 'pry-byebug'
-#  gem 'web-console', '~> 2.0'
+  gem 'web-console', '~> 2.0'
   # gem 'spring'
 
   # gem 'watchr'
