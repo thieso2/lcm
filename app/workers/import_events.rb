@@ -37,7 +37,7 @@ class ImportEvents
 
     @import.log_step description: 'Import Events: Create Records'
     # ActiveRecord::Base.transaction do
-    ActiveRecord::Base.logger.quietly do
+    ActiveRecord::Base.logger.silence do
       rows.each do |row|
         next if row['eID'].blank?
         next if Event.exists?(row['eID'])
