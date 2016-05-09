@@ -21,6 +21,7 @@ gem 'thin'
 gem 'simple_form'
 gem 'country_select', github: 'stefanpenner/country_select'
 gem 'enumerize'
+gem 'nilify_blanks'
 
 gem 'creek'
 # gem 'dullard'

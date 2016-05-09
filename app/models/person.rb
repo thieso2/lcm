@@ -29,6 +29,8 @@
 
 class Person < ActiveRecord::Base
 
+  nilify_blanks
+
   # track changes to model data
   has_paper_trail
 
