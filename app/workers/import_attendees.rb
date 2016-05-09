@@ -68,7 +68,7 @@ class ImportAttendees
     def import_row(row)
       p = Person.new
       MAPPING.each {|col,field|
-        p.send(field + "=", row[col])
+        p.send(field + "=", row[col]) if row[col]
       }
 
       p.valid? && p.save!
