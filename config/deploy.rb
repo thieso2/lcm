@@ -1,49 +1,50 @@
-set :application, "lcm"
-set :repository, "/var/www/htdocs/web6/files/repositories/git/test.git"
-set :local_repository,  "/Users/thies/Temp/lcm/.git"
-set :webserver, "railshosting.de"
+# config valid only for current version of Capistrano
+lock '3.5.0'
 
-set :deploy_to, "/var/www/htdocs/web6/files/rails/#{application}"
-set :symlink_path, "/var/www/htdocs/web6/html/rails/#{application}"
+set :application, 'lcm'
+set :repo_url, 'git@github.com:thieso2/lcm.git'
 
-set :scm, :git
+# Default branch is :master
+# ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+set :branch, "feature/capistrano"
 
-set :user, "web6"
-ssh_options[:port] = 981
-set :use_sudo, false
-set :normalize_asset_timestamps, false
+# Default deploy_to directory is /var/www/my_app_name
+# set :deploy_to, '/var/www/htdocs/webs/web6/home/files/rails/lcm'
 
-set :deploy_via, :remote_cache
+# Default value for :scm is :git
+# set :scm, :git
 
-role :app, webserver
-role :web, webserver
-role :db,  webserver, :primary => true
+# Default value for :format is :airbrussh.
+# set :format, :airbrussh
 
-# copy shared files after update
-task :update_config, :roles => :app do
-  run "cp -Rf #{shared_path}/config/* #{release_path}/config/"
-end
+# You can configure the Airbrussh format using :format_options.
+# These are the defaults.
+# set :format_options, command_output: true, log_file: 'log/capistrano.log', color: :auto, truncate: :auto
 
-# create symlink after setup
-task :symlink_config, :roles => :app do
-  run "mkdir -p /var/www/htdocs/#{user}/html/rails"
-  run "ln -nfs #{current_path}/public #{symlink_path}"
-end
+# Default value for :pty is false
+# set :pty, true
 
-after "deploy:setup", :symlink_config
-after "deploy:update_code", :update_config
+# Default value for :linked_files is []
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
 
-# mod_rails (phusion_passenger) stuff
+# Default value for linked_dirs is []
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system')
+
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+
+# Default value for keep_releases is 5
+# set :keep_releases, 5
+
 namespace :deploy do
-  desc "Restart Application"
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "touch #{current_path}/tmp/restart.txt"
-  end 
-  
-  [:start, :stop].each do |t|
-    desc "start/stop is not necessary with mod_rails"
-    task t, :roles => :app do 
-      # nothing
+
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #   execute :rake, 'cache:clear'
+      # end
     end
   end
+
 end

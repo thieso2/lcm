@@ -1,5 +1,5 @@
 source 'https://RubyGems.org'
-ruby '2.2.0'
+ruby '2.1.5'
 
 gem 'rails', '>=4.2.0'
 gem 'sass-rails',   '~> 5.0'
@@ -17,8 +17,6 @@ gem 'mysql2', '~> 0.3.18'   # Support for 0.4.x in Rails 5??
 
 # WebServer
 gem 'thin'
-
-gem 'capistrano', '2.15.5'
 
 gem 'simple_form'
 gem 'country_select', github: 'stefanpenner/country_select'
@@ -61,6 +59,7 @@ group :development, :test do
   # gem 'watchr'
   # gem 'guard'
   gem 'spectator'
+  gem 'capistrano'
 end
 
 group :development do
